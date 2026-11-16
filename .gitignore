@@ -1,0 +1,9 @@
+# Tus datos personales: nunca se suben a GitHub
+mis-datos.json
+mi-agenda-copia-*.json
+*.backup*.json
+node_modules/
+.claude/
+
+# La versión antigua que vivía en Claude (solo de referencia)
+mi-agenda.html

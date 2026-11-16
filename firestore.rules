@@ -1,0 +1,27 @@
+rules_version = '2';
+// Agenda privada: la primera cuenta que entra se queda como dueña (config/owner)
+// y solo esa cuenta puede leer y escribir sus datos (users/<su id>/...).
+// Si alguien crea otra cuenta, no puede leer ni guardar nada.
+// Pega esto en Firebase > Firestore Database > Reglas y pulsa Publicar.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function ownerPath() { return /databases/$(database)/documents/config/owner; }
+    function isOwner() {
+      return request.auth != null && exists(ownerPath()) && get(ownerPath()).data.uid == request.auth.uid;
+    }
+
+    match /config/owner {
+      // Se puede consultar sin entrar, para esconder el botón "Crear mi cuenta" cuando ya hay dueño
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['uid', 'since']);
+      allow update: if false;
+      allow delete: if isOwner();
+    }
+
+    match /users/{uid}/{document=**} {
+      allow read, write: if isOwner() && request.auth.uid == uid;
+    }
+  }
+}
