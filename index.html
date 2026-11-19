@@ -6456,16 +6456,25 @@ $('#ntTest').addEventListener('click', async () => {
 // con una clave que solo conoce tu cuenta (private/health). La app lo pasa a "health" por días.
 let hsGuideOpen = false;
 const hsRandomKey = () => [...crypto.getRandomValues(new Uint8Array(18))].map(b => 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b % 56]).join('');
-// Los números llegan como texto del iPhone ("523,4 kcal", "8.432"…); si llegan varias muestras, se suman
-function hsNum(s) {
+// Lo máximo creíble en un día: sirve para saber si "194.000" son 194 kcal con decimales o 194 mil
+const HS_MAX = { active: 6000, resting: 4000, steps: 100000, exercise: 1440 };
+const hsOk = (k, v) => typeof v === 'number' && v >= 0 && v <= HS_MAX[k];
+// Los números llegan como texto del iPhone ("523,4 kcal", "8.432", "194.000"…); si llegan varias muestras, se suman
+function hsNum(s, max = Infinity) {
   let total = 0, any = false;
   String(s || '').split(/[\n\r]+/).forEach(line => {
     const m = line.match(/\d[\d.,   ]*/);
     if (!m) return;
-    let t = m[0].replace(/[   ]/g, '');
-    if (t.includes(',')) t = t.replace(/\./g, '').replace(',', '.');
-    else if (/^\d{1,3}(\.\d{3})+$/.test(t)) t = t.replace(/\./g, '');
-    const n = parseFloat(t);
+    const t = m[0].replace(/[   ]/g, '').replace(/[.,]+$/, '');
+    let n;
+    if (t.includes(',') && t.includes('.')) {
+      // "1.234,5" o "1,234.5": el último separador es el de los decimales
+      n = t.lastIndexOf(',') > t.lastIndexOf('.') ? parseFloat(t.replace(/\./g, '').replace(',', '.')) : parseFloat(t.replace(/,/g, ''));
+    } else if (/[.,]/.test(t)) {
+      // Un solo tipo de separador: si parece de miles y da algo creíble, son miles; si no, decimales
+      const sep = t.includes(',') ? ',' : '.', thousands = parseFloat(t.split(sep).join(''));
+      n = new RegExp(`^\\d{1,3}(\\${sep}\\d{3})+$`).test(t) && thousands <= max ? thousands : parseFloat(t.replace(',', '.'));
+    } else n = parseFloat(t);
     if (Number.isFinite(n)) { total += n; any = true; }
   });
   return any ? Math.round(total) : undefined;
@@ -6494,7 +6503,12 @@ async function processInbox(rows) {
     const at = isNaN(d) || !/T\d/.test(when || '') ? new Date().toISOString() : d.toISOString();
     // A lo largo del día los números solo crecen: se queda el mayor
     const cur = days[day] || { ...((S.health || {})[day] || {}) };
-    [['active', hsNum(act)], ['resting', hsNum(rest)], ['steps', hsNum(steps)], ['exercise', hsNum(ex)]].forEach(([k, v]) => { if (v !== undefined) cur[k] = Math.max(v, cur[k] || 0); });
+    // Un dato imposible guardado antes (por ejemplo 194.000 kcal) no cuenta
+    [['active', act], ['resting', rest], ['steps', steps], ['exercise', ex]].forEach(([k, raw]) => {
+      const v = hsNum(raw, HS_MAX[k]);
+      if (hsOk(k, v)) cur[k] = Math.max(v, hsOk(k, cur[k]) ? cur[k] : 0);
+      else if (!hsOk(k, cur[k])) delete cur[k];
+    });
     if (!cur.at || at > cur.at) cur.at = at;
     days[day] = cur;
   }
@@ -6511,7 +6525,7 @@ function healthAvg() {
   const vals = [];
   for (let i = 1; i <= 14; i++) {
     const day = ymd(addDays(new Date(), -i)), h = (S.health || {})[day];
-    if (!h || !(h.active > 0) || !(h.resting > 0) || !h.at) continue;
+    if (!h || !(h.active > 0) || !(h.resting > 0) || !hsOk('active', h.active) || !hsOk('resting', h.resting) || !h.at) continue;
     const at = new Date(h.at);
     if (ymd(at) > day || at.getHours() >= 21) vals.push(h.active + h.resting);
   }
@@ -6528,9 +6542,9 @@ function renderHoyWatch() {
   const h = H[today];
   if (!h) { box.hidden = true; return; }
   const bits = [];
-  if (h.active != null) bits.push(el('b', {}, nuFmt(h.active)), ' kcal activas');
-  if (h.steps != null) bits.push(bits.length ? ' · ' : '', el('b', {}, nuFmt(h.steps)), ' pasos');
-  if (h.exercise != null) bits.push(bits.length ? ' · ' : '', el('b', {}, String(h.exercise)), ' min de ejercicio');
+  if (hsOk('active', h.active)) bits.push(el('b', {}, nuFmt(h.active)), ' kcal activas');
+  if (hsOk('steps', h.steps)) bits.push(bits.length ? ' · ' : '', el('b', {}, nuFmt(h.steps)), ' pasos');
+  if (hsOk('exercise', h.exercise)) bits.push(bits.length ? ' · ' : '', el('b', {}, String(h.exercise)), ' min de ejercicio');
   box.replaceChildren('Reloj: ', ...bits, h.at ? ` (${hsWhen(h.at)})` : '');
   box.hidden = !bits.length;
 }
