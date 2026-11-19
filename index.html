@@ -6490,7 +6490,8 @@ async function processInbox(rows) {
     inboxBusy.add(r.id);
     const [, when, act, rest, steps, ex] = String(r.raw || '').split('|');
     const day = hsDate(when) || ymd(new Date()), d = new Date(when);
-    const at = isNaN(d) ? new Date().toISOString() : d.toISOString();
+    // Si el atajo manda solo la fecha (sin hora), vale la hora a la que llega
+    const at = isNaN(d) || !/T\d/.test(when || '') ? new Date().toISOString() : d.toISOString();
     // A lo largo del día los números solo crecen: se queda el mayor
     const cur = days[day] || { ...((S.health || {})[day] || {}) };
     [['active', hsNum(act)], ['resting', hsNum(rest)], ['steps', hsNum(steps)], ['exercise', hsNum(ex)]].forEach(([k, v]) => { if (v !== undefined) cur[k] = Math.max(v, cur[k] || 0); });
@@ -6559,12 +6560,12 @@ function renderHealth() {
     el('p', { class: 'qa-hint', style: 'margin:0' }, 'Se hace una sola vez, en el iPhone, con la app Atajos. Esta clave es solo tuya: no la compartas.'),
     el('ol', {},
       el('li', {}, 'Abre ', B('Atajos'), ', pulsa ', B('+'), ' y llama al atajo ', B('Mi Agenda Salud'), '.'),
-      el('li', {}, 'Añade la acción ', B('Buscar muestras de salud'), '. Toca el tipo y elige ', B('Energía activa'), '. Deja «Fecha de inicio es hoy» y en ', B('Agrupar por'), ' elige ', B('Día'), '.'),
+      el('li', {}, 'Añade la acción ', B('Buscar muestras médicas'), ' (en algunos iPhone, «Buscar muestras de salud»; no uses «Registrar»). Toca el tipo y elige ', B('Energía activa'), '. Deja «Fecha de inicio es hoy» y en ', B('Agrupar por'), ' elige ', B('Día'), '.'),
       el('li', {}, 'Repite el paso anterior tres veces más, con ', B('Energía en reposo'), ', ', B('Pasos'), ' y ', B('Minutos de ejercicio'), ', en ese orden.'),
       el('li', {}, 'Añade la acción ', B('Texto'), ' y pega esto:', hsCopyBox('Texto', body, 3),
         'Ahora cambia cada palabra en mayúsculas por su variable (bórrala y elígela en la barra de encima del teclado): ',
         B('FECHA'), ' → «Fecha actual» (tócala y en ', B('Formato de fecha'), ' elige ', B('ISO 8601'), '); ',
-        B('ACTIVA'), ' → la 1.ª «Muestras de salud»; ', B('REPOSO'), ' → la 2.ª; ', B('PASOS'), ' → la 3.ª; ', B('EJERCICIO'), ' → la 4.ª.'),
+        B('ACTIVA'), ' → «Muestras médicas»; ', B('REPOSO'), ' → «Muestras médicas 2»; ', B('PASOS'), ' → «Muestras médicas 3»; ', B('EJERCICIO'), ' → «Muestras médicas 4».'),
       el('li', {}, 'Añade ', B('Obtener contenido de URL'), ' y pega esta dirección:', hsCopyBox('Dirección', url, 4),
         'Toca la flecha ', B('›'), ': ', B('Método'), ' POST; en ', B('Cabeceras'), ' añade ', el('code', {}, 'Content-Type'), ' con el valor ', el('code', {}, 'application/json'),
         '; en ', B('Cuerpo de la solicitud'), ' elige ', B('Archivo'), ' y, como archivo, la variable ', B('Texto'), '.'),
