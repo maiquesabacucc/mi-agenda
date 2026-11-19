@@ -23,5 +23,14 @@ service cloud.firestore {
     match /users/{uid}/{document=**} {
       allow read, write: if isOwner() && request.auth.uid == uid;
     }
+
+    // Buzón del Atajo de Apple Salud: puede dejar datos sin iniciar sesión, pero solo
+    // si empiezan por tu clave secreta (users/<tú>/private/health). Leerlos, solo tu cuenta.
+    match /users/{uid}/inbox/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['raw'])
+        && request.resource.data.raw is string
+        && request.resource.data.raw.size() < 400
+        && request.resource.data.raw.split('[|]')[0] == get(/databases/$(database)/documents/users/$(uid)/private/health).data.key;
+    }
   }
 }

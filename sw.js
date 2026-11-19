@@ -1,7 +1,7 @@
 // Mi Agenda: guarda la app en el móvil para que se abra al momento y sin conexión.
 // Los datos no pasan por aquí: Firebase los guarda por su cuenta.
 // Al cambiar algo de la app, sube el número de VERSION para que los móviles cojan la nueva.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = 'mi-agenda-' + VERSION;
 const SHELL = ['./', 'index.html', 'firebase-config.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/apple-touch-icon.png'];
 
@@ -41,5 +41,24 @@ self.addEventListener('fetch', e => {
     const hit = await c.match(req);
     const net = fetch(req).then(res => { if (res.ok || res.type === 'opaque') c.put(req, res.clone()); return res; }).catch(() => hit);
     return hit || net;
+  }));
+});
+
+// Avisos: llegan desde avisos/enviar.js aunque la app esté cerrada
+self.addEventListener('push', e => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch { d = { body: e.data ? e.data.text() : '' }; }
+  e.waitUntil(self.registration.showNotification(d.title || 'Mi Agenda', {
+    body: d.body || '', tag: d.tag, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', data: { url: d.url || './' }
+  }));
+});
+
+// Al tocar un aviso se abre la app (o se trae al frente si ya estaba abierta)
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = new URL((e.notification.data && e.notification.data.url) || './', self.registration.scope).href;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+    const open = list.find(c => c.url.startsWith(self.registration.scope));
+    return open ? open.focus() : self.clients.openWindow(url);
   }));
 });

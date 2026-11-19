@@ -7,3 +7,7 @@ node_modules/
 
 # La versión antigua que vivía en Claude (solo de referencia)
 mi-agenda.html
+
+# Claves privadas para pegar en GitHub (no se suben nunca)
+NO-SUBIR-*.txt
+*-firebase-adminsdk-*.json

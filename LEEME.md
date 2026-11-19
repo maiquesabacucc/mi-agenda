@@ -13,6 +13,8 @@ Mi Agenda como app instalable: la página se publica gratis en **GitHub Pages** 
 | `manifest.webmanifest`, `sw.js`, `icons/` | Para instalarla en el móvil y abrirla sin conexión |
 | `alimentos.json` | Productos de supermercado para la calculadora de menús |
 | `mis-datos.json` | **Tus datos** sacados de la versión de Claude. No se sube a GitHub (está en `.gitignore`) |
+| `avisos/`, `.github/workflows/avisos.yml` | El proceso que manda los avisos al móvil |
+| `NO-SUBIR-clave-avisos.txt` | Clave privada de los avisos, para pegarla en GitHub. No se sube (está en `.gitignore`) |
 
 ---
 
@@ -77,8 +79,37 @@ Abajo del todo, en cualquier pestaña: **Mi cuenta y copias de seguridad**. Ahí
 
 Si olvidas la contraseña, pulsa **He olvidado la contraseña** en la pantalla de entrada.
 
+## Avisos en el móvil
+
+Te llegan aunque la app esté cerrada: **antes de empezar** algo, **«¿Has ido?»** al acabar un entreno o una tarea con hora, y un **resumen del día** a tu hora de levantarte (una hora antes de lo primero que tengas). Cada uno se puede apagar en *Mi cuenta*.
+
+Cómo funciona:
+
+- La app prepara la lista de avisos de los próximos 3 días y la guarda en tu Firebase.
+- Cada 10 minutos, un proceso gratuito de GitHub (`.github/workflows/avisos.yml` y `avisos/enviar.js`) mira si toca mandar alguno.
+- GitHub a veces va con unos minutos de retraso.
+- Si pasas 3 días sin abrir la app, se acaban los avisos preparados. Al abrirla se preparan otra vez.
+
+### Puesta en marcha (una sola vez)
+
+1. **Firebase › Configuración › Cuentas de servicio › Generar nueva clave privada.** Se descarga un archivo `.json`: guárdalo **fuera** de esta carpeta.
+2. **GitHub › tu repositorio › Settings › Secrets and variables › Actions › New repository secret.** Crea dos:
+   - `FIREBASE_SERVICE_ACCOUNT`: todo el contenido del `.json` del paso 1 (ábrelo con el Bloc de notas y cópialo entero).
+   - `VAPID_PRIVATE_KEY`: el contenido de `NO-SUBIR-clave-avisos.txt`.
+3. Cuando estén guardados, puedes borrar el `.json` descargado y `NO-SUBIR-clave-avisos.txt`.
+4. En el iPhone, abre la app desde el icono › *Mi cuenta* › **Activar avisos en este dispositivo** › *Permitir*.
+5. Pulsa **Mandarme un aviso de prueba** y cierra la app. Si en unos 10 minutos te llega «Aviso de prueba desde el servidor», todo funciona.
+
+Para comprobarlo a mano: GitHub › pestaña **Actions** › *Avisos* › **Run workflow**.
+
+## Apple Salud (Apple Watch o Amazfit con la app Zepp)
+
+Un Atajo del iPhone manda cada noche a la app tus kcal activas y en reposo, tus pasos y tus minutos de ejercicio. En *Hoy* verás los del día. Cuando haya 3 días completos, *Menús* calculará tu reparto con tu gasto real en vez de con la fórmula.
+
+Los pasos para crear el Atajo están en la propia app: *Mi cuenta* › **Conectar Apple Salud**. Ahí tienes el texto y la dirección listos para copiar.
+
+Con la Amazfit, activa en la app Zepp *Perfil › Añadir cuentas › Apple Salud*: el mismo Atajo sirve.
+
 ## Lo siguiente
 
-- Avisos en el móvil al acabar una tarea (iPhone con iOS 16.4 o posterior y la app añadida a la pantalla de inicio).
-- Calorías y pasos del reloj a través de Apple Salud y Atajos.
-- Despertador de amanecer con la bombilla inteligente.
+- Despertador de amanecer con la bombilla inteligente: va con el mismo proceso de los avisos.

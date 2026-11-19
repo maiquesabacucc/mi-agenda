@@ -1,0 +1,43 @@
+# Avisos de Mi Agenda: cada 10 minutos mira si toca mandar algún aviso al móvil.
+# Para probarlo a mano: pestaña Actions > Avisos > Run workflow.
+name: Avisos
+
+on:
+  schedule:
+    - cron: '3-59/10 * * * *'   # minutos 3, 13, 23…: fuera de las horas en punto, cuando GitHub va más cargado
+  workflow_dispatch:
+
+permissions:
+  contents: write                # solo para el paso que mantiene activo el repositorio
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: avisos/package-lock.json
+      - name: Instalar
+        working-directory: avisos
+        run: npm ci --no-audit --no-fund
+      - name: Enviar los avisos
+        working-directory: avisos
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+        run: node enviar.js
+      # GitHub apaga las tareas programadas si el repositorio pasa 60 días sin cambios:
+      # a los 50 días se guarda un cambio vacío para que los avisos sigan funcionando
+      - name: Mantener activo
+        run: |
+          last=$(git log -1 --format=%ct)
+          if [ $(( $(date +%s) - last )) -gt $(( 50 * 86400 )) ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit --allow-empty -m "Mantener activos los avisos"
+            git push
+          fi

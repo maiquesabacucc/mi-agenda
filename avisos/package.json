@@ -1,0 +1,12 @@
+{
+  "name": "mi-agenda-avisos",
+  "private": true,
+  "description": "Envía los avisos de Mi Agenda al móvil (lo ejecuta GitHub Actions)",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "web-push": "^3.6.7"
+  }
+}

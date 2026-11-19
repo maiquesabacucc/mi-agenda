@@ -908,6 +908,18 @@ button.danger-solid:disabled{opacity:.45;cursor:not-allowed}
 .acct-danger summary{cursor:pointer;font-weight:700;color:var(--hot)}
 .acct-danger[open]{gap:10px}
 .acct-danger[open] > *:not(summary){margin-top:2px}
+.nt-prefs{display:grid;gap:8px}
+.nt-prefs select{width:auto;padding:3px 6px;font-size:.85rem}
+.nt-sub{padding-left:30px}
+.hs-guide{display:grid;gap:10px;font-size:.9rem}
+.hs-guide ol{margin:0;padding-left:20px;display:grid;gap:8px}
+.hs-guide li{line-height:1.45}
+.hs-guide code{font-size:.82rem;background:var(--bg);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+.hs-copy{display:grid;gap:6px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.hs-copy textarea,.hs-copy input{font:500 .78rem/1.4 ui-monospace,Consolas,monospace;width:100%;box-sizing:border-box;resize:none}
+.hs-copy b{font-size:.85rem}
+.hoy-watch{margin:8px 0 0;font-size:.85rem;color:var(--muted)}
+.hoy-watch b{color:var(--ink);font-weight:700}
 button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
 
 </style>
@@ -1052,6 +1064,7 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
         <div class="mac-tiles" id="hoyMacros"></div>
         <ul class="hoy-list" id="hoyMeals"></ul>
         <p class="muted" id="hoyFood" style="margin:10px 0 0;font-size:.85rem"></p>
+        <p class="hoy-watch" id="hoyWatch" hidden></p>
       </div>
     </div>
   </section>
@@ -1524,6 +1537,7 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
             <label class="full">Alergias, intolerancias y preferencias
               <textarea id="goalNotes" rows="2" maxlength="500" placeholder="Ej.: sin lactosa, no me gusta el pescado…"></textarea>
             </label>
+            <p class="full qa-hint" id="pf-watch" hidden style="margin:0"></p>
             <div class="full"><button class="primary" type="submit">Calcular mi reparto del día</button></div>
           </form>
           <div class="pf-result" id="pfResult" hidden></div>
@@ -1586,6 +1600,29 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
         <label class="btn acct-need" for="imFile" id="imBtn">Importar una copia</label>
         <input type="file" id="imFile" accept="application/json,.json" hidden>
       </div>
+    </section>
+    <section class="acct-sec acct-need" id="ntSec">
+      <h3>Avisos en el móvil</h3>
+      <p class="qa-hint" id="ntState" style="margin:0"></p>
+      <div class="acct-row">
+        <button type="button" class="primary" id="ntOn">Activar avisos en este dispositivo</button>
+        <button type="button" id="ntTest" hidden>Mandarme un aviso de prueba</button>
+        <button type="button" class="ghost" id="ntOff" hidden>Desactivar en este dispositivo</button>
+      </div>
+      <div class="nt-prefs" id="ntPrefs">
+        <label class="acct-check"><input type="checkbox" id="ntBefore"> Antes de empezar algo, con
+          <select id="ntBeforeMin" aria-label="Minutos antes"><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="30">30 min</option><option value="60">1 hora</option></select> de margen</label>
+        <label class="acct-check nt-sub"><input type="checkbox" id="ntUni"> También las clases de la uni</label>
+        <label class="acct-check"><input type="checkbox" id="ntEnd"> Al acabar un entreno o una tarea con hora: «¿Has ido?»</label>
+        <label class="acct-check"><input type="checkbox" id="ntMorning"> Resumen del día a tu hora de levantarte</label>
+      </div>
+      <p class="auth-msg" id="ntMsg" role="status"></p>
+    </section>
+    <section class="acct-sec acct-need" id="hsSec">
+      <h3>Apple Salud (reloj)</h3>
+      <p class="qa-hint" id="hsState" style="margin:0"></p>
+      <div class="acct-row"><button type="button" id="hsOn">Conectar Apple Salud</button></div>
+      <div class="hs-guide" id="hsGuide" hidden></div>
     </section>
     <form class="acct-sec acct-need" id="pwForm" autocomplete="on">
       <h3>Cambiar la contraseña</h3>
@@ -4327,9 +4364,12 @@ function nutritionPlan(p) {
   const sexAdj = p.sex === 'h' ? 5 : p.sex === 'm' ? -161 : -78;
   const bmr = 10 * p.weight + 6.25 * p.height - 5 * p.age + sexAdj;
   const daily = bmr * PF_BASE[p.activity], training = sportsKcal(p);
-  const tdee = daily + training / 7;
+  const real = healthAvg(), estimate = daily + training / 7;
+  const tdee = real ? real.kcal : estimate;
   const bmi = p.weight / (p.height / 100) ** 2;
-  const why = [`Gastas unas ${nuFmt(tdee)} kcal al día: ${nuFmt(daily)} por tu día a día y ${nuFmt(training / 7)} de media por tus entrenos.`];
+  const why = [real
+    ? `Según tu reloj gastas de media ${nuFmt(real.kcal)} kcal al día (últimos ${real.n} días completos). Con la fórmula saldrían unas ${nuFmt(estimate)}.`
+    : `Gastas unas ${nuFmt(tdee)} kcal al día: ${nuFmt(daily)} por tu día a día y ${nuFmt(training / 7)} de media por tus entrenos.`];
   (p.sportsList || []).forEach(s => why.push(`${s.name}: ${s.sessions} ${s.sessions === 1 ? 'sesión' : 'sesiones'} a la semana, unas ${nuFmt(sessionKcal(s.met, s.duration, p.weight))} kcal cada una.`));
   let goal = p.goal;
   if (goal === 'perder' && (p.age < 18 || bmi < 18.5)) {
@@ -4396,6 +4436,10 @@ function pfHint() {
     out.textContent = weight ? `unas ${nuFmt(sessionKcal(Number(r.dataset.met), r.querySelector('[data-f=duration]').value, weight))} kcal por sesión` : '';
   });
   const total = rows.reduce((a, x) => a + x.sessions * sessionKcal(x.met, x.duration, weight), 0);
+  const real = healthAvg(), pw = $('#pf-watch');
+  pw.hidden = !real && !Object.keys(S.health || {}).length;
+  pw.textContent = real ? `Tu reloj: gastas de media ${nuFmt(real.kcal)} kcal al día (últimos ${real.n} días completos). Al calcular el reparto se usa este dato en lugar de la estimación.`
+    : 'Cuando el reloj lleve 3 días completos enviando datos, el reparto usará tu gasto real en lugar de la estimación.';
   $('#pf-hint').textContent = rows.length && weight && total ? `En total, unas ${nuFmt(total)} kcal a la semana con tus entrenos.` : rows.length ? '' : 'Añade cada deporte con sus sesiones. Si no entrenas, déjalo vacío.';
 }
 function renderProfile() {
@@ -5943,7 +5987,7 @@ $('#bkBtn').addEventListener('click', async () => {
     app: 'Mi Agenda', exported: new Date().toISOString(),
     events: S.events, categories: S.cats, uni: S.uni, activities: S.acts, routines: S.routines, workouts: S.workouts,
     foods: S.foods, weights: S.weights, favMeals: S.favs, habits: S.habits, habitLog: Object.values(S.habLog),
-    notes: Object.values(S.notes), menus: Object.values(S.menus), nutrition: Object.values(nutrition), shopping: __shop || null
+    notes: Object.values(S.notes), menus: Object.values(S.menus), nutrition: Object.values(nutrition), health: Object.values(S.health || {}), shopping: __shop || null
   };
   try {
     await downloadsNs.save({ filename: `mi-agenda-copia-${ymd(new Date())}.json`, data: JSON.stringify(data, null, 1) });
@@ -5976,7 +6020,7 @@ document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click
 
 // Solo se pinta la pestaña que estás viendo; las demás quedan pendientes y se pintan al abrirlas
 const TAB_RENDER = {
-  hoy: () => { renderHoy(); renderHabits(); renderWeekSum(); },
+  hoy: () => { renderHoy(); renderHabits(); renderWeekSum(); renderHoyWatch(); },
   agenda: () => { renderCats(); renderUni(); renderAgenda(); renderExams(); },
   notas: () => renderNotes(),
   entrenos: () => { renderActForm(); renderActs(); renderGymNext(); renderProgress(); renderDiary(); },
@@ -5997,6 +6041,8 @@ function renderAll() {
   Object.keys(TAB_RENDER).forEach(t => staleTabs.add(t));
   renderTab(S.tab || 'hoy');
   if (qa) renderQA();
+  queuePushPlan();
+  if (authUser && !$('#acctSheet').hidden) { renderNotify(); renderHealth(); }
 }
 // Cuando llegan varias colecciones casi a la vez se pinta una sola vez
 let renderQueued = false;
@@ -6129,7 +6175,7 @@ const AUTH_ERR = {
 const setMsg = (sel, t, ok) => { $(sel).textContent = t; $(sel).classList.toggle('ok', !!ok); };
 const authMsg = (t, ok) => setMsg('#authMsg', t, ok);
 const badPass = e => e && (e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password');
-let authUser = null, fbReady = false;
+var authUser = null, fbReady = false;   // var: renderAll ya las consulta antes de llegar aquí
 
 // Agenda privada: la primera cuenta que entra se queda como dueña; ninguna otra puede leer ni guardar nada
 // (lo impiden las reglas de firestore.rules en el servidor; esto solo lo explica en pantalla)
@@ -6184,6 +6230,7 @@ function acctOpen() {
   document.documentElement.classList.add('sheet-open');
   renderAcct();
   if (authUser) authUser.reload().then(renderAcct).catch(() => {});   // por si acabas de verificar el correo
+  if (authUser) checkPushHere();
 }
 function acctClose() {
   $('#acctSheet').hidden = true;
@@ -6198,6 +6245,7 @@ function renderAcct() {
   $('#acctMail').textContent = u ? u.email : fbReady ? 'No has entrado con tu cuenta.' : 'La app aún no está conectada con Firebase: lo que apuntes no se guarda.';
   $('#pwUser').value = u ? u.email : '';
   if (!u) return;
+  renderNotify(); renderHealth();
   $('#acctVer').replaceChildren(...(u.emailVerified
     ? [el('span', { class: 'acct-ok' }, '✓ Correo verificado')]
     : [el('span', { class: 'muted' }, 'Correo sin verificar.'), el('button', { type: 'button', onclick: sendVerify }, 'Enviarme el correo de verificación')]));
@@ -6243,7 +6291,7 @@ $('#delBtn').addEventListener('click', async () => {
     await reauth(pass);
     setMsg('#delMsg', 'Borrando tus datos…', true);
     const fsdb = firebase.firestore();
-    for (const col of [...IMPORT_COLS, 'shopping']) {
+    for (const col of [...IMPORT_COLS, 'shopping', 'private', 'push', 'pushLog', 'inbox']) {
       const snap = await db.collection(col).get();
       for (let i = 0; i < snap.docs.length; i += 400) {
         const batch = fsdb.batch();
@@ -6265,9 +6313,280 @@ $('#acctClose').addEventListener('click', acctClose);
 $('#acctSheet').addEventListener('click', e => { if (e.target === e.currentTarget) acctClose(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#acctSheet').hidden) acctClose(); });
 
+/* ---------- avisos en el móvil ---------- */
+// La app prepara aquí la lista de avisos de los próximos 3 días y la guarda en private/pushPlan.
+// Un proceso de GitHub (avisos/enviar.js) la lee cada 10 minutos y manda cada aviso a su hora.
+const VAPID_PUBLIC = 'BPk4Y2G_EssfIHo-tZOb2UlaFjN0VR5h6aFy-UiWE-Xo-H1-m3elCdkLiMDRqYKNLUMcDnrb136j2L8PsjdodfE';
+const NT_DEFAULT = { before: true, beforeMin: 10, uni: true, end: true, morning: true };
+const notifyPrefs = () => ({ ...NT_DEFAULT, ...((S.priv || {}).notify || {}) });
+const pushSupported = () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const deviceName = () => isIOS ? 'iPhone' : /Android/.test(navigator.userAgent) ? 'Android' : 'Ordenador';
+const safeId = s => String(s).replace(/[^\w-]/g, '_').slice(0, 300);
+const b64u = s => { const r = atob((s + '='.repeat((4 - s.length % 4) % 4)).replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from(r, c => c.charCodeAt(0)); };
+async function hashId(s) {
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].slice(0, 12).map(x => x.toString(16).padStart(2, '0')).join('');
+}
+let pushHere = null;   // la suscripción de este dispositivo, si tiene
+
+function morningText(evs, timed) {
+  const tasks = evs.filter(e => e.kind === 'tarea' && !e.done).length;
+  const n = evs.length;
+  return `Hoy tienes ${n} ${n === 1 ? 'cosa' : 'cosas'}` + (tasks ? ` (${tasks} ${tasks === 1 ? 'tarea' : 'tareas'})` : '') + '.'
+    + (timed.length ? ` Lo primero: ${timed[0].e.time} ${timed[0].e.title}.` : '');
+}
+function buildPushPlan(nowMs = Date.now()) {
+  const p = notifyPrefs(), items = [];
+  const at = (day, min) => { const d = parse(day); d.setMinutes(min); return d.getTime(); };
+  for (let i = 0; i < 3; i++) {
+    const day = ymd(addDays(new Date(nowMs), i));
+    const evs = eventsOn(day), timed = timedOf(evs);
+    // Resumen: a la hora de levantarte que calcula la app (una hora antes de lo primero), no antes de las 6
+    if (p.morning && evs.length) {
+      const wake = timed.length ? Math.max(6 * 60, timed[0].s - 60) : 9 * 60;
+      items.push({ id: safeId(`m-${day}`), at: at(day, wake), exp: at(day, wake + 120), title: 'Buenos días', body: morningText(evs, timed), url: './' });
+    }
+    for (const t of timed) {
+      const ev = t.e;
+      if (ev.done || ev.missed) continue;
+      if (p.before && (ev.src !== 'uni' || p.uni))
+        items.push({ id: safeId(`b-${ev.id}-${day}-${ev.time}`), at: at(day, t.s - p.beforeMin), exp: at(day, t.s), title: ev.title,
+          body: `Empieza a las ${ev.time}` + (ev.src === 'uni' && ev.notes ? ` · ${ev.notes}` : ''), url: './' });
+      const isTask = ev.kind === 'tarea', sport = ev.src === 'act' || (ev.cat && S.acts.some(a => a.cat === ev.cat));
+      if (p.end && (isTask || sport) && !ev.session)
+        items.push({ id: safeId(`e-${ev.id}-${day}-${ev.time}`), at: at(day, t.f), exp: at(day, t.f + 180), title: ev.title,
+          body: isTask ? '¿La has hecho? Toca para marcarla.' : '¿Has ido? Toca para apuntarlo.', url: './' });
+    }
+  }
+  const test = ((S.priv || {}).notify || {}).testAt;
+  if (test && test > nowMs - 30 * 60e3)
+    items.push({ id: safeId('t-' + test), at: test, exp: test + 30 * 60e3, title: 'Mi Agenda', body: 'Aviso de prueba desde el servidor: los avisos te llegan aunque la app esté cerrada.', url: './' });
+  return items.filter(x => x.exp > nowMs).sort((a, b) => a.at - b.at).slice(0, 80);
+}
+// Solo se guarda si hay algún dispositivo con avisos y si la lista ha cambiado
+var planTimer = null, planSig = '';   // var: la primera vez se llama antes de llegar aquí
+function queuePushPlan() { clearTimeout(planTimer); planTimer = setTimeout(savePushPlan, 3000); }
+function savePushPlan() {
+  if (!db || !authUser || !(S.pushSubs || []).length) return;
+  const items = buildPushPlan(), sig = JSON.stringify(items);
+  if (sig === planSig) return;
+  planSig = sig;
+  db.collection('private').doc('pushPlan').set({ items, updated: Date.now() }).catch(() => { planSig = ''; });
+}
+setInterval(queuePushPlan, 15 * 60e3);
+
+async function swReg() {
+  if (!('serviceWorker' in navigator)) return null;
+  return (await navigator.serviceWorker.getRegistration()) || null;
+}
+async function checkPushHere() {
+  try {
+    const reg = await swReg(), sub = reg && await reg.pushManager.getSubscription();
+    if (!sub) { pushHere = null; return; }
+    pushHere = await hashId(sub.endpoint);
+    // Si el servidor la olvidó (o es la primera vez en esta cuenta), se vuelve a guardar
+    if (db && !(S.pushSubs || []).some(s => s.id === pushHere)) {
+      const j = sub.toJSON();
+      await db.collection('push').doc(pushHere).set({ endpoint: j.endpoint, keys: j.keys, device: deviceName(), created: new Date().toISOString() });
+    }
+  } catch { pushHere = null; }
+  renderNotify();
+}
+function renderNotify() {
+  const p = notifyPrefs(), subs = (S.pushSubs || []).length;
+  $('#ntBefore').checked = p.before; $('#ntBeforeMin').value = String(p.beforeMin);
+  $('#ntUni').checked = p.uni; $('#ntEnd').checked = p.end; $('#ntMorning').checked = p.morning;
+  $('#ntUni').closest('label').hidden = !p.before;
+  let state;
+  if (!pushSupported()) state = isIOS && !standalone()
+    ? 'Para recibir avisos en el iPhone, abre Mi Agenda desde su icono en la pantalla de inicio, no desde Safari.'
+    : 'Este navegador no puede recibir avisos.';
+  else if (Notification.permission === 'denied') state = 'Los avisos están bloqueados para Mi Agenda. Actívalos en Ajustes › Notificaciones › Mi Agenda y vuelve aquí.';
+  else if (pushHere) state = `Activados en este dispositivo${subs > 1 ? ` y en ${subs - 1} más` : ''}. Llegan aunque la app esté cerrada (con hasta unos minutos de retraso).`;
+  else state = subs ? `Activados en ${subs} ${subs === 1 ? 'dispositivo' : 'dispositivos'}, pero no en este.` : 'Todavía no recibes avisos.';
+  $('#ntState').textContent = state;
+  $('#ntOn').hidden = !pushSupported() || !!pushHere || Notification.permission === 'denied';
+  $('#ntOff').hidden = $('#ntTest').hidden = !pushHere;
+  $('#ntPrefs').hidden = !subs;
+}
+$('#ntOn').addEventListener('click', async () => {
+  setMsg('#ntMsg', 'Un momento…', true);
+  try {
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') { setMsg('#ntMsg', 'Sin tu permiso no se pueden mandar avisos.'); renderNotify(); return; }
+    const reg = await swReg();
+    if (!reg) { setMsg('#ntMsg', 'Recarga la app y vuelve a probar.'); return; }
+    const sub = (await reg.pushManager.getSubscription()) || await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64u(VAPID_PUBLIC) });
+    const j = sub.toJSON(), id = await hashId(j.endpoint);
+    await db.collection('push').doc(id).set({ endpoint: j.endpoint, keys: j.keys, device: deviceName(), created: new Date().toISOString() });
+    pushHere = id;
+    setMsg('#ntMsg', 'Avisos activados. Prueba el botón de aviso de prueba.', true);
+    renderNotify();
+    queuePushPlan();
+  } catch (e) { setMsg('#ntMsg', 'No se han podido activar los avisos. Vuelve a probar.'); }
+});
+$('#ntOff').addEventListener('click', async () => {
+  try {
+    const reg = await swReg(), sub = reg && await reg.pushManager.getSubscription();
+    if (sub) await sub.unsubscribe();
+    if (pushHere) await db.collection('push').doc(pushHere).delete();
+    pushHere = null;
+    setMsg('#ntMsg', 'Avisos desactivados en este dispositivo.', true);
+  } catch { setMsg('#ntMsg', 'No se han podido desactivar. Vuelve a probar.'); }
+  renderNotify();
+});
+$('#ntTest').addEventListener('click', async () => {
+  try {
+    const reg = await swReg();
+    if (reg) await reg.showNotification('Mi Agenda', { body: 'Así se verán tus avisos.', icon: 'icons/icon-192.png', tag: 'prueba' });
+    await db.collection('private').doc('notify').set({ testAt: Date.now() + 60e3 }, { merge: true });
+    setMsg('#ntMsg', 'Te acaba de llegar uno de muestra. En unos 10 minutos te llegará otro desde el servidor: si llega con la app cerrada, todo funciona.', true);
+  } catch { setMsg('#ntMsg', 'No se ha podido mandar la prueba.'); }
+});
+['#ntBefore', '#ntBeforeMin', '#ntUni', '#ntEnd', '#ntMorning'].forEach(s => $(s).addEventListener('change', () => {
+  const prefs = { before: $('#ntBefore').checked, beforeMin: Number($('#ntBeforeMin').value) || 10, uni: $('#ntUni').checked, end: $('#ntEnd').checked, morning: $('#ntMorning').checked };
+  $('#ntUni').closest('label').hidden = !prefs.before;
+  if (db) db.collection('private').doc('notify').set(prefs, { merge: true }).catch(e => toast(errMsg(e)));
+}));
+
+/* ---------- Apple Salud ---------- */
+// Un Atajo del iPhone manda cada día las calorías, los pasos y los minutos de ejercicio a users/<tú>/inbox
+// con una clave que solo conoce tu cuenta (private/health). La app lo pasa a "health" por días.
+let hsGuideOpen = false;
+const hsRandomKey = () => [...crypto.getRandomValues(new Uint8Array(18))].map(b => 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b % 56]).join('');
+// Los números llegan como texto del iPhone ("523,4 kcal", "8.432"…); si llegan varias muestras, se suman
+function hsNum(s) {
+  let total = 0, any = false;
+  String(s || '').split(/[\n\r]+/).forEach(line => {
+    const m = line.match(/\d[\d.,   ]*/);
+    if (!m) return;
+    let t = m[0].replace(/[   ]/g, '');
+    if (t.includes(',')) t = t.replace(/\./g, '').replace(',', '.');
+    else if (/^\d{1,3}(\.\d{3})+$/.test(t)) t = t.replace(/\./g, '');
+    const n = parseFloat(t);
+    if (Number.isFinite(n)) { total += n; any = true; }
+  });
+  return any ? Math.round(total) : undefined;
+}
+function hsDate(s) {
+  const t = String(s || '').trim();
+  let m = t.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return `${m[1]}-${m[2]}-${m[3]}`;
+  m = t.match(/(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);
+  if (m) return ymd(new Date(Number(m[3].length === 2 ? '20' + m[3] : m[3]), Number(m[2]) - 1, Number(m[1])));
+  const MES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  m = fold(t).match(/(\d{1,2})\s+(?:de\s+)?([a-z]{3})[a-z]*\.?,?\s+(?:de\s+)?(\d{4})/);
+  if (m && MES.includes(m[2])) return ymd(new Date(Number(m[3]), MES.indexOf(m[2]), Number(m[1])));
+  return null;
+}
+const inboxBusy = new Set();
+async function processInbox(rows) {
+  if (!db || !rows.length) return;
+  const days = {};
+  for (const r of rows) {
+    if (inboxBusy.has(r.id)) continue;
+    inboxBusy.add(r.id);
+    const [, when, act, rest, steps, ex] = String(r.raw || '').split('|');
+    const day = hsDate(when) || ymd(new Date()), d = new Date(when);
+    const at = isNaN(d) ? new Date().toISOString() : d.toISOString();
+    // A lo largo del día los números solo crecen: se queda el mayor
+    const cur = days[day] || { ...((S.health || {})[day] || {}) };
+    [['active', hsNum(act)], ['resting', hsNum(rest)], ['steps', hsNum(steps)], ['exercise', hsNum(ex)]].forEach(([k, v]) => { if (v !== undefined) cur[k] = Math.max(v, cur[k] || 0); });
+    if (!cur.at || at > cur.at) cur.at = at;
+    days[day] = cur;
+  }
+  try {
+    for (const [day, data] of Object.entries(days)) {
+      const { id: _i, ...rest } = data;
+      await db.collection('health').doc(day).set({ ...rest, src: 'Apple Salud' }, { merge: true });
+    }
+    await Promise.all(rows.map(r => db.collection('inbox').doc(r.id).delete()));
+  } catch { rows.forEach(r => inboxBusy.delete(r.id)); }
+}
+// Gasto real: media de los últimos 14 días completos (con datos enviados por la noche o al día siguiente)
+function healthAvg() {
+  const vals = [];
+  for (let i = 1; i <= 14; i++) {
+    const day = ymd(addDays(new Date(), -i)), h = (S.health || {})[day];
+    if (!h || !(h.active > 0) || !(h.resting > 0) || !h.at) continue;
+    const at = new Date(h.at);
+    if (ymd(at) > day || at.getHours() >= 21) vals.push(h.active + h.resting);
+  }
+  return vals.length >= 3 ? { kcal: vals.reduce((a, b) => a + b, 0) / vals.length, n: vals.length } : null;
+}
+function hsWhen(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  const day = ymd(d), today = ymd(new Date());
+  return (day === today ? 'hoy' : day === ymd(addDays(new Date(), -1)) ? 'ayer' : shortDate(day)) + ` a las ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function renderHoyWatch() {
+  const box = $('#hoyWatch'), today = ymd(new Date()), H = S.health || {};
+  const h = H[today];
+  if (!h) { box.hidden = true; return; }
+  const bits = [];
+  if (h.active != null) bits.push(el('b', {}, nuFmt(h.active)), ' kcal activas');
+  if (h.steps != null) bits.push(bits.length ? ' · ' : '', el('b', {}, nuFmt(h.steps)), ' pasos');
+  if (h.exercise != null) bits.push(bits.length ? ' · ' : '', el('b', {}, String(h.exercise)), ' min de ejercicio');
+  box.replaceChildren('Reloj: ', ...bits, h.at ? ` (${hsWhen(h.at)})` : '');
+  box.hidden = !bits.length;
+}
+function hsCopyBox(label, value, rows) {
+  const field = rows ? el('textarea', { rows, readonly: true }, value) : el('input', { readonly: true, value });
+  const btn = el('button', { type: 'button', onclick: async () => {
+    try { await navigator.clipboard.writeText(value); btn.textContent = 'Copiado'; }
+    catch { field.select(); btn.textContent = 'Selecciónalo y cópialo'; }
+    setTimeout(() => { btn.textContent = 'Copiar'; }, 2500);
+  } }, 'Copiar');
+  return el('div', { class: 'hs-copy' }, el('b', {}, label), field, el('div', {}, btn));
+}
+function renderHealth() {
+  const h = (S.priv || {}).health, H = S.health || {};
+  const last = Object.values(H).map(x => x.at).filter(Boolean).sort().pop();
+  $('#hsState').textContent = !h ? 'Conéctala para que el reloj mande a la app tus calorías, pasos y minutos de ejercicio cada día. Con 3 días completos, Menús usará tu gasto real.'
+    : last ? `Conectada. Último dato recibido: ${hsWhen(last)}.` : 'Conectada. Falta crear el Atajo en el iPhone: sigue los pasos.';
+  $('#hsOn').textContent = !h ? 'Conectar Apple Salud' : hsGuideOpen ? 'Ocultar los pasos' : 'Ver los pasos del Atajo';
+  const g = $('#hsGuide');
+  g.hidden = !(h && hsGuideOpen);
+  if (g.hidden || !authUser) return;
+  const cfg = window.FIREBASE_CONFIG || {};
+  const url = `https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/(default)/documents/users/${authUser.uid}/inbox?key=${cfg.apiKey}`;
+  const body = `{"fields":{"raw":{"stringValue":"${h.key}|FECHA|ACTIVA|REPOSO|PASOS|EJERCICIO"}}}`;
+  const B = t => el('b', {}, t);
+  g.replaceChildren(
+    el('p', { class: 'qa-hint', style: 'margin:0' }, 'Se hace una sola vez, en el iPhone, con la app Atajos. Esta clave es solo tuya: no la compartas.'),
+    el('ol', {},
+      el('li', {}, 'Abre ', B('Atajos'), ', pulsa ', B('+'), ' y llama al atajo ', B('Mi Agenda Salud'), '.'),
+      el('li', {}, 'Añade la acción ', B('Buscar muestras de salud'), '. Toca el tipo y elige ', B('Energía activa'), '. Deja «Fecha de inicio es hoy» y en ', B('Agrupar por'), ' elige ', B('Día'), '.'),
+      el('li', {}, 'Repite el paso anterior tres veces más, con ', B('Energía en reposo'), ', ', B('Pasos'), ' y ', B('Minutos de ejercicio'), ', en ese orden.'),
+      el('li', {}, 'Añade la acción ', B('Texto'), ' y pega esto:', hsCopyBox('Texto', body, 3),
+        'Ahora cambia cada palabra en mayúsculas por su variable (bórrala y elígela en la barra de encima del teclado): ',
+        B('FECHA'), ' → «Fecha actual» (tócala y en ', B('Formato de fecha'), ' elige ', B('ISO 8601'), '); ',
+        B('ACTIVA'), ' → la 1.ª «Muestras de salud»; ', B('REPOSO'), ' → la 2.ª; ', B('PASOS'), ' → la 3.ª; ', B('EJERCICIO'), ' → la 4.ª.'),
+      el('li', {}, 'Añade ', B('Obtener contenido de URL'), ' y pega esta dirección:', hsCopyBox('Dirección', url, 4),
+        'Toca la flecha ', B('›'), ': ', B('Método'), ' POST; en ', B('Cabeceras'), ' añade ', el('code', {}, 'Content-Type'), ' con el valor ', el('code', {}, 'application/json'),
+        '; en ', B('Cuerpo de la solicitud'), ' elige ', B('Archivo'), ' y, como archivo, la variable ', B('Texto'), '.'),
+      el('li', {}, 'Pulsa ▶ para probarlo. Al volver aquí debería poner «Último dato recibido: hoy…».'),
+      el('li', {}, 'Para que vaya solo: pestaña ', B('Automatización'), ' › ', B('+'), ' › ', B('Hora del día'), ' › 23:30, ', B('Diariamente'), ', ', B('Ejecutar inmediatamente'),
+        ' › elige ', B('Mi Agenda Salud'), '. Si quieres ver los datos durante el día, crea otra igual a las 14:00 y otra a las 20:00.')),
+    el('p', { class: 'qa-hint', style: 'margin:0' }, 'Si algún día crees que alguien ha visto la clave, pulsa «Cambiar la clave» y pon la nueva en el Texto del atajo.'),
+    el('div', {}, el('button', { type: 'button', class: 'ghost', onclick: hsNewKey }, 'Cambiar la clave')));
+}
+async function hsNewKey() {
+  try { await db.collection('private').doc('health').set({ key: hsRandomKey(), created: new Date().toISOString() }); hsGuideOpen = true; }
+  catch (e) { toast(errMsg(e)); }
+}
+$('#hsOn').addEventListener('click', async () => {
+  if (!(S.priv || {}).health) { await hsNewKey(); return; }
+  hsGuideOpen = !hsGuideOpen;
+  renderHealth();
+});
+
 /* ---------- importar una copia ---------- */
 // Escribe en tu cuenta todo lo que haya en el archivo; lo que tenga el mismo identificador se sustituye
-const IMPORT_COLS = ['events', 'categories', 'uni', 'activities', 'routines', 'workouts', 'foods', 'weights', 'favMeals', 'habits', 'habitLog', 'notes', 'menus', 'nutrition'];
+const IMPORT_COLS = ['events', 'categories', 'uni', 'activities', 'routines', 'workouts', 'foods', 'weights', 'favMeals', 'habits', 'habitLog', 'notes', 'menus', 'nutrition', 'health'];
 $('#imFile').addEventListener('change', async e => {
   const file = e.target.files && e.target.files[0];
   e.target.value = '';
@@ -6308,7 +6627,7 @@ $('#imFile').addEventListener('change', async e => {
   const timer = setTimeout(() => status.textContent = navigator.onLine ? 'Tus datos todavía no han cargado. Revisa la conexión.' : OFF, navigator.onLine ? 10000 : 600);
   addEventListener('offline', () => { status.textContent = OFF; });
   addEventListener('online', () => { if (status.textContent === OFF) status.textContent = ''; });
-  let pending = 15;
+  let pending = 19;
   const sub = (col, apply) => {
     let first = true;
     db.collection(col).onSnapshot(snap => {
@@ -6333,9 +6652,14 @@ $('#imFile').addEventListener('change', async e => {
   sub('events', rows => S.events = rows);
   sub('workouts', rows => S.workouts = rows);
   sub('menus', rows => { S.menus = Object.fromEntries(rows.map(r => [r.id, r])); });
+  sub('private', rows => { S.priv = Object.fromEntries(rows.map(r => [r.id, r])); });
+  sub('push', rows => { S.pushSubs = rows; });
+  sub('health', rows => { S.health = Object.fromEntries(rows.map(r => [r.id, r])); });
+  sub('inbox', rows => { processInbox(rows); });
+  checkPushHere();
 })();
 // Para instalarla y abrirla sin conexión
-if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 </body>
 </html>
