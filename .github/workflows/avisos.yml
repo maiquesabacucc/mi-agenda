@@ -29,6 +29,7 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          GOVEE_API_KEY: ${{ secrets.GOVEE_API_KEY }}
         run: node enviar.js
       # GitHub apaga las tareas programadas si el repositorio pasa 60 días sin cambios:
       # a los 50 días se guarda un cambio vacío para que los avisos sigan funcionando

@@ -110,6 +110,20 @@ Los pasos para crear el Atajo están en la propia app: *Mi cuenta* › **Conecta
 
 Con la Amazfit, activa en la app Zepp *Perfil › Añadir cuentas › Apple Salud*: el mismo Atajo sirve.
 
-## Lo siguiente
+## Alarma (despertador por ciclos de sueño)
 
-- Despertador de amanecer con la bombilla inteligente: va con el mismo proceso de los avisos.
+La pestaña **Alarma** calcula a qué hora despertarte según cuándo te acuestas:
+- Desde que te acuestas, más lo que tardas en dormirte (15 min de inicio), cuenta ciclos de sueño de 90 minutos.
+- Elige el mayor número de ciclos completos que acaba antes de tu hora límite (60 min antes de lo primero que tengas).
+- En *Ajustes* cambias el tiempo para dormirte, el margen, los días libres y el mínimo y máximo de ciclos.
+- Para un día concreto puedes poner una hora fija o dejarlo sin alarma.
+
+**Quién pone la alarma: el iPhone.** Al activarse el modo Dormir, el atajo «Me voy a dormir» mira la hora y busca en una tabla que prepara la app (`users/<tú>/atajo/<clave>`, solo legible con tu clave) a qué hora tiene que sonar. Después crea la alarma «Mi Agenda» en el Reloj, que suena aunque el móvil esté bloqueado o en silencio. También avisa a la app («Últimas noches»). Los pasos para crear el atajo están en la propia pestaña, con los textos listos para copiar.
+
+La tabla se actualiza cada vez que abres la app y cubre las noches cercanas.
+
+### Bombilla (opcional)
+
+*Alarma › Bombilla inteligente*: pegas la clave de Govee (Govee Home › Perfil › ⚙ › Solicitar clave API) y activas el amanecer. La bombilla se enciende al 1 % muy cálida y llega al 100 % neutro justo cuando suena la alarma. Si la apagas mientras sube, se queda apagada. Lo hace el proceso de GitHub de los avisos.
+
+El interruptor de la pared tiene que quedarse encendido para que la bombilla tenga wifi.

@@ -24,6 +24,12 @@ service cloud.firestore {
       allow read, write: if isOwner() && request.auth.uid == uid;
     }
 
+    // Tabla de alarmas del atajo «Me voy a dormir»: se lee sin iniciar sesión, pero solo si sabes la clave
+    // secreta, que es el nombre del documento. No se puede listar ni escribir desde fuera.
+    match /users/{uid}/atajo/{k} {
+      allow get: if k == get(/databases/$(database)/documents/users/$(uid)/private/health).data.key;
+    }
+
     // Buzón del Atajo de Apple Salud: puede dejar datos sin iniciar sesión, pero solo
     // si empiezan por tu clave secreta (users/<tú>/private/health). Leerlos, solo tu cuenta.
     match /users/{uid}/inbox/{id} {

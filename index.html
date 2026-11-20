@@ -918,6 +918,48 @@ button.danger-solid:disabled{opacity:.45;cursor:not-allowed}
 .hs-copy{display:grid;gap:6px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 .hs-copy textarea,.hs-copy input{font:500 .78rem/1.4 ui-monospace,Consolas,monospace;width:100%;box-sizing:border-box;resize:none}
 .hs-copy b{font-size:.85rem}
+.fx-wake header .label{color:var(--muted);font-size:.85rem}
+.wk-main{display:flex;align-items:center;gap:14px;margin:4px 0 10px}
+.wk-time{font-family:var(--display);font-size:2.8rem;font-weight:800;font-stretch:112%;line-height:1;letter-spacing:-.01em}
+.wk-why{font-weight:700;font-size:.95rem}
+.wk-sub{font-size:.85rem;margin-top:2px}
+.wk-warn{margin:0 0 8px;font-size:.85rem;color:var(--hot)}
+.wk-opts{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.wk-chip{display:grid;gap:0;padding:6px 10px;line-height:1.15;text-align:left}
+.wk-chip span{font-size:.72rem;font-weight:500;color:var(--muted)}
+.wk-chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.wk-chip[aria-pressed=true] span{color:inherit}
+.wk-other{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--muted)}
+.wk-other input,.wk-row input[type=time]{width:auto;padding:5px 8px}
+.wk-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.88rem}
+.wk-row select{width:auto;padding:4px 8px}
+.wk-small{font-size:.84rem;color:var(--muted)}
+.wk-light{display:grid;gap:8px;margin:12px 0 10px;padding-top:12px;border-top:1px solid var(--line)}
+.wk-light .acct-check{display:flex;align-items:center;gap:10px;font-weight:600}
+.wk-light .acct-check input{width:20px;height:20px;margin:0}
+.tabs{grid-template-columns:repeat(7,minmax(0,1fr))}
+.tabs button{font-size:.64rem;letter-spacing:.02em}
+.fx-alarm{display:flex;align-items:center;gap:10px;width:100%;margin:0 0 12px;padding:12px 14px;border-radius:14px;border:1px solid var(--edge);background:var(--surface);color:var(--ink);font:600 .9rem var(--body);text-align:left}
+.fx-alarm-i{font-size:1.1rem}
+.fx-alarm-go{margin-left:auto;color:var(--accent);white-space:nowrap;font-size:.82rem}
+.ds-hero{display:grid;gap:4px;padding:18px 4px 14px}
+.ds-time{font-family:var(--display);font-size:4.2rem;font-weight:800;font-stretch:112%;line-height:1;letter-spacing:-.02em}
+.ds-why{font-weight:700}
+.ds-sec{display:grid;gap:12px;margin-bottom:12px}
+.ds-sec > header h2{margin:0}
+.ds-table ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.ds-table li{display:grid;grid-template-columns:3.4em 1em 3.4em 1fr;gap:8px;align-items:center;font-size:.9rem}
+.ds-hist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ds-hist li{display:flex;gap:10px;align-items:baseline;font-size:.9rem;flex-wrap:wrap}
+.ds-hist li b{margin-left:auto}
+.ds-set{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.9rem}
+.ds-set select{width:auto;max-width:60%}
+.ds-fold summary{cursor:pointer;font-weight:700}
+.ds-fold[open] summary{margin-bottom:4px}
+.ds-steps{margin:0;padding-left:20px;display:grid;gap:10px;font-size:.9rem;line-height:1.45}
+.ds-sec .acct-check{display:flex;align-items:center;gap:10px;font-weight:600}
+.ds-sec .acct-check input{width:20px;height:20px;margin:0}
+.ds-sec input[type=password]{flex:1;min-width:180px}
 .hoy-watch{margin:8px 0 0;font-size:.85rem;color:var(--muted)}
 .hoy-watch b{color:var(--ink);font-weight:700}
 button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
@@ -939,6 +981,7 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
   <button role="tab" data-tab="notas" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path><path d="M13.5 6.5l4 4"></path></svg><span>Notas</span></button>
   <button role="tab" data-tab="entrenos" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6.5 7v10M3.5 9.5v5M17.5 7v10M20.5 9.5v5M6.5 12h11"></path></svg><span>Entrenos</span></button>
   <button role="tab" data-tab="menus" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v18M4.5 3v5a2.5 2.5 0 0 0 5 0V3M17 21V3c-2.5 1.5-3 5-3 8h3"></path></svg><span>Menús</span></button>
+  <button role="tab" data-tab="despertar" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7"></circle><path d="M12 9.5V13l2.5 1.5M5 4.5 3 6.5M19 4.5l2 2"></path></svg><span>Alarma</span></button>
   <button role="tab" data-tab="compra" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path></svg><span>Compra</span></button>
 </nav>
 
@@ -1017,6 +1060,7 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
       <p class="muted fx-note" id="fxNote" hidden></p>
     </div>
     <div class="panel fx-tmr" id="fxTmr" hidden></div>
+    <button type="button" class="fx-alarm" id="fxAlarm"></button>
     <div class="fx-habs" id="fxHabs"></div>
     <details class="panel fx-more" id="wkSum">
       <summary>Resumen de la semana</summary>
@@ -1579,6 +1623,11 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
     </details>
 
   </section>
+  <!-- DESPERTADOR -->
+  <section class="view" id="v-despertar" hidden>
+    <div id="dsBody"></div>
+  </section>
+
   <footer class="app-foot">
     <button type="button" class="ghost" id="acctFoot">Mi cuenta y copias de seguridad</button>
   </footer>
@@ -1817,7 +1866,7 @@ function el(tag, attrs = {}, ...kids) {
     else if (k === 'class') e.className = v;
     else e.setAttribute(k, v === true ? '' : v);
   }
-  for (const k of kids.flat()) if (k != null && k !== false) e.append(k);
+  for (const k of kids.flat(Infinity)) if (k != null && k !== false) e.append(k);
   return e;
 }
 
@@ -4687,12 +4736,15 @@ function sleepTip(nowMin) {
   const goal = Number(habit && habit.goal) || 8, sleepMin = Math.round(goal * 60);
   if (!first) return tile('wide', 'Hora de dormir', el('b', {}, 'Mañana no tienes nada con hora'),
     el('span', { class: 'sub' }, `Intenta dormir tus ${hoursText(goal)} h`));
-  // Una hora antes de lo primero de mañana para levantarte y prepararte
-  const wake = Math.max(0, first.s - 60), bed = ((wake - sleepMin) % 1440 + 1440) % 1440;
+  // Desde la hora del despertador, los ciclos de 90 min más cercanos a tu objetivo de sueño
+  const L = SL_DEFAULT ? wakeLimit(ymd(addDays(new Date(), 1))) : {};
+  const wake = L.fixed != null ? L.fixed : L.latest != null ? L.latest : Math.max(0, first.s - 60);
+  const cycles = Math.min(6, Math.max(3, Math.round(sleepMin / 90)));
+  const bed = ((wake - cycles * 90 - (SL_DEFAULT ? Number(sunrisePrefs().latency) : 15)) % 1440 + 1440) % 1440;
   const late = bed >= 12 * 60 && bed <= nowMin;
   return tile('wide', 'Hora de dormir',
     el('b', {}, late ? 'Ya es hora de dormir' : `Antes de las ${fromMin(bed)}`),
-    el('span', { class: 'sub' }, `Mañana empiezas a las ${first.e.time} (${first.e.title}). Levántate a las ${fromMin(wake)} para dormir ${hoursText(goal)} h.`));
+    el('span', { class: 'sub' }, `Mañana empiezas a las ${first.e.time} (${first.e.title}). En pie antes de las ${fromMin(wake)}: acostándote a esa hora duermes ${cycles} ciclos (${durText(cycles * 90)}).`));
 }
 function weighReminder() {
   const dates = S.weights.map(w => w.date).sort(), last = dates[dates.length - 1];
@@ -5987,7 +6039,7 @@ $('#bkBtn').addEventListener('click', async () => {
     app: 'Mi Agenda', exported: new Date().toISOString(),
     events: S.events, categories: S.cats, uni: S.uni, activities: S.acts, routines: S.routines, workouts: S.workouts,
     foods: S.foods, weights: S.weights, favMeals: S.favs, habits: S.habits, habitLog: Object.values(S.habLog),
-    notes: Object.values(S.notes), menus: Object.values(S.menus), nutrition: Object.values(nutrition), health: Object.values(S.health || {}), shopping: __shop || null
+    notes: Object.values(S.notes), menus: Object.values(S.menus), nutrition: Object.values(nutrition), health: Object.values(S.health || {}), sleep: Object.values(S.sleep || {}), shopping: __shop || null
   };
   try {
     await downloadsNs.save({ filename: `mi-agenda-copia-${ymd(new Date())}.json`, data: JSON.stringify(data, null, 1) });
@@ -6000,7 +6052,7 @@ $('#bkBtn').addEventListener('click', async () => {
 });
 
 /* ---------- pestañas ---------- */
-const TAB_NAMES = { hoy: 'Hoy', agenda: 'Agenda', notas: 'Notas', entrenos: 'Entrenos', menus: 'Menús', compra: 'Compra' };
+const TAB_NAMES = { hoy: 'Hoy', agenda: 'Agenda', notas: 'Notas', entrenos: 'Entrenos', menus: 'Menús', compra: 'Compra', despertar: 'Alarma' };
 function renderPgDate() {
   const d = new Date();
   $('#pgDate').replaceChildren(`${DAYS[(d.getDay() + 6) % 7].slice(0, 3)} ${d.getDate()}`, el('br'), MONTHS[d.getMonth()]);
@@ -6010,7 +6062,7 @@ function showTab(name) {
   S.tab = name;
   renderHead();
   renderTab(name);
-  ['hoy', 'agenda', 'notas', 'entrenos', 'menus', 'compra'].forEach(v => $('#v-' + v).hidden = v !== name);
+  ['hoy', 'agenda', 'notas', 'entrenos', 'menus', 'compra', 'despertar'].forEach(v => $('#v-' + v).hidden = v !== name);
   // La semana solo se puede colocar en el día de hoy cuando está visible
   if (name === 'agenda') { wkShown = null; renderWeekView(); }
   if (name === 'entrenos') renderProgress();
@@ -6020,7 +6072,8 @@ document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click
 
 // Solo se pinta la pestaña que estás viendo; las demás quedan pendientes y se pintan al abrirlas
 const TAB_RENDER = {
-  hoy: () => { renderHoy(); renderHabits(); renderWeekSum(); renderHoyWatch(); },
+  hoy: () => { renderHoy(); renderHabits(); renderWeekSum(); renderHoyWatch(); renderFxAlarm(); },
+  despertar: () => renderDespertar(),
   agenda: () => { renderCats(); renderUni(); renderAgenda(); renderExams(); },
   notas: () => renderNotes(),
   entrenos: () => { renderActForm(); renderActs(); renderGymNext(); renderProgress(); renderDiary(); },
@@ -6291,7 +6344,7 @@ $('#delBtn').addEventListener('click', async () => {
     await reauth(pass);
     setMsg('#delMsg', 'Borrando tus datos…', true);
     const fsdb = firebase.firestore();
-    for (const col of [...IMPORT_COLS, 'shopping', 'private', 'push', 'pushLog', 'inbox']) {
+    for (const col of [...IMPORT_COLS, 'shopping', 'private', 'push', 'pushLog', 'inbox', 'atajo']) {
       const snap = await db.collection(col).get();
       for (let i = 0; i < snap.docs.length; i += 400) {
         const batch = fsdb.batch();
@@ -6338,14 +6391,16 @@ function morningText(evs, timed) {
     + (timed.length ? ` Lo primero: ${timed[0].e.time} ${timed[0].e.title}.` : '');
 }
 function buildPushPlan(nowMs = Date.now()) {
-  const p = notifyPrefs(), items = [];
+  const p = notifyPrefs(), sl = sunrisePrefs(), items = [];
+  saveAtajo();
   const at = (day, min) => { const d = parse(day); d.setMinutes(min); return d.getTime(); };
   for (let i = 0; i < 3; i++) {
     const day = ymd(addDays(new Date(nowMs), i));
     const evs = eventsOn(day), timed = timedOf(evs);
-    // Resumen: a la hora de levantarte que calcula la app (una hora antes de lo primero), no antes de las 6
+    // Resumen: a la hora de levantarte que calcula el despertador (ciclos de sueño)
+    const L = wakeLimit(day);
     if (p.morning && evs.length) {
-      const wake = timed.length ? Math.max(6 * 60, timed[0].s - 60) : 9 * 60;
+      const wake = L.off ? 9 * 60 : L.fixed != null ? L.fixed : L.latest;
       items.push({ id: safeId(`m-${day}`), at: at(day, wake), exp: at(day, wake + 120), title: 'Buenos días', body: morningText(evs, timed), url: './' });
     }
     for (const t of timed) {
@@ -6363,13 +6418,225 @@ function buildPushPlan(nowMs = Date.now()) {
   const test = ((S.priv || {}).notify || {}).testAt;
   if (test && test > nowMs - 30 * 60e3)
     items.push({ id: safeId('t-' + test), at: test, exp: test + 30 * 60e3, title: 'Mi Agenda', body: 'Aviso de prueba desde el servidor: los avisos te llegan aunque la app esté cerrada.', url: './' });
+  if (sl.testAt && sl.testAt > nowMs - 30 * 60e3)
+    items.push({ id: safeId('luz-t-' + sl.testAt), kind: 'luz', at: sl.testAt, end: sl.testAt + 5 * 60e3, exp: sl.testAt + 30 * 60e3, title: '', body: '' });
   return items.filter(x => x.exp > nowMs).sort((a, b) => a.at - b.at).slice(0, 80);
 }
+
+/* ---------- despertador ---------- */
+// La alarma la pone el iPhone: al activarse el modo Dormir, el atajo «Me voy a dormir» mira la hora y busca
+// en una tabla (users/<tú>/atajo/<clave>) a qué hora tiene que sonar, y crea la alarma en el Reloj.
+// La tabla la prepara la app con los ciclos de sueño: desde que te acuestas, más lo que tardas en dormirte,
+// el mayor número de ciclos de 90 min que acaba antes de tu hora límite (un margen antes de lo primero que tengas).
+// var y function: Hoy se dibuja antes de que el código llegue aquí
+var SLEEP_CYCLE = 90;
+var SL_DEFAULT = { on: false, minutes: 30, free: '', latency: 15, margin: 60, minCycles: 3, maxCycles: 6 };
+function sunrisePrefs() { return { ...SL_DEFAULT, ...((S.priv || {}).sunrise || {}) }; }
+function durText(m) { m = Math.max(0, Math.round(m)); const h = Math.floor(m / 60), r = m % 60; return r ? `${h} h ${r} min` : `${h} h`; }
+function dayMin(m) { return fromMin(((Math.round(m) % 1440) + 1440) % 1440); }
+const dayName = day => { const p = parse(day); return `${DAYS[(p.getDay() + 6) % 7].toLowerCase()} ${p.getDate()}`; };
+
+// Hora límite del día en que te levantas, en minutos desde su medianoche
+function wakeLimit(day) {
+  const sl = sunrisePrefs(), night = (sl.nights || {})[day] || {};
+  const first = timedOf(eventsOn(day))[0] || null;
+  if (night.off) return { off: true, first, chosenOff: true };
+  if (night.wake) return { fixed: toMin(night.wake), first };
+  if (first) return { latest: first.s - Number(sl.margin), first };
+  if (sl.free) return { latest: Number(sl.free), first: null, free: true };
+  return { off: true, first: null };
+}
+// La alarma si te acuestas a la hora "bed" (minutos desde la medianoche del día en que te levantas: 23:30 es -30)
+function alarmFor(day, bed, L = wakeLimit(day)) {
+  if (L.off) return { ...L, day };
+  const sl = sunrisePrefs(), asleep = bed + Number(sl.latency);
+  if (L.fixed != null) return { ...L, day, wake: L.fixed, manual: true, sleep: L.fixed - asleep };
+  const n = Math.min(Number(sl.maxCycles), Math.floor((L.latest - asleep) / SLEEP_CYCLE));
+  if (n < Number(sl.minCycles)) return { ...L, day, wake: L.latest, n: 0, sleep: L.latest - asleep };
+  return { ...L, day, wake: asleep + n * SLEEP_CYCLE, n, sleep: n * SLEEP_CYCLE };
+}
+// De madrugada te levantas el mismo día; por la tarde y la noche, al día siguiente
+function bedSlot(date = new Date()) {
+  const m = date.getHours() * 60 + date.getMinutes(), pm = m >= 12 * 60;
+  return { day: ymd(pm ? addDays(date, 1) : date), bed: pm ? m - 1440 : m, m };
+}
+// La tabla del atajo: para cada minuto de 18:00 a 5:59 de las noches cercanas, la hora a la que suena
+function alarmTable() {
+  const out = {}, now = new Date();
+  for (let i = -1; i < 2; i++) {
+    const night = addDays(now, i), wakeDay = ymd(addDays(night, 1)), L = wakeLimit(wakeDay);
+    if (L.off) continue;
+    for (let m = 18 * 60; m < 30 * 60; m++) {
+      const rel = m - 1440, a = alarmFor(wakeDay, rel, L);
+      if (a.wake > rel + 30) out[`${m < 1440 ? ymd(night) : wakeDay} ${dayMin(m)}`] = dayMin(a.wake);
+    }
+  }
+  return out;
+}
+// Se guarda solo si cambia; el atajo la lee con la clave secreta (private/health)
+var atajoSig = '';
+function saveAtajo() {
+  const key = ((S.priv || {}).health || {}).key;
+  if (!db || !authUser || !key) return;
+  const tabla = JSON.stringify(alarmTable()), sig = key + tabla;
+  if (sig === atajoSig) return;
+  atajoSig = sig;
+  db.collection('atajo').doc(key).set({ tabla, updated: Date.now() }).catch(() => { atajoSig = ''; });
+}
+function saveSunrise(fields) {
+  if (!db) { toast('Entra con tu cuenta para guardarlo'); return; }
+  db.collection('private').doc('sunrise').set(fields, { merge: true }).catch(e => toast(errMsg(e)));
+}
+function setNight(day, fields) { saveSunrise({ nights: { [day]: fields } }); }
+function clearNight(day) {
+  if (db) db.collection('private').doc('sunrise').update({ [`nights.${day}`]: firebase.firestore.FieldValue.delete() }).catch(e => toast(errMsg(e)));
+}
+// La noche registrada por el atajo (colección "sleep", por el día en que te levantas)
+const sleepOf = day => (S.sleep || {})[day] || null;
+const bedText = iso => { const d = new Date(iso); return isNaN(d) ? '' : `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+// El día de la próxima alarma: de madrugada, hoy; a partir de las 5, mañana
+const nextWakeDay = (now = new Date()) => ymd(now.getHours() < 5 ? now : addDays(now, 1));
+
+// Una línea en Hoy que lleva a la pestaña
+function renderFxAlarm() {
+  const b = $('#fxAlarm');
+  if (!SL_DEFAULT || !b) return;
+  const now = new Date(), day = nextWakeDay(now), rec = sleepOf(day), L = wakeLimit(day), slot = bedSlot(now);
+  let txt;
+  if (rec && rec.alarm) txt = `Alarma puesta a las ${rec.alarm}`;
+  else if (L.off) txt = L.chosenOff ? 'Mañana sin alarma (lo has elegido tú)' : 'Mañana no suena la alarma: no tienes nada con hora';
+  else if (slot.m >= 18 * 60 || slot.m < 5 * 60) txt = `Si te acuestas ahora, la alarma sonará a las ${dayMin(alarmFor(day, slot.bed, L).wake)}`;
+  else txt = L.fixed != null ? `Mañana te despierto a las ${dayMin(L.fixed)}` : `Mañana, en pie antes de las ${dayMin(L.latest)}`;
+  b.replaceChildren(el('span', { class: 'fx-alarm-i', 'aria-hidden': 'true' }, '⏰'), el('span', {}, txt), el('span', { class: 'fx-alarm-go' }, 'Despertador ›'));
+}
+
+/* ---------- pestaña Despertador ---------- */
+function renderDespertar() {
+  const box = $('#dsBody');
+  if (!SL_DEFAULT || !box) return;
+  if (box.contains(document.activeElement) && /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  const sl = sunrisePrefs(), now = new Date(), day = nextWakeDay(now), L = wakeLimit(day), slot = bedSlot(now), rec = sleepOf(day);
+  const night = slot.m >= 18 * 60 || slot.m < 5 * 60;
+  const when = day === ymd(now) ? 'hoy' : `mañana, ${dayName(day)}`;
+  const B = t => el('b', {}, t);
+
+  // 1. Lo principal: a qué hora suena
+  let hero;
+  if (rec && rec.alarm) {
+    hero = el('div', { class: 'ds-hero' }, el('span', { class: 'label' }, `Alarma puesta para ${when}`), el('b', { class: 'ds-time num' }, rec.alarm),
+      el('div', { class: 'muted' }, `Te acostaste a las ${bedText(rec.bed)}. ¡Buenas noches!`));
+  } else if (L.off) {
+    hero = el('div', { class: 'ds-hero' }, el('span', { class: 'label' }, `Alarma para ${when}`), el('b', { class: 'ds-time' }, 'No suena'),
+      el('div', { class: 'muted' }, L.chosenOff ? 'Lo has elegido tú. Puedes volver a activarla abajo.' : 'No tienes nada con hora. Si quieres, elige abajo una hora para los días libres.'));
+  } else {
+    const a = alarmFor(day, night ? slot.bed : -30, L);
+    hero = el('div', { class: 'ds-hero' },
+      el('span', { class: 'label' }, night ? `Si te acuestas ahora (${dayMin(slot.m)})` : `Si te acuestas a las 23:30`),
+      el('b', { class: 'ds-time num' }, dayMin(a.wake)),
+      el('div', { class: 'ds-why' }, a.manual ? 'Hora elegida por ti' : a.n ? `${a.n} ciclos de sueño completos · ${durText(a.sleep)}` : `No da para ciclos completos: te despierto a tu hora límite`),
+      el('div', { class: 'muted' }, 'La alarma se pone sola en el iPhone cuando se activa el modo Dormir.'));
+  }
+
+  // 2. Mañana: lo primero, la hora límite y los cambios para ese día
+  const wakeIn = el('input', { type: 'time', value: L.fixed != null ? dayMin(L.fixed) : '', 'aria-label': 'Hora fija para ese día',
+    onchange: e => { if (e.target.value) setNight(day, { wake: e.target.value }); } });
+  const morning = el('section', { class: 'panel ds-sec' },
+    el('header', {}, el('h2', {}, `Para ${when}`)),
+    el('p', { style: 'margin:0' }, L.first ? ['Lo primero: ', B(`${L.first.e.time} ${L.first.e.title}`), L.latest != null ? ['. En pie antes de las ', B(dayMin(L.latest)), ` (${sl.margin} min antes).`] : '.']
+      : L.free ? ['Día sin nada con hora: te despierto como muy tarde a las ', B(dayMin(L.latest)), '.'] : 'No tienes nada con hora.'),
+    !L.off || L.chosenOff || L.fixed != null ? el('div', { class: 'wk-row' },
+      el('label', { class: 'wk-row' }, 'Quiero levantarme a las', wakeIn),
+      L.chosenOff ? null : el('button', { type: 'button', class: 'ghost', onclick: () => setNight(day, { off: true }) }, 'Ese día sin alarma'),
+      L.fixed != null || L.chosenOff ? el('button', { type: 'button', onclick: () => clearNight(day) }, 'Volver a lo automático') : null) : null,
+    !L.off ? el('div', { class: 'ds-table' }, el('span', { class: 'label' }, 'Según a qué hora te acuestes'),
+      el('ul', {}, [-90, -60, -30, 0, 30, 60].map(b => {
+        const a = alarmFor(day, b, L);
+        return el('li', {}, el('span', { class: 'num' }, dayMin(b)), el('span', { class: 'muted' }, '→'), el('b', { class: 'num' }, dayMin(a.wake)),
+          el('span', { class: 'muted' }, a.manual ? 'hora fija' : a.n ? `${a.n} ciclos` : 'hora límite'));
+      }))) : null);
+
+  // 3. Las últimas noches
+  const nights = Object.keys(S.sleep || {}).sort().reverse().slice(0, 7);
+  const history = el('section', { class: 'panel ds-sec' }, el('header', {}, el('h2', {}, 'Últimas noches')),
+    nights.length ? el('ul', { class: 'ds-hist' }, nights.map(d => el('li', {}, el('span', {}, dayName(d)),
+      el('span', { class: 'muted' }, `te acostaste a las ${bedText(S.sleep[d].bed)}`), el('b', { class: 'num' }, `⏰ ${S.sleep[d].alarm || '—'}`))))
+      : el('p', { class: 'muted', style: 'margin:0' }, 'Aún no hay noches apuntadas. Aparecerán cuando el atajo «Me voy a dormir» se ejecute.'));
+
+  // 4. Ajustes
+  const sel = (label, field, opts) => {
+    const s = el('select', { 'aria-label': label, onchange: e => saveSunrise({ [field]: e.target.value === '' ? '' : Number(e.target.value) }) },
+      opts.map(([v, t]) => el('option', { value: v }, t)));
+    s.value = String(sl[field]);
+    return el('label', { class: 'ds-set' }, el('span', {}, label), s);
+  };
+  const settings = el('section', { class: 'panel ds-sec' }, el('header', {}, el('h2', {}, 'Ajustes')),
+    sel('Tardo en dormirme', 'latency', [5, 10, 15, 20, 30, 40].map(v => [v, `${v} min`])),
+    sel('Margen antes de lo primero', 'margin', [30, 45, 60, 75, 90, 120].map(v => [v, v < 60 ? `${v} min` : durText(v)])),
+    sel('Los días sin nada con hora', 'free', [['', 'no suena'], [480, 'a las 8:00 como tarde'], [540, 'a las 9:00 como tarde'], [600, 'a las 10:00 como tarde']]),
+    sel('Mínimo de ciclos', 'minCycles', [3, 4, 5].map(v => [v, `${v} (${durText(v * 90)})`])),
+    sel('Máximo de ciclos', 'maxCycles', [4, 5, 6, 7].map(v => [v, `${v} (${durText(v * 90)})`])));
+
+  // 5. Bombilla (opcional)
+  const gv = (S.priv || {}).govee || {};
+  const keyIn = el('input', { type: 'password', autocomplete: 'off', placeholder: 'Pega aquí la clave de Govee', 'aria-label': 'Clave de Govee' });
+  const minSel = el('select', { 'aria-label': 'Duración del amanecer', onchange: e => saveSunrise({ minutes: Number(e.target.value) || 30 }) },
+    [15, 20, 30, 45].map(m => el('option', { value: m }, `${m} min`)));
+  minSel.value = String(sl.minutes);
+  const bulb = el('details', { class: 'panel ds-sec ds-fold', open: gv.key ? true : null },
+    el('summary', {}, 'Bombilla inteligente (opcional)'),
+    gv.key ? [
+      el('p', { class: 'acct-ok', style: 'margin:0' }, '✓ Bombilla Govee conectada'),
+      el('label', { class: 'acct-check' }, el('input', { type: 'checkbox', checked: sl.on, onchange: e => saveSunrise({ on: e.target.checked }) }), 'Amanecer antes de la alarma'),
+      sl.on ? el('div', { class: 'wk-row wk-small' }, 'Dura ', minSel, ' · empieza al 1 % muy cálida y llega al 100 % justo cuando suena la alarma. Si la apagas mientras sube, se queda apagada.') : null,
+      el('div', { class: 'acct-row' },
+        sl.on ? el('button', { type: 'button', onclick: () => { saveSunrise({ testAt: Date.now() }); toast('En unos 10 minutos la bombilla hará un amanecer de prueba de 5 minutos'); } }, 'Probar un amanecer de 5 minutos') : null,
+        el('button', { type: 'button', class: 'ghost', onclick: () => { if (db) db.collection('private').doc('govee').delete().catch(e => toast(errMsg(e))); } }, 'Desconectar'))
+    ] : [
+      el('p', { class: 'qa-hint', style: 'margin:0' }, 'Con una bombilla Govee, la luz sube poco a poco antes de que suene la alarma. Pide la clave en Govee Home › Perfil › ⚙ › Solicitar clave API: te llega por correo.'),
+      el('div', { class: 'wk-row' }, keyIn, el('button', { type: 'button', class: 'primary', onclick: () => {
+        const k = keyIn.value.trim();
+        if (k.length < 10) { toast('Pega la clave completa'); return; }
+        if (db) db.collection('private').doc('govee').set({ key: k, added: new Date().toISOString() }).then(() => toast('Bombilla conectada')).catch(e => toast(errMsg(e)));
+      } }, 'Conectar')),
+      el('p', { class: 'qa-hint', style: 'margin:0' }, 'La clave se guarda en tu cuenta y solo la usa el proceso que enciende la bombilla.')
+    ]);
+
+  // 6. El atajo
+  const hk = ((S.priv || {}).health || {}).key;
+  const setup = el('details', { class: 'panel ds-sec ds-fold', open: !nights.length && hk ? true : null }, el('summary', {}, 'Configurar el atajo «Me voy a dormir»'));
+  if (!hk) setup.append(el('p', { class: 'qa-hint' }, 'Primero hace falta tu clave de los atajos.'),
+    el('button', { type: 'button', class: 'primary', onclick: hsNewKey }, 'Crear mi clave'));
+  else {
+    const cfg = window.FIREBASE_CONFIG || {}, base = `https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/(default)/documents/users/${authUser ? authUser.uid : ''}`;
+    const C = (label, value, rows) => hsCopyBox(label, value, rows);
+    setup.append(
+      el('p', { class: 'qa-hint', style: 'margin:0' }, 'Se hace una vez, en el iPhone, con la app Atajos. Las palabras en negrita son los nombres de las acciones: búscalas en «Buscar acciones».'),
+      el('ol', { class: 'ds-steps' },
+        el('li', {}, 'Atajos › ', B('+'), ' › llámalo ', B('Me voy a dormir'), '.'),
+        el('li', {}, B('Obtener contenido de URL'), ' y pega la dirección 1 (déjala en GET):', C('Dirección 1 · tabla de alarmas', `${base}/atajo/${hk}?key=${cfg.apiKey}`, 4)),
+        el('li', {}, B('Obtener valor del diccionario'), ' · en «Clave» pega esto, y como diccionario, el «Contenido de URL»:', C('Clave', 'fields.tabla.stringValue', 1)),
+        el('li', {}, B('Obtener diccionario de la entrada'), ' (o «Obtener diccionario de») con el «Valor del diccionario».'),
+        el('li', {}, B('Aplicar formato a fecha'), ' · «Fecha actual», formato ', B('Personalizado'), ' y pega:', C('Formato', 'yyyy-MM-dd HH:mm', 1)),
+        el('li', {}, B('Obtener valor del diccionario'), ' · como clave, la variable ', B('Fecha formateada'), '; como diccionario, el ', B('Diccionario'), ' del paso 4.'),
+        el('li', {}, B('Si'), ' «Valor del diccionario» ', B('tiene algún valor'), '. Dentro del «Si»:'),
+        el('li', {}, B('Crear alarma'), ' a la hora «Valor del diccionario», con la etiqueta ', B('Mi Agenda'), '.'),
+        el('li', {}, B('Texto'), ' (para el historial y la bombilla), pega esto y cambia ', B('FECHA'), ' por «Fecha actual» (formato ISO 8601 con hora) y ', B('ALARMA'), ' por «Valor del diccionario»:',
+          C('Texto', `{"fields":{"raw":{"stringValue":"${hk}|dormir|FECHA|ALARMA"}}}`, 3)),
+        el('li', {}, B('Obtener contenido de URL'), ' con la dirección 2, ', B('POST'), ', cabecera ', el('code', {}, 'Content-Type'), ' = ', el('code', {}, 'application/json'), ' y cuerpo ', B('Archivo'), ' → ', B('Texto'), ':',
+          C('Dirección 2 · buzón', `${base}/inbox?key=${cfg.apiKey}`, 4)),
+        el('li', {}, 'Pruébalo con ▶: tiene que aparecer una alarma «Mi Agenda» en el Reloj y aquí, en «Últimas noches», la de hoy.'),
+        el('li', {}, 'Para que vaya solo: ', B('Automatización'), ' › ', B('+'), ' › ', B('Enfoque'), ' › ', B('Dormir'), ' (o Reposo) › ', B('Al activarse'), ' › ', B('Ejecutar inmediatamente'), ' › «Me voy a dormir».')));
+  }
+
+  box.replaceChildren(hero, morning, history, settings, bulb, setup);
+}
+setInterval(() => { if (S.tab === 'despertar') renderDespertar(); renderFxAlarm(); }, 60000);
+$('#fxAlarm').addEventListener('click', () => { showTab('despertar'); window.scrollTo(0, 0); });
 // Solo se guarda si hay algún dispositivo con avisos y si la lista ha cambiado
 var planTimer = null, planSig = '';   // var: la primera vez se llama antes de llegar aquí
 function queuePushPlan() { clearTimeout(planTimer); planTimer = setTimeout(savePushPlan, 3000); }
 function savePushPlan() {
-  if (!db || !authUser || !(S.pushSubs || []).length) return;
+  if (!db || !authUser || (!(S.pushSubs || []).length && !sunrisePrefs().on && !sunrisePrefs().testAt)) return;
   const items = buildPushPlan(), sig = JSON.stringify(items);
   if (sig === planSig) return;
   planSig = sig;
@@ -6493,11 +6760,13 @@ function hsDate(s) {
 const inboxBusy = new Set();
 async function processInbox(rows) {
   if (!db || !rows.length) return;
-  const days = {};
+  const days = {}, nights = [];
   for (const r of rows) {
     if (inboxBusy.has(r.id)) continue;
     inboxBusy.add(r.id);
-    const [, when, act, rest, steps, ex] = String(r.raw || '').split('|');
+    const parts = String(r.raw || '').split('|');
+    if (parts[1] === 'dormir') { nights.push(parts); continue; }
+    const [, when, act, rest, steps, ex] = parts;
     const day = hsDate(when) || ymd(new Date()), d = new Date(when);
     // Si el atajo manda solo la fecha (sin hora), vale la hora a la que llega
     const at = isNaN(d) || !/T\d/.test(when || '') ? new Date().toISOString() : d.toISOString();
@@ -6516,6 +6785,12 @@ async function processInbox(rows) {
     for (const [day, data] of Object.entries(days)) {
       const { id: _i, ...rest } = data;
       await db.collection('health').doc(day).set({ ...rest, src: 'Apple Salud' }, { merge: true });
+    }
+    // «Me voy a dormir»: se guarda por el día en que te levantas
+    for (const [, , when, alarm] of nights) {
+      const d = isNaN(new Date(when)) ? new Date() : new Date(when);
+      const wakeDay = ymd(d.getHours() >= 12 ? addDays(d, 1) : d), hm = String(alarm || '').match(/(\d{1,2}):(\d{2})/);
+      await db.collection('sleep').doc(wakeDay).set({ bed: d.toISOString(), alarm: hm ? `${pad(Number(hm[1]))}:${hm[2]}` : '' }, { merge: true });
     }
     await Promise.all(rows.map(r => db.collection('inbox').doc(r.id).delete()));
   } catch { rows.forEach(r => inboxBusy.delete(r.id)); }
@@ -6601,7 +6876,7 @@ $('#hsOn').addEventListener('click', async () => {
 
 /* ---------- importar una copia ---------- */
 // Escribe en tu cuenta todo lo que haya en el archivo; lo que tenga el mismo identificador se sustituye
-const IMPORT_COLS = ['events', 'categories', 'uni', 'activities', 'routines', 'workouts', 'foods', 'weights', 'favMeals', 'habits', 'habitLog', 'notes', 'menus', 'nutrition', 'health'];
+const IMPORT_COLS = ['events', 'categories', 'uni', 'activities', 'routines', 'workouts', 'foods', 'weights', 'favMeals', 'habits', 'habitLog', 'notes', 'menus', 'nutrition', 'health', 'sleep'];
 $('#imFile').addEventListener('change', async e => {
   const file = e.target.files && e.target.files[0];
   e.target.value = '';
@@ -6642,7 +6917,7 @@ $('#imFile').addEventListener('change', async e => {
   const timer = setTimeout(() => status.textContent = navigator.onLine ? 'Tus datos todavía no han cargado. Revisa la conexión.' : OFF, navigator.onLine ? 10000 : 600);
   addEventListener('offline', () => { status.textContent = OFF; });
   addEventListener('online', () => { if (status.textContent === OFF) status.textContent = ''; });
-  let pending = 19;
+  let pending = 20;
   const sub = (col, apply) => {
     let first = true;
     db.collection(col).onSnapshot(snap => {
@@ -6670,6 +6945,7 @@ $('#imFile').addEventListener('change', async e => {
   sub('private', rows => { S.priv = Object.fromEntries(rows.map(r => [r.id, r])); });
   sub('push', rows => { S.pushSubs = rows; });
   sub('health', rows => { S.health = Object.fromEntries(rows.map(r => [r.id, r])); });
+  sub('sleep', rows => { S.sleep = Object.fromEntries(rows.map(r => [r.id, r])); });
   sub('inbox', rows => { processInbox(rows); });
   checkPushHere();
 })();
