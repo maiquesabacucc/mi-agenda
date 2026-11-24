@@ -98,7 +98,14 @@ function alarmMoment(bedIso, hhmm) {
 }
 async function realAlarms(user) {
   const out = {}, now = Date.now();
-  const add = (bed, alarm) => { const a = alarmMoment(bed, alarm); if (a && a.ms > now - 6 * 3600e3 && a.ms < now + 20 * 3600e3) out[a.day] = a.ms; };
+  // Las pruebas del atajo («Probar el atajo ahora» en la app) no son noches de verdad
+  const test = Number((await user.collection('private').doc('sunrise').get()).get('testShortcut')) || 0;
+  const add = (bed, alarm) => {
+    const b = Date.parse(bed);
+    if (test && b > test - 60e3 && b < test + 20 * 60e3) return;
+    const a = alarmMoment(bed, alarm);
+    if (a && a.ms > now - 6 * 3600e3 && a.ms < now + 20 * 3600e3) out[a.day] = a.ms;
+  };
   (await user.collection('inbox').get()).docs.forEach(d => {
     const p = String(d.get('raw') || '').split('|');
     if (p[1] === 'dormir') add(p[2], p[3]);

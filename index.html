@@ -6480,6 +6480,11 @@ function alarmTable() {
     }
   return out;
 }
+// ¿Es de una prueba del atajo? (de 1 minuto antes a 20 minutos después de pulsar «Probar el atajo ahora»)
+function isTestBed(d) {
+  const t = Number(((S.priv || {}).sunrise || {}).testShortcut) || 0;
+  return t > 0 && d.getTime() > t - 60e3 && d.getTime() < t + 20 * 60e3;
+}
 // Se guarda solo si cambia; el atajo la lee con la clave secreta (private/health)
 var atajoSig = '';
 function saveAtajo() {
@@ -6499,7 +6504,8 @@ function clearNight(day) {
   if (db) db.collection('private').doc('sunrise').update({ [`nights.${day}`]: firebase.firestore.FieldValue.delete() }).catch(e => toast(errMsg(e)));
 }
 // La noche registrada por el atajo (colección "sleep", por el día en que te levantas)
-const sleepOf = day => (S.sleep || {})[day] || null;
+const realNight = r => r && !(r.bed && isTestBed(new Date(r.bed)));
+const sleepOf = day => { const r = (S.sleep || {})[day]; return realNight(r) ? r : null; };
 const bedText = iso => { const d = new Date(iso); return isNaN(d) ? '' : `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 // El día de la próxima alarma: de madrugada, hoy; a partir de las 5, mañana
 const nextWakeDay = (now = new Date()) => ymd(now.getHours() < 5 ? now : addDays(now, 1));
@@ -6563,7 +6569,7 @@ function renderDespertar() {
       }))) : null);
 
   // 3. Las últimas noches
-  const nights = Object.keys(S.sleep || {}).sort().reverse().slice(0, 7);
+  const nights = Object.keys(S.sleep || {}).filter(d => realNight(S.sleep[d])).sort().reverse().slice(0, 7);
   const history = el('section', { class: 'panel ds-sec' }, el('header', {}, el('h2', {}, 'Últimas noches')),
     nights.length ? el('ul', { class: 'ds-hist' }, nights.map(d => el('li', {}, el('span', {}, dayName(d)),
       el('span', { class: 'muted' }, `te acostaste a las ${bedText(S.sleep[d].bed)}`), el('b', { class: 'num' }, `⏰ ${S.sleep[d].alarm || '—'}`))))
@@ -6800,6 +6806,7 @@ async function processInbox(rows) {
     // «Me voy a dormir»: se guarda por el día en que te levantas
     for (const [, , when, alarm] of nights) {
       const d = isNaN(new Date(when)) ? new Date() : new Date(when);
+      if (isTestBed(d)) continue;   // las pruebas del atajo no son noches de verdad
       const wakeDay = ymd(d.getHours() >= 12 ? addDays(d, 1) : d), hm = String(alarm || '').match(/(\d{1,2}):(\d{2})/);
       await db.collection('sleep').doc(wakeDay).set({ bed: d.toISOString(), alarm: hm ? `${pad(Number(hm[1]))}:${hm[2]}` : '' }, { merge: true });
     }
@@ -6956,7 +6963,11 @@ $('#imFile').addEventListener('change', async e => {
   sub('private', rows => { S.priv = Object.fromEntries(rows.map(r => [r.id, r])); });
   sub('push', rows => { S.pushSubs = rows; });
   sub('health', rows => { S.health = Object.fromEntries(rows.map(r => [r.id, r])); });
-  sub('sleep', rows => { S.sleep = Object.fromEntries(rows.map(r => [r.id, r])); });
+  sub('sleep', rows => {
+    // Si alguna se guardó durante una prueba del atajo, se borra
+    rows.filter(r => r.bed && isTestBed(new Date(r.bed))).forEach(r => db.collection('sleep').doc(r.id).delete().catch(() => {}));
+    S.sleep = Object.fromEntries(rows.filter(r => !(r.bed && isTestBed(new Date(r.bed)))).map(r => [r.id, r]));
+  });
   sub('inbox', rows => { processInbox(rows); });
   checkPushHere();
 })();
