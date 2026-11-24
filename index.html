@@ -6471,6 +6471,13 @@ function alarmTable() {
       if (a.wake > rel + 30) out[`${m < 1440 ? ymd(night) : wakeDay} ${dayMin(m)}`] = dayMin(a.wake);
     }
   }
+  // Prueba del atajo: durante 15 minutos, la alarma suena 2 minutos después de ejecutarlo
+  const t = Number(sunrisePrefs().testShortcut) || 0;
+  if (t > Date.now() - 15 * 60e3)
+    for (let k = 0; k < 15; k++) {
+      const d = new Date(t + k * 60e3), m = d.getHours() * 60 + d.getMinutes();
+      out[`${ymd(d)} ${dayMin(m)}`] = dayMin(m + 2);
+    }
   return out;
 }
 // Se guarda solo si cambia; el atajo la lee con la clave secreta (private/health)
@@ -6624,7 +6631,11 @@ function renderDespertar() {
           C('Texto', `{"fields":{"raw":{"stringValue":"${hk}|dormir|FECHA|ALARMA"}}}`, 3)),
         el('li', {}, B('Obtener contenido de URL'), ' con la dirección 2, ', B('POST'), ', cabecera ', el('code', {}, 'Content-Type'), ' = ', el('code', {}, 'application/json'), ' y cuerpo ', B('Archivo'), ' → ', B('Texto'), ':',
           C('Dirección 2 · buzón', `${base}/inbox?key=${cfg.apiKey}`, 4)),
-        el('li', {}, 'Pruébalo con ▶: tiene que aparecer una alarma «Mi Agenda» en el Reloj y aquí, en «Últimas noches», la de hoy.'),
+        el('li', {}, 'Pruébalo: pulsa ', B('Probar el atajo ahora'), ' (aquí abajo), espera 10 segundos y pulsa ▶ en el atajo. Tiene que aparecer una alarma «Mi Agenda» para dentro de 2 minutos en el Reloj. Luego bórrala.',
+          el('div', { style: 'margin-top:6px' }, el('button', { type: 'button', onclick: () => {
+            saveSunrise({ testShortcut: Date.now() });
+            toast('Listo: durante 15 minutos, el atajo pondrá una alarma 2 minutos después de ejecutarlo');
+          } }, 'Probar el atajo ahora'))),
         el('li', {}, 'Para que vaya solo: ', B('Automatización'), ' › ', B('+'), ' › ', B('Enfoque'), ' › ', B('Dormir'), ' (o Reposo) › ', B('Al activarse'), ' › ', B('Ejecutar inmediatamente'), ' › «Me voy a dormir».')));
   }
 
