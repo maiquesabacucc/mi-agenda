@@ -111,6 +111,21 @@ Los pasos para crear el Atajo están en la propia app: *Mi cuenta* › **Conecta
 
 Con la Amazfit, activa en la app Zepp *Perfil › Añadir cuentas › Apple Salud*: el mismo Atajo sirve.
 
+El atajo también puede mandar el **pulso del día** (solo lo que pasa de 90 lpm): con él la app calcula tu esfuerzo. Los pasos están en la misma guía.
+
+### Sueño y recuperación (atajo «Mi Agenda Noche»)
+
+Un segundo atajo manda cada mañana las fases de la noche, el pulso en reposo, la variabilidad, la respiración, la temperatura de la muñeca y el oxígeno. Con eso, la pestaña **Sueño** enseña:
+
+- la noche con sus ciclos y si te despertaste al final de uno;
+- la recuperación, comparando cada dato con lo normal en ti (necesita 7 noches; completa a partir de 14);
+- el esfuerzo de hoy frente al recomendado, la carga de la semana frente a tu mes y la deuda de sueño de las últimas 14 noches;
+- a qué hora acostarte, el último café y si te conviene una siesta.
+
+Los pasos para crear el atajo están en la pestaña Sueño › *Configurar el atajo «Mi Agenda Noche»*. Los valores y las fuentes de cada cálculo están en `reports/Parámetros de sueño y esfuerzo.md`. No es un diagnóstico médico.
+
+Importante: después de actualizar `firestore.rules` (el buzón ahora acepta mensajes más largos), vuelve a pegarlas en Firebase › Firestore Database › Reglas y pulsa Publicar.
+
 ## Alarma (despertador por ciclos de sueño)
 
 La pestaña **Alarma** calcula a qué hora despertarte según cuándo te acuestas:

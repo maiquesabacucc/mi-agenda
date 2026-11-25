@@ -1,7 +1,7 @@
 // Mi Agenda: guarda la app en el móvil para que se abra al momento y sin conexión.
 // Los datos no pasan por aquí: Firebase los guarda por su cuenta.
 // Al cambiar algo de la app, sube el número de VERSION para que los móviles cojan la nueva.
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = 'mi-agenda-' + VERSION;
 const SHELL = ['./', 'index.html', 'firebase-config.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/apple-touch-icon.png'];
 

@@ -35,7 +35,7 @@ service cloud.firestore {
     match /users/{uid}/inbox/{id} {
       allow create: if request.resource.data.keys().hasOnly(['raw'])
         && request.resource.data.raw is string
-        && request.resource.data.raw.size() < 400
+        && request.resource.data.raw.size() < 200000
         && request.resource.data.raw.split('[|]')[0] == get(/databases/$(database)/documents/users/$(uid)/private/health).data.key;
     }
   }

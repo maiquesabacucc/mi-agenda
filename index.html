@@ -978,6 +978,77 @@ button.danger-solid:disabled{opacity:.45;cursor:not-allowed}
 .ds-set{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.9rem}
 .ds-set select{width:auto;max-width:60%}
 .ds-fold summary{cursor:pointer;font-weight:700}
+/* sueño: la noche como una inmersión */
+.sl-night{--n-bg:#0E1630;--n-ink:#E8ECFA;--n-dim:#A9B3DA;--n-line:#22305E;background:var(--n-bg);color:var(--n-ink);border-radius:18px;padding:16px 16px 14px;margin-bottom:12px;display:grid;gap:8px}
+.sl-k{font-size:.9rem;color:var(--n-dim)}
+.sl-top{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.sl-big{font-family:var(--display);font-stretch:72%;font-weight:600;font-size:4rem;line-height:.9;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.sl-when{text-align:right;font-size:.82rem;color:var(--n-dim);line-height:1.45}
+.sl-when b{color:var(--n-ink);font-weight:600;font-variant-numeric:tabular-nums}
+.sl-hyp{width:100%;height:auto;display:block}
+.sl-hyp .sl-grid{stroke:var(--n-line);stroke-width:1}
+.sl-hyp .sl-cut{stroke:#3A4780;stroke-dasharray:2 3}
+.sl-hyp text{font:500 11px var(--body)}
+.sl-hyp .sl-lbl{fill:var(--n-dim)}
+.sl-hyp .sl-cyc{fill:var(--n-ink)}
+.sl-hyp .sl-tick{fill:#7F8AC4}
+.sl-cycle{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:#18234A;font-size:.9rem;line-height:1.45}
+.sl-cycle-i{color:#FFC46B;font-size:1.1rem;line-height:1.2}
+.sl-note{margin:0;font-size:.82rem;color:var(--n-dim);line-height:1.45}
+.sl-card{gap:10px}
+.sl-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sl-pill{font-weight:700;font-size:.85rem;padding:3px 10px;border-radius:999px}
+.sl-pill.ok{background:var(--fit-soft);color:var(--fit)}
+.sl-pill.mid{background:var(--food-soft);color:var(--food)}
+.sl-pill.low{background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--warn)}
+.sl-prov{font-size:.78rem}
+.sl-lead{margin:0;font-size:1.05rem;font-weight:700;line-height:1.3;text-wrap:pretty}
+.sl-warn{margin:0;padding:10px 12px;border-radius:10px;background:var(--food-soft);color:var(--food);font-size:.85rem;font-weight:600}
+.sl-bars{display:grid;gap:2px}
+.sl-bar{display:grid;grid-template-columns:7.2rem minmax(0,1fr) 4.6rem;gap:10px;align-items:center;font-size:.85rem;padding:5px 0}
+.sl-bar > b{text-align:right;font-variant-numeric:tabular-nums}
+.sl-trk{position:relative;height:8px;border-radius:4px;background:var(--bg)}
+.sl-band{position:absolute;top:0;bottom:0;border-radius:4px;background:var(--edge)}
+.sl-dot{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--accent);border:2px solid var(--surface)}
+.sl-dot.bad{background:var(--food)}
+.sl-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);align-items:center}
+.sl-legend span{display:inline-flex;align-items:center;gap:6px}
+.sl-legend .sl-band{position:static;display:inline-block;width:18px;height:8px}
+.sl-legend .sl-dot{position:static;display:inline-block;margin:0;width:10px;height:10px;border:0}
+.sl-plain{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:.88rem}
+.sl-plain li{display:flex;justify-content:space-between}
+.sl-num{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.sl-num > b{font-family:var(--display);font-stretch:75%;font-size:2.3rem;font-weight:700;line-height:1}
+.sl-load{position:relative;height:12px;border-radius:6px;background:var(--bg);margin:4px 0}
+.sl-load-zone{position:absolute;top:-4px;bottom:-4px;border-radius:7px;border:2px solid var(--fit);background:color-mix(in srgb,var(--fit) 12%,transparent)}
+.sl-load-fill{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--accent)}
+.sl-why{margin:0;font-size:.8rem}
+.sl-sub{display:grid;gap:6px;border-top:1px solid var(--line);padding-top:12px;font-size:.85rem}
+.sl-row{display:flex;justify-content:space-between;gap:8px}
+.sl-acwr{position:relative;height:10px;border-radius:5px;background:var(--bg);margin-top:4px}
+.sl-acwr .z1{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--fit) 28%,transparent)}
+.sl-acwr .z3{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--warn) 18%,transparent);border-radius:0 5px 5px 0}
+.sl-ticks{position:relative;height:14px;font-size:.72rem;color:var(--muted)}
+.sl-ticks span{position:absolute;transform:translateX(-50%)}
+.sl-debt,.sl-week{width:100%;height:auto;display:block}
+.sl-debt .sl-axis{stroke:var(--edge)}
+.sl-debt .plus{fill:var(--fit)}
+.sl-debt .minus{fill:#D6623A}
+.sl-debt text,.sl-week text{font:500 11px var(--body);fill:var(--muted)}
+.sl-week .sl-grid2{stroke:var(--line)}
+.sl-week .sl-med{stroke:var(--food);stroke-width:1.5;stroke-dasharray:3 3}
+.sl-week .bar{fill:color-mix(in srgb,var(--accent) 45%,var(--surface))}
+.sl-week .last{fill:var(--accent)}
+.sl-week .sl-day{font-size:12px}
+.sl-week .sl-day.on{fill:var(--ink);font-weight:700}
+.sl-ses{display:grid;gap:10px}
+.sl-ses-h{font-size:.88rem;margin-bottom:6px}
+.sl-rpe{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:4px}
+.sl-rpe button{min-height:40px;padding:0;justify-content:center;font-variant-numeric:tabular-nums;touch-action:manipulation}
+.sl-rpe button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.sl-tips{margin:0;padding-left:18px;display:grid;gap:8px;font-size:.9rem;line-height:1.45}
+.fx-sleep{margin-top:-4px}
+.rpe-title{margin:0;font-size:1.5rem}
 .ds-fold[open] summary{margin-bottom:4px}
 .ds-steps{margin:0;padding-left:20px;display:grid;gap:10px;font-size:.9rem;line-height:1.45}
 .ds-sec .acct-check{display:flex;align-items:center;gap:10px;font-weight:600}
@@ -1004,7 +1075,7 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
   <button role="tab" data-tab="notas" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path><path d="M13.5 6.5l4 4"></path></svg><span>Notas</span></button>
   <button role="tab" data-tab="entrenos" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6.5 7v10M3.5 9.5v5M17.5 7v10M20.5 9.5v5M6.5 12h11"></path></svg><span>Entrenos</span></button>
   <button role="tab" data-tab="menus" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v18M4.5 3v5a2.5 2.5 0 0 0 5 0V3M17 21V3c-2.5 1.5-3 5-3 8h3"></path></svg><span>Menús</span></button>
-  <button role="tab" data-tab="despertar" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7"></circle><path d="M12 9.5V13l2.5 1.5M5 4.5 3 6.5M19 4.5l2 2"></path></svg><span>Alarma</span></button>
+  <button role="tab" data-tab="despertar" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7"></circle><path d="M12 9.5V13l2.5 1.5M5 4.5 3 6.5M19 4.5l2 2"></path></svg><span>Sueño</span></button>
   <button role="tab" data-tab="compra" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"></path><path d="M9 8V6.5a3 3 0 0 1 6 0V8"></path></svg><span>Compra</span></button>
 </nav>
 
@@ -1084,6 +1155,7 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
     </div>
     <div class="panel fx-tmr" id="fxTmr" hidden></div>
     <button type="button" class="fx-alarm" id="fxAlarm"></button>
+    <button type="button" class="fx-alarm fx-sleep" id="fxSleep" hidden></button>
     <div class="fx-habs" id="fxHabs"></div>
     <details class="panel fx-more" id="wkSum">
       <summary>Resumen de la semana</summary>
@@ -1655,6 +1727,16 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
     <button type="button" class="ghost" id="acctFoot">Mi cuenta y copias de seguridad</button>
   </footer>
 </main>
+<!-- Nota de esfuerzo al acabar un entreno -->
+<div class="sheet" id="rpeSheet" hidden>
+  <div class="panel sheet-in" role="dialog" aria-modal="true" aria-labelledby="rpeTitle">
+    <div class="sheet-grip"></div>
+    <h2 id="rpeTitle" class="rpe-title">¿Cómo de duro ha sido?</h2>
+    <p class="muted" style="margin:0">0 = nada · 3 = suave · 5 = duro · 7 = muy duro · 10 = a tope. Con tu nota y los minutos, la app calcula tu esfuerzo.</p>
+    <div class="sl-rpe" id="rpeBtns"></div>
+    <button type="button" class="ghost" id="rpeSkip">Ahora no</button>
+  </div>
+</div>
 <!-- Mi cuenta: correo, copias, contraseña, cerrar sesión y borrar la cuenta -->
 <div class="sheet" id="acctSheet" hidden>
   <div class="panel sheet-in" role="dialog" aria-modal="true" aria-labelledby="acctTitle">
@@ -3324,12 +3406,14 @@ $('#sessFinish').addEventListener('click', async e => {
   let end = fromMin(now.getHours() * 60 + now.getMinutes());
   if (ymd(started) !== ymd(now)) end = '23:59';
   else if (toMin(end) <= toMin(time)) end = fromMin(Math.min(toMin(time) + 1, 1439));
-  await patchDoc('events', sess.id, {
+  const doneId = sess.id;
+  await patchDoc('events', doneId, {
     ex, notes, done: true, missed: false, session: null, date: ymd(started), time, end,
     min: Math.max(1, Math.round((now - started) / 60000))
   });
   closeSession();
   toast('Entreno guardado');
+  askRpe(doneId, ymd(started));
 });
 $('#sessCancel').addEventListener('click', async e => {
   if (!armed(e.currentTarget, '¿Seguro? Se pierde lo apuntado', 'Cancelar entreno')) return;
@@ -6223,7 +6307,7 @@ $('#bkBtn').addEventListener('click', async () => {
 });
 
 /* ---------- pestañas ---------- */
-const TAB_NAMES = { hoy: 'Hoy', agenda: 'Agenda', notas: 'Notas', entrenos: 'Entrenos', menus: 'Menús', compra: 'Compra', despertar: 'Alarma' };
+const TAB_NAMES = { hoy: 'Hoy', agenda: 'Agenda', notas: 'Notas', entrenos: 'Entrenos', menus: 'Menús', compra: 'Compra', despertar: 'Sueño' };
 function renderPgDate() {
   const d = new Date();
   $('#pgDate').replaceChildren(`${DAYS[(d.getDay() + 6) % 7].slice(0, 3)} ${d.getDate()}`, el('br'), MONTHS[d.getMonth()]);
@@ -6601,7 +6685,7 @@ function buildPushPlan(nowMs = Date.now()) {
 // el mayor número de ciclos de 90 min que acaba antes de tu hora límite (un margen antes de lo primero que tengas).
 // var y function: Hoy se dibuja antes de que el código llegue aquí
 var SLEEP_CYCLE = 90;
-var SL_DEFAULT = { on: false, minutes: 30, free: '', latency: 15, margin: 60, minCycles: 3, maxCycles: 6 };
+var SL_DEFAULT = { on: false, minutes: 30, free: '', latency: 15, margin: 60, minCycles: 3, maxCycles: 6, need: 480, useMyCycle: false };
 function sunrisePrefs() { return { ...SL_DEFAULT, ...((S.priv || {}).sunrise || {}) }; }
 function durText(m) { m = Math.max(0, Math.round(m)); const h = Math.floor(m / 60), r = m % 60; return r ? `${h} h ${r} min` : `${h} h`; }
 function dayMin(m) { return fromMin(((Math.round(m) % 1440) + 1440) % 1440); }
@@ -6620,11 +6704,11 @@ function wakeLimit(day) {
 // La alarma si te acuestas a la hora "bed" (minutos desde la medianoche del día en que te levantas: 23:30 es -30)
 function alarmFor(day, bed, L = wakeLimit(day)) {
   if (L.off) return { ...L, day };
-  const sl = sunrisePrefs(), asleep = bed + Number(sl.latency);
+  const sl = sunrisePrefs(), asleep = bed + Number(sl.latency), C = cycleLen();
   if (L.fixed != null) return { ...L, day, wake: L.fixed, manual: true, sleep: L.fixed - asleep };
-  const n = Math.min(Number(sl.maxCycles), Math.floor((L.latest - asleep) / SLEEP_CYCLE));
+  const n = Math.min(Number(sl.maxCycles), Math.floor((L.latest - asleep) / C));
   if (n < Number(sl.minCycles)) return { ...L, day, wake: L.latest, n: 0, sleep: L.latest - asleep };
-  return { ...L, day, wake: asleep + n * SLEEP_CYCLE, n, sleep: n * SLEEP_CYCLE };
+  return { ...L, day, wake: asleep + n * C, n, sleep: n * C };
 }
 // De madrugada te levantas el mismo día; por la tarde y la noche, al día siguiente
 function bedSlot(date = new Date()) {
@@ -6691,7 +6775,13 @@ function renderFxAlarm() {
   else if (L.off) txt = L.chosenOff ? 'Mañana sin alarma (lo has elegido tú)' : 'Mañana no suena la alarma: no tienes nada con hora';
   else if (slot.m >= 18 * 60 || slot.m < 5 * 60) txt = `Si te acuestas ahora, la alarma sonará a las ${dayMin(alarmFor(day, slot.bed, L).wake)}`;
   else txt = L.fixed != null ? `Mañana te despierto a las ${dayMin(L.fixed)}` : `Mañana, en pie antes de las ${dayMin(L.latest)}`;
-  b.replaceChildren(el('span', { class: 'fx-alarm-i', 'aria-hidden': 'true' }, '⏰'), el('span', {}, txt), el('span', { class: 'fx-alarm-go' }, 'Despertador ›'));
+  b.replaceChildren(el('span', { class: 'fx-alarm-i', 'aria-hidden': 'true' }, '⏰'), el('span', {}, txt), el('span', { class: 'fx-alarm-go' }, 'Sueño ›'));
+  const sb = $('#fxSleep'), line = typeof sleepSummaryLine === 'function' ? sleepSummaryLine() : null;
+  if (sb) {
+    const P = line && new Date().getHours() < 18 && typeof bedPlan === 'function' ? bedPlan() : null;
+    sb.hidden = !line;
+    if (line) sb.replaceChildren(el('span', { class: 'fx-alarm-i', 'aria-hidden': 'true' }, '☾'), el('span', {}, line + (P ? ` · último café ${dayMin(P.coffee)}` : '')), el('span', { class: 'fx-alarm-go' }, 'Ver ›'));
+  }
 }
 
 /* ---------- pestaña Despertador ---------- */
@@ -6739,14 +6829,17 @@ function renderDespertar() {
           el('span', { class: 'muted' }, a.manual ? 'hora fija' : a.n ? `${a.n} ciclos` : 'hora límite'));
       }))) : null);
 
-  // 3. Las últimas noches
-  const nights = Object.keys(S.sleep || {}).filter(d => realNight(S.sleep[d])).sort().reverse().slice(0, 7);
-  const history = el('section', { class: 'panel ds-sec' }, el('header', {}, el('h2', {}, 'Últimas noches')),
+  // 3. La noche del reloj, recuperación, esfuerzo, esta noche y la semana
+  const hkDay = [0, 1].map(i => ymd(addDays(now, -i))).find(d => hkNight(d));
+  const sleepCards = [hkDay ? sleepNightCard(hkDay) : null, recoveryCard(), effortCard(), tonightCard(), weekCard()].filter(Boolean);
+  // 4. Las últimas noches (solo hasta que el reloj mande las suyas)
+  const nights = Object.keys(S.sleep || {}).filter(d => realNight(S.sleep[d]) && S.sleep[d].bed).sort().reverse().slice(0, 7);
+  const history = hkNights(14).length ? null : el('section', { class: 'panel ds-sec' }, el('header', {}, el('h2', {}, 'Últimas noches')),
     nights.length ? el('ul', { class: 'ds-hist' }, nights.map(d => el('li', {}, el('span', {}, dayName(d)),
       el('span', { class: 'muted' }, `te acostaste a las ${bedText(S.sleep[d].bed)}`), el('b', { class: 'num' }, `⏰ ${S.sleep[d].alarm || '—'}`))))
       : el('p', { class: 'muted', style: 'margin:0' }, 'Aún no hay noches apuntadas. Aparecerán cuando el atajo «Me voy a dormir» se ejecute.'));
 
-  // 4. Ajustes
+  // 5. Ajustes
   const sel = (label, field, opts) => {
     const s = el('select', { 'aria-label': label, onchange: e => saveSunrise({ [field]: e.target.value === '' ? '' : Number(e.target.value) }) },
       opts.map(([v, t]) => el('option', { value: v }, t)));
@@ -6757,8 +6850,11 @@ function renderDespertar() {
     sel('Tardo en dormirme', 'latency', [5, 10, 15, 20, 30, 40].map(v => [v, `${v} min`])),
     sel('Margen antes de lo primero', 'margin', [30, 45, 60, 75, 90, 120].map(v => [v, v < 60 ? `${v} min` : durText(v)])),
     sel('Los días sin nada con hora', 'free', [['', 'no suena'], [480, 'a las 8:00 como tarde'], [540, 'a las 9:00 como tarde'], [600, 'a las 10:00 como tarde']]),
-    sel('Mínimo de ciclos', 'minCycles', [3, 4, 5].map(v => [v, `${v} (${durText(v * 90)})`])),
-    sel('Máximo de ciclos', 'maxCycles', [4, 5, 6, 7].map(v => [v, `${v} (${durText(v * 90)})`])));
+    sel('Necesito dormir', 'need', [420, 450, 480, 510, 540, 570].map(v => [v, durText(v)])),
+    sel('Mínimo de ciclos', 'minCycles', [3, 4, 5].map(v => [v, `${v} (${durText(v * cycleLen())})`])),
+    sel('Máximo de ciclos', 'maxCycles', [4, 5, 6, 7].map(v => [v, `${v} (${durText(v * cycleLen())})`])),
+    (c => c ? el('label', { class: 'acct-check' }, el('input', { type: 'checkbox', checked: sl.useMyCycle, onchange: e => saveSunrise({ useMyCycle: e.target.checked }) }),
+      `Calcular la alarma con mis ciclos medidos (${c.min} min en vez de 90)`) : el('p', { class: 'qa-hint', style: 'margin:0' }, 'Cuando el reloj lleve unas noches midiendo tus ciclos, podrás usar su duración real para la alarma.'))(myCycle()));
 
   // 5. Bombilla (opcional)
   const gv = (S.priv || {}).govee || {};
@@ -6816,10 +6912,11 @@ function renderDespertar() {
         el('li', {}, 'Para que vaya solo: ', B('Automatización'), ' › ', B('+'), ' › ', B('Enfoque'), ' › ', B('Dormir'), ' (o Reposo) › ', B('Al activarse'), ' › ', B('Ejecutar inmediatamente'), ' › «Me voy a dormir».')));
   }
 
-  box.replaceChildren(hero, morning, history, settings, bulb, setup);
+  box.replaceChildren(...[hero, ...sleepCards, morning, history, settings, bulb, setup, hk ? nightShortcutGuide(hk) : null].filter(Boolean));
 }
 setInterval(() => { if (S.tab === 'despertar') renderDespertar(); renderFxAlarm(); }, 60000);
 $('#fxAlarm').addEventListener('click', () => { showTab('despertar'); window.scrollTo(0, 0); });
+$('#fxSleep').addEventListener('click', () => { showTab('despertar'); window.scrollTo(0, 0); });
 // Solo se guarda si hay algún dispositivo con avisos y si la lista ha cambiado
 var planTimer = null, planSig = '';   // var: la primera vez se llama antes de llegar aquí
 function queuePushPlan() { clearTimeout(planTimer); planTimer = setTimeout(savePushPlan, 3000); }
@@ -6917,7 +7014,7 @@ const hsOk = (k, v) => typeof v === 'number' && v >= 0 && v <= HS_MAX[k];
 // Los números llegan como texto del iPhone ("523,4 kcal", "8.432", "194.000"…); si llegan varias muestras, se suman
 function hsNum(s, max = Infinity) {
   let total = 0, any = false;
-  String(s || '').split(/[\n\r]+/).forEach(line => {
+  String(s || '').split(/[\n\r~]+/).forEach(line => {
     const m = line.match(/\d[\d.,   ]*/);
     if (!m) return;
     const t = m[0].replace(/[   ]/g, '').replace(/[.,]+$/, '');
@@ -6948,13 +7045,15 @@ function hsDate(s) {
 const inboxBusy = new Set();
 async function processInbox(rows) {
   if (!db || !rows.length) return;
-  const days = {}, nights = [];
+  const days = {}, nights = [], hkNightsIn = [], hearts = [];
   for (const r of rows) {
     if (inboxBusy.has(r.id)) continue;
     inboxBusy.add(r.id);
     const parts = String(r.raw || '').split('|');
     if (parts[1] === 'dormir') { nights.push(parts); continue; }
-    const [, when, act, rest, steps, ex] = parts;
+    if (parts[1] === 'noche') { hkNightsIn.push(parts); continue; }
+    const [, when, act, rest, steps, ex, hrv, hrt] = parts;
+    if (hrv && hrt) hearts.push([hrv, hrt]);
     const day = hsDate(when) || ymd(new Date()), d = new Date(when);
     // Si el atajo manda solo la fecha (sin hora), vale la hora a la que llega
     const at = isNaN(d) || !/T\d/.test(when || '') ? new Date().toISOString() : d.toISOString();
@@ -6981,6 +7080,11 @@ async function processInbox(rows) {
       const wakeDay = ymd(d.getHours() >= 12 ? addDays(d, 1) : d), hm = String(alarm || '').match(/(\d{1,2}):(\d{2})/);
       await db.collection('sleep').doc(wakeDay).set({ bed: d.toISOString(), alarm: hm ? `${pad(Number(hm[1]))}:${hm[2]}` : '' }, { merge: true });
     }
+    // El pulso del día, minuto a minuto (para el esfuerzo)
+    for (const [v, t] of hearts) for (const [day, data] of Object.entries(packHeart(hkList(v), hkList(t))))
+      await db.collection('health').doc(day).set(data, { merge: true });
+    // La noche del reloj: fases, ciclos y recuperación
+    for (const p of hkNightsIn) await processNight(p);
     await Promise.all(rows.map(r => db.collection('inbox').doc(r.id).delete()));
   } catch { rows.forEach(r => inboxBusy.delete(r.id)); }
 }
@@ -7032,7 +7136,7 @@ function renderHealth() {
   if (g.hidden || !authUser) return;
   const cfg = window.FIREBASE_CONFIG || {};
   const url = `https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/(default)/documents/users/${authUser.uid}/inbox?key=${cfg.apiKey}`;
-  const body = `{"fields":{"raw":{"stringValue":"${h.key}|FECHA|ACTIVA|REPOSO|PASOS|EJERCICIO"}}}`;
+  const body = `{"fields":{"raw":{"stringValue":"${h.key}|FECHA|ACTIVA|REPOSO|PASOS|EJERCICIO|PULSO|PULSOHORA"}}}`;
   const B = t => el('b', {}, t);
   g.replaceChildren(
     el('p', { class: 'qa-hint', style: 'margin:0' }, 'Se hace una sola vez, en el iPhone, con la app Atajos. Esta clave es solo tuya: no la compartas.'),
@@ -7040,13 +7144,16 @@ function renderHealth() {
       el('li', {}, 'Abre ', B('Atajos'), ', pulsa ', B('+'), ' y llama al atajo ', B('Mi Agenda Salud'), '.'),
       el('li', {}, 'Añade la acción ', B('Buscar muestras médicas'), ' (en algunos iPhone, «Buscar muestras de salud»; no uses «Registrar»). Toca el tipo y elige ', B('Energía activa'), '. Deja «Fecha de inicio es hoy» y en ', B('Agrupar por'), ' elige ', B('Día'), '.'),
       el('li', {}, 'Repite el paso anterior tres veces más, con ', B('Energía en reposo'), ', ', B('Pasos'), ' y ', B('Minutos de ejercicio'), ', en ese orden.'),
+      el('li', {}, 'Una más para el esfuerzo: ', B('Frecuencia cardiaca'), ', «Fecha de inicio es hoy», ', B('Añadir filtro'), ' › ', B('Valor'), ' «es mayor que» ', B('90'), ' y en ', B('Agrupar por'), ' deja ', B('Ninguno'), '.'),
       el('li', {}, 'Añade la acción ', B('Texto'), ' y pega esto:', hsCopyBox('Texto', body, 3),
         'Ahora cambia cada palabra en mayúsculas por su variable (bórrala y elígela en la barra de encima del teclado): ',
         B('FECHA'), ' → «Fecha actual» (tócala y en ', B('Formato de fecha'), ' elige ', B('ISO 8601'), '); ',
-        B('ACTIVA'), ' → «Muestras médicas»; ', B('REPOSO'), ' → «Muestras médicas 2»; ', B('PASOS'), ' → «Muestras médicas 3»; ', B('EJERCICIO'), ' → «Muestras médicas 4».'),
+        B('ACTIVA'), ' → «Muestras médicas»; ', B('REPOSO'), ' → «Muestras médicas 2»; ', B('PASOS'), ' → «Muestras médicas 3»; ', B('EJERCICIO'), ' → «Muestras médicas 4»; ',
+        B('PULSO'), ' → «Muestras médicas 5»; ', B('PULSOHORA'), ' → «Muestras médicas 5» › ', B('Fecha de inicio'), ' (ISO 8601).'),
+      el('li', {}, 'Añade ', B('Reemplazar texto'), ': busca ', el('code', {}, '\\n'), ' y cámbialo por ', el('code', {}, '~'), ' en «Texto». Toca la flecha y activa ', B('Expresión regular'), '.'),
       el('li', {}, 'Añade ', B('Obtener contenido de URL'), ' y pega esta dirección:', hsCopyBox('Dirección', url, 4),
         'Toca la flecha ', B('›'), ': ', B('Método'), ' POST; en ', B('Cabeceras'), ' añade ', el('code', {}, 'Content-Type'), ' con el valor ', el('code', {}, 'application/json'),
-        '; en ', B('Cuerpo de la solicitud'), ' elige ', B('Archivo'), ' y, como archivo, la variable ', B('Texto'), '.'),
+        '; en ', B('Cuerpo de la solicitud'), ' elige ', B('Archivo'), ' y, como archivo, la variable ', B('Texto actualizado'), ' (el resultado de «Reemplazar texto»).'),
       el('li', {}, 'Pulsa ▶ para probarlo. Al volver aquí debería poner «Último dato recibido: hoy…».'),
       el('li', {}, 'Para que vaya solo: pestaña ', B('Automatización'), ' › ', B('+'), ' › ', B('Hora del día'), ' › 23:30, ', B('Diariamente'), ', ', B('Ejecutar inmediatamente'),
         ' › elige ', B('Mi Agenda Salud'), '. Si quieres ver los datos durante el día, crea otra igual a las 14:00 y otra a las 20:00.')),
@@ -7062,6 +7169,666 @@ $('#hsOn').addEventListener('click', async () => {
   hsGuideOpen = !hsGuideOpen;
   renderHealth();
 });
+
+/* ---------- sueño, recuperación y esfuerzo (datos del reloj) ---------- */
+// Parámetros sacados del informe reports/Parámetros de sueño y esfuerzo.md:
+// [F] = lo dice una fuente; [H] = regla propuesta a partir de las fuentes, sin validar.
+var SLP = {
+  needDefault: 480,          // [F] 8 h por defecto (NSF 7–9 h, Kitamura 2016: 8,4 h)
+  cyclePrior: 93,            // [F] ciclos de ~90–96 min (Cajochen 2024, Rosenblum 2025)
+  remMin: 5, nremMin: 15,    // [F] Feinberg & Floyd / SleepCycles: REM ≥ 5 min (salvo el primero), NREM ≥ 15 min
+  remMerge: 15, wakeSmooth: 2, // [H] para datos de reloj: REM separados ≤ 15 min son uno; despertares ≤ 2 min no cortan
+  debtNights: 14, debtMinNights: 5, debtSurplusCap: 120, // [H] RISE/Oura: 14 noches; dormir de más resta 2 h como mucho
+  sriIrregular: 72, sriRegular: 83, // [F] Windred 2024: < 72 quintil de más riesgo; ~83 casi todo el beneficio
+  coffeeH: 9,                // [F] Gardiner 2023: 8,8 h antes de dormir para un café
+  recFull: 14, recMin: 7,    // [H] recuperación provisional desde 7 noches, completa desde 14
+  loadMinDays: 14, trimpToLoad: 2, gymRpe: 6 // [H] carga: 14 días para el objetivo; 1 TRIMP ≈ 2 puntos sRPE; pesas sin nota = 6/10
+};
+function sleepNeed() { return Number(sunrisePrefs().need) || SLP.needDefault; }
+
+// Los números llegan como "52 lpm", "36,12 °C", "48 ms"…
+function hkNum(s) { const m = String(s || '').match(/-?\d+(?:[.,]\d+)?/); return m ? parseFloat(m[0].replace(',', '.')) : NaN; }
+// Las fechas, en ISO 8601 o como las escribe el iPhone ("25 nov 2026, 0:18")
+function hkDate(s) {
+  const t = String(s || '').trim();
+  if (!t) return null;
+  if (/\d{4}-\d{2}-\d{2}T\d/.test(t)) { const d = new Date(t); return isNaN(d) ? null : d; }
+  const day = hsDate(t), hm = t.match(/(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+  if (!day || !hm) return null;
+  const d = parse(day); d.setHours(Number(hm[1]), Number(hm[2]), Number(hm[3] || 0), 0);
+  return d;
+}
+// Fases del sueño de Salud: R = REM, P = profundo, L = ligero («Núcleo»/«Básico»), W = despierto, U = dormido sin fase, B = en cama
+function hkStage(s) {
+  const t = fold(String(s || '').trim());
+  if (/^\d$/.test(t)) return ['B', 'U', 'W', 'L', 'P', 'R'][Number(t)] || null;
+  if (/\brem\b/.test(t)) return 'R';
+  if (/profund|deep/.test(t)) return 'P';
+  if (/nucleo|basic|core|ligero|light/.test(t)) return 'L';
+  if (/despiert|awake|vigil/.test(t)) return 'W';
+  if (/cama|in ?bed/.test(t)) return 'B';
+  if (/dormid|asleep|sueno|sleep/.test(t)) return 'U';
+  return null;
+}
+const hkList = s => String(s || '').split(/[~\n\r]+/).map(x => x.trim()).filter(Boolean);
+// Los ciclos se guardan como texto "inicio-fin" (Firestore no admite listas dentro de listas)
+const cycOf = hk => String((hk && hk.cyc) || "").split(" ").filter(Boolean).map(x => x.split("-").map(Number));
+const enc = list => list.map(([k, n]) => k + n).join(' ');
+const dec = s => String(s || '').split(' ').filter(Boolean).map(x => [x[0], Number(x.slice(1))]);
+
+// Analiza las muestras de sueño de las últimas 24 h: la noche principal, sus fases, sus ciclos y las siestas
+function analyzeSleep(values, starts, ends) {
+  const raw = [];
+  values.forEach((v, i) => {
+    const st = hkStage(v), a = hkDate(starts[i]), b = hkDate(ends[i]);
+    if (st && a && b && b > a) raw.push({ st, a: a.getTime(), b: b.getTime() });
+  });
+  if (!raw.length) return null;
+  const hasStages = raw.some(x => 'RPLW'.includes(x.st));
+  const bedStarts = raw.filter(x => x.st === 'B').map(x => x.a);
+  // Si hay fases, las muestras "dormido" sin fase (por ejemplo del iPhone) sobran
+  const sl = raw.filter(x => x.st !== 'B' && (!hasStages || x.st !== 'U')).sort((x, y) => x.a - y.a);
+  // Sesiones: tramos seguidos (huecos de menos de 30 min)
+  const sessions = [];
+  for (const x of sl) {
+    const s = sessions[sessions.length - 1];
+    if (s && x.a - s.b <= 30 * 60e3) { s.items.push(x); s.b = Math.max(s.b, x.b); }
+    else sessions.push({ a: x.a, b: x.b, items: [x] });
+  }
+  const asleepOf = s => s.items.filter(x => x.st !== 'W').reduce((t, x) => t + (x.b - x.a), 0) / 60e3;
+  sessions.forEach(s => { s.asleep = asleepOf(s); });
+  const main = sessions.slice().sort((x, y) => y.asleep - x.asleep)[0];
+  if (!main || main.asleep < 120) return null;
+  // Minuto a minuto (las fases mandan sobre "despierto" si se solapan)
+  const t0 = Math.floor(main.a / 60e3) * 60e3, len = Math.ceil((main.b - t0) / 60e3), M = new Array(len).fill('W');
+  const rank = { W: 0, U: 1, L: 2, R: 3, P: 4 };
+  main.items.slice().sort((x, y) => rank[x.st] - rank[y.st]).forEach(x => {
+    for (let m = Math.max(0, Math.floor((x.a - t0) / 60e3)); m < Math.min(len, Math.ceil((x.b - t0) / 60e3)); m++) M[m] = x.st;
+  });
+  let i0 = M.findIndex(s => s !== 'W'), i1 = len - 1;
+  while (i1 > i0 && M[i1] === 'W') i1--;
+  const N = M.slice(i0, i1 + 1), onset = t0 + i0 * 60e3, wake = t0 + (i1 + 1) * 60e3;
+  const st = { W: 0, R: 0, L: 0, P: 0, U: 0 };
+  N.forEach(s => { st[s]++; });
+  // Despertares largos (≥ 5 min)
+  let awak = 0, run = 0;
+  N.forEach(s => { if (s === 'W') run++; else { if (run >= 5) awak++; run = 0; } });
+  const inBed = bedStarts.filter(b => b <= onset && onset - b < 3 * 3600e3).sort((x, y) => x - y)[0];
+  const asleep = N.length - st.W, lat = inBed ? Math.round((onset - inBed) / 60e3) : null;
+  const span = (wake - (inBed || onset)) / 60e3;
+  // Tramos compactos para dibujar
+  const segs = [];
+  N.forEach(s => { const l = segs[segs.length - 1]; if (l && l[0] === s) l[1]++; else segs.push([s, 1]); });
+  // Siestas: otras sesiones de 10 min o más entre las 10:00 y las 20:00
+  const naps = sessions.filter(s => s !== main && s.asleep >= 10 && new Date(s.a).getHours() >= 10 && new Date(s.a).getHours() < 20)
+    .map(s => ({ day: ymd(new Date(s.a)), min: Math.round(s.asleep) }));
+  const cyc = hasStages ? findCycles(N) : null;
+  return {
+    t0: onset, wake, asleep, st, waso: st.W, awak, lat, eff: span > 0 ? Math.round(asleep / span * 100) : null,
+    seg: enc(segs), stages: hasStages, cyc: cyc ? cyc.list.map(([a, b]) => `${a}-${b}`).join(" ") : null, wakeKind: cyc ? cyc.wakeKind : null, naps
+  };
+}
+// Ciclos (Feinberg & Floyd adaptado a reloj): un ciclo acaba al terminar un periodo de REM
+function findCycles(N) {
+  const S1 = N.slice();
+  // Despertares cortos: cuentan como la fase de antes
+  for (let i = 0, run = 0; i <= S1.length; i++) {
+    if (S1[i] === 'W') { run++; continue; }
+    if (run && run <= SLP.wakeSmooth && i - run > 0) for (let k = i - run; k < i; k++) S1[k] = S1[i - run - 1];
+    run = 0;
+  }
+  // Periodos de REM
+  const rem = [];
+  S1.forEach((s, i) => {
+    if (s !== 'R') return;
+    const l = rem[rem.length - 1];
+    if (l && i - l.e <= SLP.remMerge) l.e = i + 1; else rem.push({ s: i, e: i + 1 });
+  });
+  const valid = rem.filter((r, k) => k === 0 ? true : r.e - r.s >= SLP.remMin);
+  const list = [];
+  let start = 0;
+  for (const r of valid) {
+    const nrem = S1.slice(start, r.s).filter(x => x === 'L' || x === 'P' || x === 'U').length;
+    if (nrem < SLP.nremMin && list.length) { list[list.length - 1].e = r.e; list[list.length - 1].len = r.e - list[list.length - 1].s; start = r.e; continue; }
+    if (nrem < SLP.nremMin) continue;
+    list.push({ s: start, e: r.e, len: r.e - start });
+    start = r.e;
+  }
+  // Cómo te despertaste: ≤ 10 min después de acabar un ciclo = al final de un ciclo
+  const tail = S1.length - start, last10 = S1.slice(-10);
+  let wakeKind;
+  if (list.length && tail <= 10) wakeKind = last10.includes('R') && tail <= 2 ? 'rem' : 'fin';
+  else if (last10.includes('P')) wakeKind = 'prof';
+  else wakeKind = 'medio';
+  return { list: list.map(c => [c.s, c.e]), wakeKind };
+}
+
+// Pulso del día minuto a minuto: "minuto.pulso.segundos" (solo lo que pasa de 90 lpm)
+function packHeart(values, starts) {
+  const pts = [];
+  values.forEach((v, i) => { const hr = hkNum(v), d = hkDate(starts[i]); if (hr >= 30 && hr <= 230 && d) pts.push([d.getTime(), hr]); });
+  pts.sort((a, b) => a[0] - b[0]);
+  const days = {};
+  pts.forEach(([t, hr], i) => {
+    const next = pts[i + 1], secs = Math.min(next ? (next[0] - t) / 1000 : 5, 90);
+    const d = new Date(t), day = ymd(d), m = d.getHours() * 60 + d.getMinutes();
+    const b = ((days[day] = days[day] || {})[m] = days[day][m] || { s: 0, w: 0 });
+    b.s += secs; b.w += hr * secs;
+  });
+  const out = {};
+  for (const [day, mins] of Object.entries(days)) {
+    let max = 0;
+    const str = Object.entries(mins).map(([m, b]) => { const hr = Math.round(b.w / b.s); max = Math.max(max, hr); return `${m}.${hr}.${Math.min(60, Math.round(b.s))}`; }).join(' ');
+    out[day] = { hrm: str, hrmax: max };
+  }
+  return out;
+}
+
+// Lo que manda el atajo «Mi Agenda Noche»: clave|noche|fecha|fases|inicios|fines|reposo|vfc|vfc horas|respiración|temperatura|oxígeno
+async function processNight(parts) {
+  const [, , , sv, ss, se, rhr, hrv, hrvAt, rr, tmp, o2] = parts;
+  const n = analyzeSleep(hkList(sv), hkList(ss), hkList(se));
+  if (!n) return;
+  const wakeDay = ymd(new Date(n.wake));
+  const avg = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : undefined;
+  const nums = s => hkList(s).map(hkNum).filter(Number.isFinite);
+  // VFC: solo la que se mide mientras duermes (si llegan las horas)
+  const hv = hkList(hrv), ht = hkList(hrvAt);
+  let hrvVals = hv.map((v, i) => [hkNum(v), hkDate(ht[i])]).filter(([v]) => v > 0 && v < 300);
+  const inNight = hrvVals.filter(([, d]) => d && d.getTime() >= n.t0 - 30 * 60e3 && d.getTime() <= n.wake + 30 * 60e3);
+  if (inNight.length) hrvVals = inNight;
+  const ox = nums(o2).map(v => v <= 1 ? v * 100 : v).filter(v => v >= 70 && v <= 100);
+  const r1 = x => x == null || !Number.isFinite(x) ? undefined : Math.round(x * 10) / 10;
+  const vit = {
+    rhr: r1(avg(nums(rhr).filter(v => v >= 30 && v <= 120))),
+    hrv: r1(avg(hrvVals.map(([v]) => v))),
+    rr: r1(avg(nums(rr).filter(v => v >= 6 && v <= 40))),
+    temp: (t => t == null ? undefined : Math.round(t * 100) / 100)(avg(nums(tmp).filter(v => v >= 30 && v <= 42))),
+    o2: r1(avg(ox)), o2min: ox.length ? Math.min(...ox) : undefined
+  };
+  const { naps, ...hk } = n;
+  await db.collection('sleep').doc(wakeDay).set({ hk: { ...hk, at: Date.now() }, vit }, { merge: true });
+  for (const nap of naps) await db.collection('health').doc(nap.day).set({ nap: nap.min }, { merge: true });
+}
+
+/* --- noches guardadas --- */
+const hkNight = day => { const r = (S.sleep || {})[day]; return r && r.hk && realNight(r) ? r : null; };
+function hkNights(n = 60, from = new Date()) {
+  const out = [];
+  for (let i = 0; i < n; i++) { const day = ymd(addDays(from, -i)), r = hkNight(day); if (r) out.push({ day, i, r }); }
+  return out;
+}
+const sleptOf = (r, day) => (r.hk.asleep || 0) + (Number(((S.health || {})[ymd(addDays(parse(day), -1))] || {}).nap) || 0);
+
+// Mis ciclos: mediana de los ciclos del medio de las últimas 14 noches, acercada a 93 min si hay pocos [H]
+function myCycle() {
+  const lens = [];
+  hkNights(14).forEach(({ r }) => { const c = cycOf(r.hk); c.slice(1, -1).forEach(([s, e]) => { if (e - s >= 50 && e - s <= 160) lens.push(e - s); }); });
+  if (lens.length < 8) return null;
+  lens.sort((a, b) => a - b);
+  const q = p => lens[Math.min(lens.length - 1, Math.floor(p * lens.length))];
+  const med = q(0.5), k = 5;
+  return { min: Math.round((lens.length * med + k * SLP.cyclePrior) / (lens.length + k)), lo: q(0.25), hi: q(0.75), n: lens.length };
+}
+var cycleMemo = { t: 0, v: 90 };
+function cycleLen() {
+  if (Date.now() - cycleMemo.t < 3000) return cycleMemo.v;
+  const sl = sunrisePrefs(), c = sl.useMyCycle ? myCycle() : null;
+  cycleMemo = { t: Date.now(), v: c ? c.min : SLEEP_CYCLE };
+  return cycleMemo.v;
+}
+
+// Deuda de sueño: suma ponderada de lo que faltó en las últimas 14 noches (las recientes pesan más) [H]
+function sleepDebt() {
+  const need = sleepNeed(), rows = [];
+  for (let i = 0; i < SLP.debtNights; i++) {
+    const day = ymd(addDays(new Date(), -i)), r = hkNight(day);
+    if (!r) continue;
+    const slept = sleptOf(r, day), d = Math.max(-SLP.debtSurplusCap, need - slept), w = 1 - i / (2 * (SLP.debtNights - 1));
+    rows.push({ day, i, slept, d, w });
+  }
+  if (rows.length < SLP.debtMinNights) return { n: rows.length, rows };
+  const debt = Math.max(0, rows.reduce((t, r) => t + r.w * r.d, 0));
+  // Plan: acostarse antes entre 30 y 60 min cada noche [F: 0,5–1,5 h extra por noche]
+  const extra = Math.min(60, Math.max(30, Math.round(debt / 5 / 15) * 15)), nights = debt > 20 ? Math.ceil(debt / extra) : 0;
+  return { n: rows.length, rows, debt, extra, nights };
+}
+
+// Regularidad (Sleep Regularity Index, 0–100): % de minutos con el mismo estado (dormido/despierto) que 24 h antes [F]
+function sleepRegularity() {
+  const vec = day => {
+    const r = hkNight(day);
+    if (!r) return null;
+    const noon = parse(ymd(addDays(parse(day), -1))).getTime() + 12 * 3600e3, v = new Uint8Array(1440);
+    let m = Math.round((r.hk.t0 - noon) / 60e3);
+    dec(r.hk.seg).forEach(([s, n]) => { for (let k = 0; k < n; k++, m++) if (s !== 'W' && m >= 0 && m < 1440) v[m] = 1; });
+    return v;
+  };
+  let pairs = 0, agree = 0;
+  for (let i = 0; i < 14; i++) {
+    const a = vec(ymd(addDays(new Date(), -i))), b = vec(ymd(addDays(new Date(), -i - 1)));
+    if (!a || !b) continue;
+    let same = 0;
+    for (let k = 0; k < 1440; k++) if (a[k] === b[k]) same++;
+    pairs++; agree += same / 1440;
+  }
+  if (pairs < 4) return null;
+  // Jet lag social: diferencia del punto medio del sueño entre noches libres y noches con algo a primera hora [F: MCTQ]
+  const mids = { free: [], work: [] };
+  hkNights(14).forEach(({ day, r }) => {
+    const mid = (r.hk.t0 + r.hk.wake) / 2, d = new Date(mid), m = d.getHours() * 60 + d.getMinutes();
+    (timedOf(eventsOn(day)).length ? mids.work : mids.free).push(m < 720 ? m + 1440 : m);
+  });
+  const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+  const sjl = mids.free.length >= 2 && mids.work.length >= 2 ? Math.abs(mean(mids.free) - mean(mids.work)) : null;
+  return { sri: Math.round(agree / pairs * 100), pairs, sjl };
+}
+
+/* --- recuperación: cada dato comparado con lo normal en ti --- */
+var REC_METRICS = [
+  { k: 'hrv', label: 'Variabilidad', unit: 'ms', w: 0.40, dir: 1, log: true, floor: 0.07, dec: 0 },
+  { k: 'rhr', label: 'Pulso en reposo', unit: 'lpm', w: 0.30, dir: -1, floor: 1.5, dec: 0 },
+  { k: 'rr', label: 'Respiración', unit: '/min', w: 0.15, dir: -1, onlyBad: true, floor: 0.4, dec: 1 },
+  { k: 'temp', label: 'Temperatura', unit: '°C', w: 0.15, dir: -1, onlyBad: true, floor: 0.12, dec: 2, rel: true }
+];
+function baselineOf(k, log, floor, beforeIdx = 0) {
+  // Línea base: noches de hace 8 a 60 días; con menos historia, todas las anteriores [H]
+  const all = hkNights(61).filter(x => x.i > beforeIdx && x.r.vit && Number.isFinite(x.r.vit[k]));
+  const use = all.filter(x => x.i >= 8).length >= 14 ? all.filter(x => x.i >= 8) : all;
+  const v = use.map(x => log ? Math.log(x.r.vit[k]) : x.r.vit[k]).sort((a, b) => a - b);
+  if (!v.length) return null;
+  const med = v[Math.floor(v.length / 2)], mad = v.map(x => Math.abs(x - med)).sort((a, b) => a - b)[Math.floor(v.length / 2)];
+  return { med, sd: Math.max(floor, mad * 1.4826), n: v.length };
+}
+function recovery(day = ymd(new Date())) {
+  const r = hkNight(day);
+  if (!r || !r.vit) return null;
+  const rows = [], flags = [];
+  let Z = 0, W = 0, nBase = 0;
+  for (const m of REC_METRICS) {
+    const val = r.vit[m.k];
+    if (!Number.isFinite(val)) continue;
+    const b = baselineOf(m.k, m.log, m.floor);
+    if (!b) { rows.push({ m, val }); continue; }
+    nBase = Math.max(nBase, b.n);
+    const x = m.log ? Math.log(val) : val, z = (x - b.med) / b.sd;
+    let zz = Math.max(-3, Math.min(2, m.dir * z));
+    if (m.onlyBad) zz = Math.min(0, zz);
+    Z += m.w * zz; W += m.w;
+    const show = v => m.log ? Math.exp(v) : v;
+    rows.push({ m, val, z, base: show(b.med), lo: show(b.med - b.sd), hi: show(b.med + b.sd), bad: m.dir * z < -1 });
+    // Señales de que algo no va bien (como hace la app Signos vitales) [H]
+    if (m.k === 'rhr' && (z >= 2 || val - b.med >= 5)) flags.push(m.k);
+    if (m.k === 'rr' && (z >= 2 || val - b.med >= 2)) flags.push(m.k);
+    if (m.k === 'temp' && val - b.med >= 0.5) flags.push(m.k);
+    if (m.k === 'hrv' && z <= -2) flags.push(m.k);
+  }
+  const score = W ? Math.round(Math.max(0, Math.min(100, 50 + 20 * (Z / W)))) : null;
+  return { rows, score, nBase, flags, o2: r.vit.o2, o2min: r.vit.o2min, ready: nBase >= SLP.recFull, provisional: nBase >= SLP.recMin && nBase < SLP.recFull };
+}
+const recBand = s => s == null ? null : s >= 67 ? { t: 'Bien recuperado', c: 'ok', f: 1 } : s >= 34 ? { t: 'A medias', c: 'mid', f: 0.85 } : { t: 'Poco recuperado', c: 'low', f: 0.6 };
+
+/* --- esfuerzo: sRPE (nota × minutos) y, donde no hay nota, el pulso (TRIMP de Edwards) --- */
+function hrMax() {
+  const age = Number(((nuGoals() || {}).profile || {}).age) || 20;
+  const seen = Object.values(S.health || {}).map(h => Number(h.hrmax) || 0);
+  return Math.max(Math.round(208 - 0.7 * age), ...seen);   // [F] Tanaka 2001; si el reloj ha visto más, manda el reloj
+}
+const zoneOf = (hr, max) => { const p = hr / max; return p < 0.5 ? 0 : p < 0.6 ? 1 : p < 0.7 ? 2 : p < 0.8 ? 3 : p < 0.9 ? 4 : 5; };
+const rpeOf = (ev, day) => { const v = ev.repeat === 'weekly' ? (ev.rpes || {})[day] : ev.rpe; return Number.isFinite(v) ? v : null; };
+const isSport = ev => ev.src === 'act' || (ev.cat && (S.acts || []).some(a => a.cat === ev.cat));
+function sessionsOn(day) {
+  return eventsOn(day).filter(e => e.done && isSport(e) && e.time).map(e => {
+    const s = toMin(e.time), f = toMin(endOf(e)) > s ? toMin(endOf(e)) : s + (Number(e.min) || 60);
+    return { ev: e, s, f, min: Number(e.min) || f - s, gym: Array.isArray(e.ex) && e.ex.length > 0, rpe: rpeOf(e, day) };
+  });
+}
+// Cuánto vale 1 TRIMP en puntos sRPE, aprendido de tus entrenos con nota y pulso [H]
+function trimpFactor() {
+  const r = [];
+  for (let i = 0; i < 60; i++) {
+    const day = ymd(addDays(new Date(), -i)), mins = heartMins(day);
+    if (!mins) continue;
+    sessionsOn(day).forEach(x => {
+      if (x.rpe == null) return;
+      const t = trimpIn(mins, x.s, x.f);
+      if (t.cover >= 0.5 * (x.f - x.s) && t.trimp > 10) r.push(x.rpe * x.min / t.trimp);
+    });
+  }
+  if (r.length < 3) return SLP.trimpToLoad;
+  r.sort((a, b) => a - b);
+  return Math.max(1, Math.min(4, r[Math.floor(r.length / 2)]));
+}
+function heartMins(day) {
+  const h = (S.health || {})[day];
+  if (!h || !h.hrm) return null;
+  return String(h.hrm).split(' ').map(x => x.split('.').map(Number)).filter(x => x.length === 3);
+}
+function trimpIn(mins, s = 0, f = 1440, max = hrMax()) {
+  let trimp = 0, cover = 0;
+  mins.forEach(([m, hr, secs]) => { if (m >= s && m < f) { trimp += zoneOf(hr, max) * secs / 60; cover += secs / 60; } });
+  return { trimp, cover };
+}
+function dayLoad(day, k = trimpFactor()) {
+  const mins = heartMins(day), ses = sessionsOn(day), h = (S.health || {})[day] || {};
+  let load = 0, parts = [];
+  // Fuera de los entrenos apuntados: el pulso
+  if (mins) {
+    const outside = mins.filter(([m]) => !ses.some(x => m >= x.s && m < x.f));
+    const t = trimpIn(outside).trimp * k;
+    if (t >= 1) { load += t; parts.push({ what: 'Pulso alto fuera de entrenos', pts: t }); }
+  }
+  for (const x of ses) {
+    const hrT = mins ? trimpIn(mins, x.s, x.f).trimp * k : 0;
+    const pts = x.rpe != null ? x.rpe * x.min : x.gym ? Math.max(SLP.gymRpe * x.min, hrT) : hrT;
+    load += pts;
+    parts.push({ what: x.ev.title, pts, ses: x, guess: x.rpe == null });
+  }
+  // Sin pulso ni entrenos: los minutos de ejercicio de Apple, como esfuerzo moderado (4/10) [H]
+  if (!mins && !ses.length && Number(h.exercise) > 0) { load = Number(h.exercise) * 4; parts.push({ what: 'Minutos de ejercicio del reloj', pts: load }); }
+  const known = !!(mins || ses.length || h.exercise != null);
+  return { load: Math.round(load), parts, known };
+}
+function loadModel() {
+  const k = trimpFactor(), days = [];
+  for (let i = 0; i < 29; i++) { const day = ymd(addDays(new Date(), -i)); days.push({ day, i, ...dayLoad(day, k) }); }
+  const firstKnown = days.filter(d => d.known).map(d => d.i).pop() ?? -1;
+  const sum = (a, b) => days.filter(d => d.i >= a && d.i <= b).reduce((t, d) => t + d.load, 0);
+  const today = days[0];
+  // Semana frente a tu mes, sin solapar: 7 días anteriores frente a los 21 de antes [H, por Lolli 2019]
+  const ratio = firstKnown >= 21 && sum(8, 28) > 0 ? (sum(1, 7) / 7) / (sum(8, 28) / 21) : null;
+  // Objetivo de hoy: lo habitual en un día como hoy × recuperación × sueño, con techo de subida [H]
+  let target = null;
+  if (firstKnown >= SLP.loadMinDays) {
+    const trainToday = eventsOn(ymd(new Date())).some(isSport);
+    const past = days.filter(d => d.i >= 1 && d.i <= 28 && d.known);
+    const isTrain = d => sessionsOn(d.day).length > 0;
+    const pick = past.filter(d => isTrain(d) === trainToday).map(d => d.load).sort((a, b) => a - b);
+    const base = pick.length ? pick[Math.floor(pick.length / 2)] : null;
+    if (base) {
+      const rec = recBand((recovery() || {}).score), last = hkNight(ymd(new Date())), debt = sleepDebt();
+      const sleptH = last ? sleptOf(last, ymd(new Date())) / 60 : null;
+      const sf = sleptH != null && sleptH < 5 ? 0.5 : sleptH != null && sleptH < 6 ? 0.75 : (debt.debt || 0) > 300 || (sleptH != null && sleptH < 7) ? 0.9 : 1;
+      const t = base * (rec ? rec.f : 1) * sf;
+      const cap = 1.3 * 7 * (sum(1, 28) / 28) - sum(1, 6);
+      const hi = Math.max(0, Math.min(t * 1.15, cap > 0 ? cap : t * 1.15));
+      target = { lo: Math.round(Math.min(t * 0.85, hi)), hi: Math.round(hi), rec, sf, trainToday };
+    }
+  }
+  return { today, ratio, target, days, firstKnown, k };
+}
+
+/* --- hora para acostarse y café --- */
+function bedPlan(day = nextWakeDay()) {
+  const L = wakeLimit(day);
+  if (L.off) return null;
+  const sl = sunrisePrefs(), c = cycleLen(), wake = L.fixed != null ? L.fixed : L.latest;
+  const n = Math.max(Number(sl.minCycles), Math.min(Number(sl.maxCycles), Math.ceil(sleepNeed() / c)));
+  const bed = wake - n * c - Number(sl.latency);
+  return { day, wake, n, sleep: n * c, bed, coffee: bed - SLP.coffeeH * 60 };
+}
+
+/* ---------- dibujo ---------- */
+const SVGNS = 'http://www.w3.org/2000/svg';
+function svg(tag, attrs = {}, ...kids) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs)) if (v != null) e.setAttribute(k, v);
+  kids.flat().forEach(k => { if (k == null) return; e.append(typeof k === 'string' ? document.createTextNode(k) : k); });
+  return e;
+}
+const STG = { W: { n: 'Despierto', c: '#FFC46B', y: 0 }, R: { n: 'REM', c: '#D9A8FF', y: 1 }, L: { n: 'Ligero', c: '#2AA5C4', y: 2 }, P: { n: 'Profundo', c: '#5B5CF6', y: 3 }, U: { n: 'Dormido', c: '#2AA5C4', y: 2 } };
+const hm = ms => { const d = new Date(ms); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+// Números a la española: 14,5
+const fx = (v, d = 0) => v.toFixed(d).replace('.', ',');
+const stMin = m => m < 60 ? `${Math.round(m)} min` : hShort(m);
+const hShort = m => { m = Math.max(0, Math.round(m)); return `${Math.floor(m / 60)} h ${pad(m % 60)}`; };
+
+function sleepNightCard(day) {
+  const r = hkNight(day);
+  if (!r) return null;
+  const n = r.hk, total = n.asleep, segs = dec(n.seg), T = segs.reduce((t, [, k]) => t + k, 0) || 1;
+  const W = 340, top = 22, rowH = 26, rows = n.stages ? ['W', 'R', 'L', 'P'] : ['W', 'U'];
+  const ry = s => top + rows.indexOf(s === 'U' && n.stages ? 'L' : s) * rowH + rowH / 2;
+  const g = svg('svg', { viewBox: `0 0 ${W} ${top + rows.length * rowH + 26}`, class: 'sl-hyp', role: 'img', 'aria-label': `Fases de la noche: ${rows.map(s => `${STG[s].n} ${stMin(n.st[s] || 0)}`).join(', ')}` });
+  rows.forEach(s => {
+    g.append(svg('line', { x1: 0, x2: W, y1: ry(s), y2: ry(s), class: 'sl-grid' }),
+      svg('text', { x: W, y: ry(s) - 6, 'text-anchor': 'end', class: 'sl-lbl' }, `${STG[s].n} ${stMin(n.st[s] || 0)}`));
+  });
+  cycOf(n).forEach(([s, e], i) => {
+    const x0 = s / T * W, x1 = e / T * W;
+    if (i) g.append(svg('line', { x1: x0, x2: x0, y1: top - 4, y2: top + rows.length * rowH, class: 'sl-cut' }));
+    if (x1 - x0 > 34) g.append(svg('text', { x: (x0 + x1) / 2, y: 12, 'text-anchor': 'middle', class: 'sl-cyc' }, x1 - x0 > 60 ? `Ciclo ${i + 1}` : String(i + 1)));
+  });
+  let x = 0;
+  segs.forEach(([s, k]) => {
+    const w = k / T * W;
+    g.append(svg('rect', { x: x + 0.5, y: ry(s) - 5, width: Math.max(w - 1, 1.5), height: 10, rx: Math.min(4, w / 2), fill: STG[s].c }, svg('title', {}, `${STG[s].n} · ${k} min`)));
+    x += w;
+  });
+  for (let h = 1; h < 24; h++) {
+    const t = new Date(n.t0); t.setHours(t.getHours() + h, 0, 0, 0);
+    const xx = (t - n.t0) / 60e3 / T * W;
+    if (xx < 8 || xx > W - 8) continue;
+    g.append(svg('text', { x: xx, y: top + rows.length * rowH + 18, 'text-anchor': 'middle', class: 'sl-tick' }, pad(t.getHours())));
+  }
+  const nC = cycOf(n).length, my = myCycle();
+  const WK = {
+    fin: `Te despertaste justo al acabar el ${nC}.º ciclo, en sueño ligero: el mejor momento para levantarte con energía.`,
+    rem: `Te despertaste en REM, al final del ${nC}.º ciclo: buen momento para levantarte.`,
+    prof: 'Te despertaste desde sueño profundo, a mitad de ciclo: es normal notarte más espeso la primera media hora.',
+    medio: `Te despertaste a mitad del ${nC + 1}.º ciclo, en sueño ligero: no es el peor momento, pero no fue al final de uno.`
+  };
+  const quality = [];
+  if (n.eff != null) quality.push(`Dormiste el ${n.eff} % del rato en la cama`);
+  if (n.lat != null) quality.push(`tardaste ${n.lat} min en dormirte`);
+  const need = sleepNeed(), diff = total - need;
+  return el('section', { class: 'sl-night' },
+    el('div', { class: 'sl-k' }, day === ymd(new Date()) ? 'Anoche dormiste' : `La noche del ${dayName(ymd(addDays(parse(day), -1)))} dormiste`),
+    el('div', { class: 'sl-top' },
+      el('b', { class: 'sl-big' }, hShort(total)),
+      el('div', { class: 'sl-when' }, 'te dormiste ', el('b', {}, hm(n.t0)), el('br'), 'despertaste ', el('b', {}, hm(n.wake)))),
+    g,
+    n.stages && n.wakeKind ? el('div', { class: 'sl-cycle' }, el('span', { class: 'sl-cycle-i', 'aria-hidden': 'true' }, n.wakeKind === 'prof' ? '◐' : '☀'),
+      el('div', {}, el('b', {}, nC ? `${nC} ${nC === 1 ? 'ciclo completo' : 'ciclos completos'}. ` : ''), WK[n.wakeKind])) : null,
+    el('p', { class: 'sl-note' }, [quality.length ? quality.join(' y ') + '. ' : '',
+      diff >= -15 ? `Llegaste a tus ${durText(need)}.` : `Te faltaron ${durText(-diff)} para tus ${durText(need)}.`,
+      my ? ` Tus ciclos duran unos ${my.min} min.` : '']),
+    !n.stages ? el('p', { class: 'sl-note' }, 'Esta noche no llegaron las fases: lleva el reloj puesto toda la noche con el modo Dormir.') : null);
+}
+
+function recoveryCard() {
+  const rc = recovery();
+  if (!rc) return null;
+  const head = el('div', { class: 'sl-head' });
+  const box = el('section', { class: 'panel ds-sec sl-card' }, head);
+  if (!rc.nBase || rc.nBase < SLP.recMin) {
+    head.append(el('h2', {}, 'Recuperación'));
+    box.append(el('p', { class: 'muted', style: 'margin:0' }, `Aprendiendo lo normal en ti: ${rc.nBase || 0} de ${SLP.recMin} noches. Hasta entonces, solo ves los datos.`),
+      el('ul', { class: 'sl-plain' }, rc.rows.map(x => el('li', {}, el('span', {}, x.m.label), el('b', { class: 'num' }, `${fx(x.val, x.m.dec)} ${x.m.unit}`)))));
+    return box;
+  }
+  const band = recBand(rc.score);
+  head.append(...[el('span', { class: `sl-pill ${band.c}` }, `${band.t} · ${rc.score} %`), rc.provisional ? el('span', { class: 'muted sl-prov' }, `provisional (${rc.nBase}/${SLP.recFull} noches)`) : null].filter(Boolean));
+  const hrvRow = rc.rows.find(x => x.m.k === 'hrv'), rhrRow = rc.rows.find(x => x.m.k === 'rhr');
+  let msg = band.c === 'ok' ? 'Tu cuerpo ha recuperado bien. Hoy puedes entrenar fuerte.'
+    : band.c === 'mid' ? 'Recuperación a medias. Entrena, pero sin buscar récords.'
+    : 'Hoy tu cuerpo va justo. Mejor un entreno suave o descanso.';
+  if (hrvRow && rhrRow && hrvRow.bad && rhrRow.bad) msg = 'Tu pulso va alto y tu variabilidad baja respecto a lo normal en ti. ' + (band.c === 'ok' ? 'Vigílalo.' : 'Hoy mejor un entreno suave.');
+  box.append(el('p', { class: 'sl-lead' }, msg));
+  if (rc.flags.length >= 2) box.append(el('p', { class: 'sl-warn' }, 'Varios datos se salen de lo normal en ti a la vez. Puede ser cansancio, alcohol, estrés o que estés incubando algo. Si te encuentras mal, descansa.'));
+  box.append(el('div', { class: 'sl-bars' }, rc.rows.filter(x => x.base != null).map(x => {
+    const lo = Math.min(x.lo, x.val), hi = Math.max(x.hi, x.val), pad2 = (hi - lo) * 0.25 || 1, a = lo - pad2, b = hi + pad2, pc = v => `${((v - a) / (b - a) * 100).toFixed(1)}%`;
+    const dv = Math.round((x.val - x.base) * 10) / 10, shown = x.m.rel ? `${dv > 0 ? '+' : dv < 0 ? '−' : ''}${fx(Math.abs(dv), 1)} °C` : `${fx(x.val, x.m.dec)} ${x.m.unit}`;
+    return el('div', { class: 'sl-bar' }, el('span', {}, x.m.label),
+      el('div', { class: 'sl-trk', role: 'img', 'aria-label': `${x.m.label}: ${shown}; lo normal en ti, de ${fx(x.lo, x.m.dec)} a ${fx(x.hi, x.m.dec)}` },
+        el('i', { class: 'sl-band', style: `left:${pc(x.lo)};width:calc(${pc(x.hi)} - ${pc(x.lo)})` }),
+        el('i', { class: `sl-dot${x.bad ? ' bad' : ''}`, style: `left:${pc(x.val)}` })),
+      el('b', { class: 'num' }, shown));
+  })));
+  box.append(el('div', { class: 'sl-legend' }, el('span', {}, el('i', { class: 'sl-band' }), ' lo normal en ti'), el('span', {}, el('i', { class: 'sl-dot' }), ' anoche'),
+    rc.o2 ? el('span', {}, `Oxígeno ${Math.round(rc.o2)} %`) : null));
+  if (rc.o2min && rc.o2min < 90) box.append(el('p', { class: 'muted', style: 'margin:0;font-size:.82rem' }, `El oxígeno bajó hasta el ${Math.round(rc.o2min)} % alguna vez. Una noche suelta no significa nada; si se repite a menudo, coméntalo con tu médico.`));
+  return box;
+}
+
+function rpeButtons(day, x) {
+  return el('div', { class: 'sl-rpe' }, Array.from({ length: 11 }, (_, v) => el('button', { type: 'button', class: x.rpe === v ? 'on' : null, 'aria-label': `Nota ${v} de 10`,
+    onclick: () => saveRpe(x.ev, day, v) }, String(v))));
+}
+function saveRpe(ev, day, v) {
+  const id = ev.id;
+  patchDoc('events', id, ev.repeat === 'weekly' ? { [`rpes.${day}`]: v } : { rpe: v });
+  toast(`Esfuerzo guardado: ${v} de 10`);
+}
+
+function effortCard() {
+  const M = loadModel(), today = ymd(new Date()), t = M.today, box = el('section', { class: 'panel ds-sec sl-card' });
+  box.append(el('header', {}, el('h2', {}, 'Esfuerzo')));
+  if (M.target) {
+    const left = Math.max(0, M.target.lo - t.load);
+    box.append(el('p', { class: 'sl-lead' }, t.load >= M.target.hi ? 'Ya has hecho el esfuerzo de hoy. Lo que queda, mejor suave.'
+      : left ? `Te quedan unos ${Math.round(left / 10) * 10} puntos de esfuerzo para lo recomendado hoy.` : 'Estás dentro de lo recomendado para hoy.'));
+    const max = Math.max(M.target.hi * 1.3, t.load * 1.1, 1), px = v => `${Math.min(100, v / max * 100).toFixed(1)}%`;
+    box.append(el('div', { class: 'sl-num' }, el('b', { class: 'num' }, String(t.load)), el('span', { class: 'muted' }, ` de ${M.target.lo} a ${M.target.hi} recomendados`)),
+      el('div', { class: 'sl-load', role: 'img', 'aria-label': `Hoy ${t.load} puntos; recomendado de ${M.target.lo} a ${M.target.hi}` },
+        el('i', { class: 'sl-load-fill', style: `width:${px(t.load)}` }),
+        el('i', { class: 'sl-load-zone', style: `left:${px(M.target.lo)};width:calc(${px(M.target.hi)} - ${px(M.target.lo)})` })),
+      el('p', { class: 'muted sl-why' }, [M.target.rec ? `${M.target.rec.t}` : 'Sin datos de recuperación', M.target.sf < 1 ? ' y has dormido poco' : '',
+        `: ${M.target.trainToday ? 'día de entreno' : 'día sin entreno'}.`]));
+  } else {
+    const n = Math.max(0, M.firstKnown + 1);
+    box.append(el('div', { class: 'sl-num' }, el('b', { class: 'num' }, String(t.load)), el('span', { class: 'muted' }, ' puntos hoy')),
+      el('p', { class: 'muted', style: 'margin:0' }, `Aprendiendo tu esfuerzo normal: ${Math.min(n, SLP.loadMinDays)} de ${SLP.loadMinDays} días. Después te diré cuánto te conviene hacer cada día.`));
+  }
+  // Los entrenos de hoy: nota del 0 al 10
+  const ses = sessionsOn(today);
+  if (ses.length) box.append(el('div', { class: 'sl-ses' }, ses.map(x => el('div', {},
+    el('div', { class: 'sl-ses-h' }, el('b', {}, x.ev.title), el('span', { class: 'muted' }, ` · ${x.min} min${x.rpe != null ? ` · nota ${x.rpe}/10` : ' · ¿cómo de duro ha sido?'}`)),
+    rpeButtons(today, x)))));
+  if (M.ratio != null) {
+    const r = M.ratio, a = 0.4, b = 1.8, pc = v => `${((Math.max(a, Math.min(b, v)) - a) / (b - a) * 100).toFixed(1)}%`;
+    const txt = r < 0.8 ? 'Esta semana estás haciendo menos de lo habitual.' : r <= 1.3 ? 'Vas a un ritmo parecido a tu mes: zona buena.' : r <= 1.5 ? 'Estás subiendo la carga: vigila el descanso.' : 'Has subido mucho de golpe. Mejor estabilizar unos días.';
+    box.append(el('div', { class: 'sl-sub' }, el('span', { class: 'muted' }, 'Esta semana frente a tu mes'),
+      el('div', { class: 'sl-acwr', role: 'img', 'aria-label': `${r.toFixed(1).replace('.', ',')} veces tu carga habitual` },
+        el('i', { class: 'z1', style: `left:${pc(0.8)};width:calc(${pc(1.3)} - ${pc(0.8)})` }), el('i', { class: 'z3', style: `left:${pc(1.5)};right:0` }),
+        el('i', { class: 'sl-dot', style: `left:${pc(r)}` })),
+      el('div', { class: 'sl-ticks' }, ['0,8', '1,3', '1,5'].map((tt, i) => el('span', { style: `left:${pc([0.8, 1.3, 1.5][i])}` }, tt))),
+      el('p', { class: 'muted', style: 'margin:0' }, `${fx(r, 1)} veces tu carga habitual. ${txt} Es una guía para no subir de golpe, no predice lesiones.`)));
+  }
+  // Deuda de sueño
+  const D = sleepDebt();
+  const debtBox = el('div', { class: 'sl-sub' }, el('div', { class: 'sl-row' }, el('span', { class: 'muted' }, `Deuda de sueño · ${SLP.debtNights} noches`), el('span', { class: 'muted' }, `necesitas ${durText(sleepNeed())}`)));
+  if (D.debt == null) debtBox.append(el('p', { class: 'muted', style: 'margin:0' }, `Faltan noches para calcularla: ${D.n} de ${SLP.debtMinNights}.`));
+  else {
+    debtBox.append(el('div', { class: 'sl-num' }, el('b', { class: 'num' }, D.debt < 15 ? 'Sin deuda' : hShort(D.debt)), D.debt >= 15 ? el('span', { class: 'muted' }, ' por recuperar') : null));
+    const G0 = 28, bw = (340 - G0) / SLP.debtNights, base = 40, u = 20, gsv = svg('svg', { viewBox: '0 0 340 92', class: 'sl-debt', role: 'img', 'aria-label': 'Horas de más o de menos cada noche frente a lo que necesitas' });
+    gsv.append(svg('line', { x1: G0, x2: 340, y1: base, y2: base, class: 'sl-axis' }), svg('text', { x: 0, y: base + 4, class: 'sl-tick2' }, durText(sleepNeed())));
+    D.rows.forEach(r => {
+      const v = -r.d / 60, hgt = Math.min(36, Math.abs(v) * u), x = G0 + (SLP.debtNights - 1 - r.i) * bw;
+      gsv.append(svg('rect', { x: x + 3, y: v > 0 ? base - hgt : base + 1, width: bw - 6, height: Math.max(hgt, 2), rx: 3, class: v > 0 ? 'plus' : 'minus' },
+        svg('title', {}, `${dayName(r.day)}: ${hShort(r.slept)} (${v >= 0 ? '+' : '−'}${durText(Math.abs(r.d))})`)));
+    });
+    gsv.append(svg('text', { x: G0, y: 90, class: 'sl-tick2' }, 'hace 2 semanas'), svg('text', { x: 340, y: 90, 'text-anchor': 'end', class: 'sl-tick2' }, 'anoche'));
+    debtBox.append(gsv, el('p', { class: 'muted', style: 'margin:0' }, D.nights ? `Plan: acuéstate ${D.extra} min antes durante ${D.nights} ${D.nights === 1 ? 'noche' : 'noches'}. Dormir mucho el fin de semana no la recupera del todo.` : 'Vas al día con el sueño.'));
+  }
+  box.append(debtBox);
+  return box;
+}
+
+function weekCard() {
+  const nights = [];
+  for (let i = 6; i >= 0; i--) { const day = ymd(addDays(new Date(), -i)); nights.push({ day, r: hkNight(day) }); }
+  if (nights.filter(x => x.r).length < 2) return null;
+  const A = 21 * 60, B = 35 * 60, L = 22, PW = 340 - L - 4, sx = m => L + (Math.max(A, Math.min(B, m)) - A) / (B - A) * PW;
+  const rel = (ms, day) => (ms - parse(ymd(addDays(parse(day), -1))).getTime()) / 60e3;  // minutos desde la medianoche anterior
+  const got = nights.filter(x => x.r), beds = got.map(x => rel(x.r.hk.t0, x.day)), avg = got.reduce((t, x) => t + x.r.hk.asleep, 0) / got.length;
+  const g = svg('svg', { viewBox: `0 0 340 ${nights.length * 24 + 26}`, class: 'sl-week', role: 'img', 'aria-label': 'Horario de sueño de cada noche de la semana' });
+  for (let h = 22; h <= 34; h += 2) g.append(svg('line', { x1: sx(h * 60), x2: sx(h * 60), y1: 0, y2: nights.length * 24, class: 'sl-grid2' }),
+    svg('text', { x: sx(h * 60), y: nights.length * 24 + 18, 'text-anchor': 'middle', class: 'sl-tick2' }, pad(h % 24)));
+  const sorted = beds.slice().sort((a, b) => a - b), med = sorted[Math.floor(sorted.length / 2)];
+  g.append(svg('line', { x1: sx(med), x2: sx(med), y1: 0, y2: nights.length * 24, class: 'sl-med' }));
+  nights.forEach(({ day, r }, i) => {
+    const y = i * 24 + 5, last = i === nights.length - 1;
+    g.append(svg('text', { x: 0, y: y + 11, class: last ? 'sl-day on' : 'sl-day' }, "LMXJVSD"[(parse(day).getDay() + 6) % 7]));
+    if (!r) return;
+    const a = rel(r.hk.t0, day), b = rel(r.hk.wake, day);
+    g.append(svg('rect', { x: sx(a), y, width: Math.max(2, sx(b) - sx(a)), height: 14, rx: 4, class: last ? 'last' : 'bar' }, svg('title', {}, `${dayName(day)}: de ${hm(r.hk.t0)} a ${hm(r.hk.wake)} · ${hShort(r.hk.asleep)}`)));
+  });
+  const reg = sleepRegularity(), spread = Math.max(...beds) - Math.min(...beds);
+  const earliest = got[beds.indexOf(Math.min(...beds))], latest = got[beds.indexOf(Math.max(...beds))];
+  const lines = [`Media ${hShort(avg)} por noche.`];
+  if (reg) lines.push(` Regularidad ${reg.sri}/100: ${reg.sri >= SLP.sriRegular ? 'muy regular, sigue así.' : reg.sri >= SLP.sriIrregular ? 'regular a medias.' : 'irregular; acostarte cerca de la línea te ayudaría tanto como dormir más.'}`);
+  if (reg && reg.sjl != null && reg.sjl >= 60) lines.push(` Los días libres duermes ${durText(reg.sjl)} desplazado respecto a los de clase: es como un pequeño jet lag cada semana.`);
+  return el('section', { class: 'panel ds-sec sl-card' },
+    el('p', { class: 'sl-lead' }, spread >= 45 ? `Esta semana te has acostado entre las ${hm(earliest.r.hk.t0)} y las ${hm(latest.r.hk.t0)}` : `Esta semana te has acostado casi siempre hacia las ${hm(got[0].r.hk.t0)}`),
+    g, el('p', { class: 'muted', style: 'margin:0' }, lines));
+}
+
+// Consejo para esta noche: hora de acostarse por ciclos, café y siesta
+function tonightCard() {
+  const P = bedPlan(), D = sleepDebt(), last = hkNight(ymd(new Date()));
+  if (!P) return null;
+  const tips = [el('li', {}, `Para dormir ${P.n} ciclos (${durText(P.sleep)}) y despertarte a las ${dayMin(P.wake)}, acuéstate hacia las `, el('b', {}, dayMin(P.bed)), '.')];
+  if (new Date().getHours() < 20) tips.push(el('li', {}, 'Último café antes de las ', el('b', {}, dayMin(P.coffee)), ' (9 h antes de acostarte; un pre-entreno, 13 h).'));
+  const tired = (D.debt || 0) >= 120 || (last && last.hk.asleep < 360);
+  if (tired && new Date().getHours() < 15) tips.push(el('li', {}, 'Si puedes, una siesta de ', el('b', {}, '20 min'), ' antes de las 15:30. Más larga te dejaría espeso y te quitaría sueño por la noche.'));
+  return el('section', { class: 'panel ds-sec sl-card' }, el('header', {}, el('h2', {}, 'Para esta noche')), el('ul', { class: 'sl-tips' }, tips));
+}
+
+function sleepSummaryLine() {
+  const day = ymd(new Date()), r = hkNight(day);
+  if (!r) return null;
+  const rc = recovery(day), band = rc && rc.nBase >= SLP.recMin ? recBand(rc.score) : null, nC = cycOf(r.hk).length;
+  return `Anoche ${hShort(r.hk.asleep)}` + (nC ? ` · ${nC} ciclos` : '') + (band ? ` · ${band.t.toLowerCase()}` : '');
+}
+
+/* --- guía del atajo «Mi Agenda Noche» --- */
+function nightShortcutGuide(hk) {
+  const cfg = window.FIREBASE_CONFIG || {}, B = t => el('b', {}, t);
+  const url = `https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/(default)/documents/users/${authUser ? authUser.uid : ''}/inbox?key=${cfg.apiKey}`;
+  const body = `{"fields":{"raw":{"stringValue":"${hk}|noche|FECHA|FASE|FASEINI|FASEFIN|REPOSO|VFC|VFCHORA|RESP|TEMP|OXIGENO"}}}`;
+  const find = (n, what) => el('li', {}, B('Buscar muestras médicas'), ` · tipo `, B(what), ' · ', B('Fecha de inicio'), ' «está entre los últimos» ', B('1 días'), ' · ', B('Agrupar por'), ' ', B('Ninguno'), '.');
+  return el('details', { class: 'panel ds-sec ds-fold', open: hkNights(14).length ? null : true }, el('summary', {}, 'Configurar el atajo «Mi Agenda Noche» (sueño y recuperación)'),
+    el('p', { class: 'qa-hint', style: 'margin:0' }, 'Manda a la app las fases de la noche, el pulso, la variabilidad, la respiración, la temperatura y el oxígeno. Se hace una vez, en Atajos. Si un tipo no te sale, sáltalo y deja su palabra vacía en el texto.'),
+    el('ol', { class: 'ds-steps' },
+      el('li', {}, 'Atajos › ', B('+'), ' › llámalo ', B('Mi Agenda Noche'), '.'),
+      find(1, 'Análisis del sueño'), find(2, 'Frecuencia cardiaca en reposo'), find(3, 'Variabilidad de la frecuencia cardiaca'),
+      find(4, 'Frecuencia respiratoria'), find(5, 'Temperatura de la muñeca al dormir'), find(6, 'Saturación de oxígeno'),
+      el('li', {}, B('Texto'), ' y pega esto:', hsCopyBox('Texto', body, 4),
+        'Cambia cada palabra en mayúsculas por su variable. Para las fechas, toca la variable, elige la propiedad que se indica y en ', B('Formato de fecha'), ' pon ', B('ISO 8601'), ':',
+        el('ul', {},
+          el('li', {}, B('FECHA'), ' → «Fecha actual» (ISO 8601)'),
+          el('li', {}, B('FASE'), ' → «Muestras médicas» › ', B('Valor')),
+          el('li', {}, B('FASEINI'), ' → «Muestras médicas» › ', B('Fecha de inicio'), ' (ISO 8601)'),
+          el('li', {}, B('FASEFIN'), ' → «Muestras médicas» › ', B('Fecha de finalización'), ' (ISO 8601)'),
+          el('li', {}, B('REPOSO'), ' → «Muestras médicas 2»'),
+          el('li', {}, B('VFC'), ' → «Muestras médicas 3»; ', B('VFCHORA'), ' → «Muestras médicas 3» › ', B('Fecha de inicio'), ' (ISO 8601)'),
+          el('li', {}, B('RESP'), ' → «Muestras médicas 4»; ', B('TEMP'), ' → «Muestras médicas 5»; ', B('OXIGENO'), ' → «Muestras médicas 6»'))),
+      el('li', {}, B('Reemplazar texto'), ': busca ', el('code', {}, '\\n'), ' y cámbialo por ', el('code', {}, '~'), ' en «Texto». Toca la flecha y activa ', B('Expresión regular'), '. (Así las listas viajan en una sola línea.)'),
+      el('li', {}, B('Obtener contenido de URL'), ' con esta dirección:', hsCopyBox('Dirección', url, 4),
+        B('Método'), ' POST; ', B('Cabeceras'), ': ', el('code', {}, 'Content-Type'), ' = ', el('code', {}, 'application/json'), '; ', B('Cuerpo de la solicitud'), ': ', B('Archivo'), ' → la variable ', B('Texto actualizado'), ' (el resultado de «Reemplazar texto»).'),
+      el('li', {}, 'Pulsa ▶. En un momento, aquí arriba aparecerá tu noche.'),
+      el('li', {}, 'Para que vaya solo: ', B('Automatización'), ' › ', B('+'), ' › ', B('Hora del día'), ' › 9:00, ', B('Diariamente'), ', ', B('Ejecutar inmediatamente'), ' › ', B('Mi Agenda Noche'),
+        '. Crea otra igual a las 12:00 por si te levantas tarde. Si quieres verla antes, ejecútalo a mano al despertarte (el reloj tarda unos minutos en pasar la noche al iPhone).')));
+}
+
+/* --- nota de esfuerzo al acabar un entreno --- */
+function askRpe(evId, day) {
+  const sh = $('#rpeSheet');
+  if (!sh) return;
+  $('#rpeBtns').replaceChildren(...Array.from({ length: 11 }, (_, v) => el('button', { type: 'button', 'aria-label': `${v} de 10`, onclick: () => {
+    const ev = (S.events || []).find(e => e.id === evId);
+    patchDoc('events', evId, ev && ev.repeat === 'weekly' ? { [`rpes.${day}`]: v } : { rpe: v });
+    rpeClose();
+    toast(`Esfuerzo guardado: ${v} de 10`);
+  } }, String(v))));
+  sh.hidden = false;
+  document.documentElement.classList.add('sheet-open');
+}
+function rpeClose() { $('#rpeSheet').hidden = true; document.documentElement.classList.remove('sheet-open'); }
+$('#rpeSkip').addEventListener('click', rpeClose);
+$('#rpeSheet').addEventListener('click', e => { if (e.target === e.currentTarget) rpeClose(); });
+
 
 /* ---------- importar una copia ---------- */
 // Escribe en tu cuenta todo lo que haya en el archivo; lo que tenga el mismo identificador se sustituye

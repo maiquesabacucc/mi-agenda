@@ -12,7 +12,9 @@ Ideas apuntadas por el usuario (pestaña Notas, 25-11-2026), ordenadas por apart
 
 ## Reloj (Apple Salud)
 
-- [ ] **Analizar los datos del reloj:** sueño (horas, fases, hora de dormirse y despertarse) y lo demás que mande el atajo. Requiere ampliar el atajo de Salud para que envíe también el sueño.
+- [x] **Analizar los datos del reloj:** pestaña «Sueño» con la noche (fases y ciclos), recuperación, esfuerzo, deuda de sueño, semana y consejos para esta noche. Parámetros en reports/Parámetros de sueño y esfuerzo.md.
+- [ ] Probar con datos reales: crear el atajo «Mi Agenda Noche» y ampliar «Salud - Mi agenda» con el pulso.
+- [ ] Ideas pendientes: aviso de «hora de ir a dormir», relacionar el sueño con la agenda (entrenos tarde, exámenes) y cronotipo.
 
 ## Diseño
 
