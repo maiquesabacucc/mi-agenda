@@ -8,7 +8,9 @@ const webpush = require('web-push');
 const VAPID_PUBLIC = 'BPk4Y2G_EssfIHo-tZOb2UlaFjN0VR5h6aFy-UiWE-Xo-H1-m3elCdkLiMDRqYKNLUMcDnrb136j2L8PsjdodfE';
 const SITE = 'https://maiquesabacucc.github.io/mi-agenda/';
 const GOVEE = 'https://openapi.api.govee.com/router/api/v1';
-const WINDOW = 13 * 60e3;          // cada ejecución se encarga de los próximos 13 minutos
+// cron-job.org lo lanza cada 5 minutos (y GitHub, por su cuenta, de vez en cuando):
+// cada ejecución se encarga de los próximos 6 minutos
+const WINDOW = 6 * 60e3;
 const sleep = ms => new Promise(r => setTimeout(r, Math.max(0, ms)));
 
 async function main() {

@@ -86,8 +86,9 @@ Te llegan aunque la app esté cerrada: **antes de empezar** algo, **«¿Has ido?
 Cómo funciona:
 
 - La app prepara la lista de avisos de los próximos 3 días y la guarda en tu Firebase.
-- Cada 10 minutos, un proceso gratuito de GitHub (`.github/workflows/avisos.yml` y `avisos/enviar.js`) mira si toca mandar alguno.
-- GitHub a veces va con unos minutos de retraso.
+- Un proceso gratuito de GitHub (`.github/workflows/avisos.yml` y `avisos/enviar.js`) mira si toca mandar alguno o encender la bombilla.
+- Lo lanza **cron-job.org cada 5 minutos** (cronjob «Avisos Mi Agenda»: POST a `https://api.github.com/repos/maiquesabacucc/mi-agenda/actions/workflows/avisos.yml/dispatches` con el cuerpo `{"ref":"main"}` y una clave de GitHub de grano fino con permiso *Actions: Read and write* solo en mi-agenda). GitHub, por su cuenta, solo lo lanza cada pocas horas.
+- Si un día dejan de llegar avisos, mira en cron-job.org que el cronjob siga activo y responda 204.
 - Si pasas 3 días sin abrir la app, se acaban los avisos preparados. Al abrirla se preparan otra vez.
 
 ### Puesta en marcha (una sola vez)
