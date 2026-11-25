@@ -127,11 +127,34 @@ details.gym > summary{cursor:pointer;font-family:var(--display);font-weight:800;
 .gx-top label{flex:1;min-width:180px}
 .gx-list{display:grid;gap:10px}
 .gx{border:1px solid var(--line);border-radius:8px;padding:10px;display:grid;gap:6px;background:var(--bg)}
-.gx-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}
+.gx-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto auto;gap:2px;align-items:center}
+.gx-head .icon{min-width:36px;min-height:36px;padding:0;justify-content:center}
 .gx-head input{font-weight:600;background:var(--surface)}
 .gx-last{font-size:.78rem}
 .gx-sets{display:grid;gap:4px}
 .gx-set{display:grid;grid-template-columns:1.4rem minmax(0,1fr) auto minmax(0,1fr) auto auto;gap:6px;align-items:center}
+.gx-set .gx-range{width:auto;padding:6px 4px;font-size:.8rem;background:var(--surface);color:var(--ink);min-width:3.6rem}
+.gx-set input{font-variant-numeric:tabular-nums}
+.gx-head .icon,.gx-set .icon,.gx-setup{touch-action:manipulation}
+.gx-set.up [data-f=kg]{border-color:var(--fit);box-shadow:inset 0 0 0 1px var(--fit)}
+.gx-tip.up{color:var(--fit)}
+.gx-setup{justify-self:start;border:0;background:transparent;padding:0;font:500 .8rem var(--body);color:var(--muted);text-align:left}
+.gx-ficha{display:grid;gap:8px;padding:10px;border:1px dashed var(--line);border-radius:8px}
+.gx-ficha label{display:grid;gap:4px;font-size:.8rem;font-weight:600;color:var(--muted)}
+.gx-ficha input:not([type=checkbox]),.gx-ficha select{background:var(--surface);padding:6px 8px}
+.gx-ficha-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.gx-ficha .gx-check{display:flex;align-items:center;gap:8px;color:var(--ink)}
+.gx-ficha .gx-check input{width:20px;height:20px;margin:0}
+.gx-ficha .gx-step{display:flex;align-items:center;gap:8px}
+.gx-ficha .gx-step select{width:auto}
+.gx-ficha p{margin:0;font-size:.75rem}
+.gx-rt{display:grid;gap:8px}
+.gx-rt > .ghost{justify-self:start;padding-left:0}
+.gx-rt-form{display:flex;gap:8px;flex-wrap:wrap}
+.gx-rt-form input{flex:1;min-width:160px}
+.rt-per{padding:4px 0;font-size:.82rem}
+.rt-sets{display:flex;gap:8px 12px;flex-wrap:wrap;width:100%}
+#acForm .rt-sets label{display:flex;align-items:center;gap:6px;font-size:.82rem}
 .gx-set input{background:var(--surface);padding:6px 8px}
 .gx-set .u{font-size:.78rem;color:var(--muted)}
 .gx-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:12px}
@@ -1817,6 +1840,14 @@ button.danger-solid{background:var(--hot);border-color:var(--hot);color:#fff}
       <button type="button" id="gxAdd">+ Ejercicio</button>
       <div id="sessLibSlot" style="flex:1;min-width:200px"></div>
     </div>
+    <div class="gx-rt">
+      <button type="button" class="ghost" id="gxSaveRt">Guardar como rutina</button>
+      <div class="gx-rt-form" id="gxRtForm" hidden>
+        <input id="gxRtName" maxlength="40" autocomplete="off" placeholder="Ej.: Empuje, Pierna…" aria-label="Nombre de la rutina">
+        <button type="button" class="primary" id="gxRtOk">Guardar</button>
+        <button type="button" class="ghost" id="gxRtCancel">Cancelar</button>
+      </div>
+    </div>
     <div class="muted num" id="gxTotal" style="font-size:.85rem"></div>
     <label style="display:grid;gap:4px;font-size:.82rem;font-weight:600;color:var(--muted)">Notas <input id="sessNotes" maxlength="300" placeholder="Cómo te has sentido…"></label>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -2385,94 +2416,217 @@ function lastSetsFor(name, uptoDate) {
 const setsText = sets => sets.map(s => `${s.kg ?? '–'}×${s.reps ?? '–'}`).join(' · ');
 const kgText = n => String(n).replace('.', ',');
 
-// Regla de progresión: manda la primera serie, la de más fuerza; si llegó al tope del rango, hoy +2,5 kg; si no, el mismo peso
-function suggestion(lastSets, target) {
-  const count = target ? target.sets : lastSets.length;
-  const top = target ? (Number(String(target.range).split('-')[1]) || null) : null;
-  const reached = !!top && lastSets[0].reps >= top;
-  const rows = Array.from({ length: count }, (_, i) => {
-    const kg = (lastSets[i] || lastSets[lastSets.length - 1]).kg;
-    return { kg: kg ? kg + (reached ? 2.5 : 0) : kg, reps: null };
-  });
-  const kgs = [...new Set(rows.map(r => r.kg).filter(Boolean))];
-  if (!kgs.length) return { rows, text: '' };
-  const text = `Hoy: ${kgs.map(kgText).join(' / ')} kg` + (!top ? ''
-    : reached ? ` · sube 2,5 kg: llegaste a ${top} reps en la primera serie`
-    : ` · mismo peso hasta llegar a ${top} reps en la primera serie`);
-  return { rows, text };
+/* ficha de cada ejercicio: se recuerda por su nombre (colección "exercises") */
+// Ajustes de la máquina, si se hace por lado, cuánto subir y los rangos de cada serie para los entrenos libres
+const EX_STEPS = [1, 2, 2.5, 5];
+const exKey = name => fold((name || '').trim()).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
+const fichaOf = name => ((S.exFichas || {})[exKey(name)]) || {};
+const stepOf = name => EX_STEPS.includes(Number(fichaOf(name).step)) ? Number(fichaOf(name).step) : 2.5;
+function saveFicha(name, fields) {
+  const k = exKey(name), n = (name || '').trim();
+  if (!k) return;
+  S.exFichas = { ...(S.exFichas || {}), [k]: { ...fichaOf(n), name: n, ...fields } };
+  if (db) db.collection('exercises').doc(k).set({ name: n, ...fields }, { merge: true }).catch(e => toast(errMsg(e)));
+}
+// "4-6" → 6; sin rango no hay tope y no se sugiere subir
+const rangeTop = r => { const m = String(r || '').match(/(\d+)\s*[-–]\s*(\d+)/); return m ? Number(m[2]) : null; };
+const rangeText = r => String(r || '').replace('-', '–');
+// Describe los rangos por serie: "3 series · 8–10" o "serie 1: 4–6 · series 2–3: 8–10"
+function rangesText(ranges) {
+  const rs = ranges.map(r => r || '');
+  if (!rs.some(Boolean)) return `${rs.length} ${rs.length === 1 ? 'serie' : 'series'}`;
+  if (rs.every(r => r === rs[0])) return `${rs.length} ${rs.length === 1 ? 'serie' : 'series'} · ${rangeText(rs[0])} reps`;
+  const groups = [];
+  rs.forEach((r, i) => { const g = groups[groups.length - 1]; if (g && g.r === r) g.to = i; else groups.push({ r, from: i, to: i }); });
+  return groups.map(g => `${g.from === g.to ? 'serie ' + (g.from + 1) : `series ${g.from + 1}–${g.to + 1}`}: ${g.r ? rangeText(g.r) : 'libre'}`).join(' · ');
 }
 
-function gxSetRow(v = {}, range) {
-  return el('div', { class: 'gx-set' },
+// Doble progresión serie a serie: si la última vez llegaste al tope del rango de esa serie, hoy sube el peso de esa serie;
+// si no, el mismo peso hasta llegar. Así, un top set y sus back-off progresan cada uno a su ritmo.
+function planSets(lastSets, ranges, step) {
+  return ranges.map((r, i) => {
+    const same = lastSets && lastSets[i], prev = same || (lastSets && lastSets[lastSets.length - 1]);
+    const top = rangeTop(r), kg = prev && prev.kg != null ? Number(prev.kg) : null;
+    const up = !!(same && top && kg != null && Number(same.reps) >= top);
+    return { kg: kg == null ? null : Math.round((kg + (up ? step : 0)) * 100) / 100, reps: null, range: r || '', up, need: same && top && !up ? top - Number(same.reps || 0) : null };
+  });
+}
+function planText(rows, hasLast) {
+  if (!hasLast) return '';
+  const up = rows.map((r, i) => ({ ...r, i })).filter(r => r.up);
+  if (up.length) return '↑ Sube: ' + up.map(r => `serie ${r.i + 1} a ${kgText(r.kg)} kg`).join(' · ') + (up.length < rows.length ? ' · las demás, mismo peso' : '');
+  const need = rows.map((r, i) => ({ ...r, i })).filter(r => r.need != null);
+  if (!need.length) return rows.some(r => r.range) ? 'Mismo peso que la última vez' : 'Pon un rango a cada serie y te diré cuándo subir';
+  return 'Mismo peso. Para subir: ' + need.map(r => `serie ${r.i + 1} a ${rangeTop(r.range)} reps`).join(' · ');
+}
+
+function gxSetRow(v = {}) {
+  const range = el('select', { class: 'gx-range', 'aria-label': 'Objetivo de repeticiones', 'data-f': 'range', onchange: e => {
+    const card = e.currentTarget.closest('.gx');
+    card.rangesChanged(); gxTotals();
+  } }, el('option', { value: '' }, '—'), RT_RANGES.map(r => el('option', { value: r }, rangeText(r))));
+  range.value = RT_RANGES.includes(v.range) ? v.range : '';
+  return el('div', { class: 'gx-set' + (v.up ? ' up' : '') },
     el('span', { class: 'u num' }),
-    el('input', { type: 'number', min: 0, step: '0.5', inputmode: 'decimal', 'aria-label': 'Kilos', 'data-f': 'kg', value: v.kg ?? '', oninput: gxTotals }),
+    el('input', { type: 'number', min: 0, step: '0.25', inputmode: 'decimal', 'aria-label': 'Kilos', 'data-f': 'kg', value: v.kg ?? '', oninput: gxTotals }),
     el('span', { class: 'u' }, 'kg ×'),
-    el('input', { type: 'number', min: 0, inputmode: 'numeric', 'aria-label': 'Repeticiones', 'data-f': 'reps', value: v.reps ?? '', placeholder: range || null, oninput: gxTotals }),
-    el('span', { class: 'u' }, 'reps'),
+    el('input', { type: 'number', min: 0, inputmode: 'numeric', 'aria-label': 'Repeticiones', 'data-f': 'reps', value: v.reps ?? '', placeholder: v.range ? rangeText(v.range) : 'reps', oninput: gxTotals }),
+    range,
     el('button', { type: 'button', class: 'ghost icon', 'aria-label': 'Quitar serie', onclick: e => {
       const card = e.currentTarget.closest('.gx');
-      e.currentTarget.parentElement.remove(); numberSets(card); gxTotals();
+      e.currentTarget.parentElement.remove(); numberSets(card); card.rangesChanged(); gxTotals();
     } }, '×'));
 }
 function numberSets(card) { card.querySelectorAll('.gx-set').forEach((r, i) => { r.firstChild.textContent = i + 1; }); }
+const cardRanges = card => [...card.querySelectorAll('.gx-set [data-f=range]')].map(s => s.value);
 
 function gxCard(name = '', rows = null, target = null) {
-  const range = target ? target.range : '';
-  const nameIn = el('input', { class: 'gx-name', list: 'exNames', placeholder: 'Ejercicio', 'aria-label': 'Ejercicio', maxlength: 60, value: name });
-  const targetBox = el('div', { class: 'gx-target' }, target ? `Objetivo: ${target.sets} series · ${target.range} reps` : '');
-  targetBox.hidden = !target;
-  const tip = el('div', { class: 'gx-tip' });
+  const nameIn = el('input', { class: 'gx-name', list: 'exNames', autocomplete: 'off', placeholder: 'Ejercicio…', 'aria-label': 'Ejercicio', maxlength: 60, value: name });
+  const targetBox = el('div', { class: 'gx-target' });
+  const tip = el('div', { class: 'gx-tip', 'aria-live': 'polite' });
   const last = el('div', { class: 'gx-last muted' });
+  const setupLine = el('button', { type: 'button', class: 'gx-setup' });
   const setsBox = el('div', { class: 'gx-sets' });
+  // La ficha del ejercicio, plegada
+  const setupIn = el('input', { maxlength: 60, autocomplete: 'off', placeholder: 'Ej.: polea 7, asiento 4…', 'aria-label': 'Ajustes de la máquina' });
+  const sideIn = el('input', { type: 'checkbox' });
+  const stepSel = el('select', { 'aria-label': 'Cuánto subir' }, EX_STEPS.map(s => el('option', { value: s }, `${kgText(s)} kg`)));
+  const ficha = el('div', { class: 'gx-ficha', hidden: true },
+    el('label', {}, 'Ajustes de la máquina', setupIn),
+    el('div', { class: 'gx-ficha-row' },
+      el('label', { class: 'gx-check' }, sideIn, 'Por lado (unilateral)'),
+      el('label', { class: 'gx-step' }, 'Subir de', stepSel)),
+    el('p', { class: 'muted' }, 'Se guarda con el ejercicio y te saldrá la próxima vez.'));
+  const fichaBtn = el('button', { type: 'button', class: 'ghost icon', 'aria-label': 'Ficha del ejercicio', 'aria-expanded': 'false', title: 'Ficha del ejercicio' }, '⚙');
+  const move = d => {
+    const sib = d < 0 ? card.previousElementSibling : card.nextElementSibling;
+    if (!sib) return;
+    d < 0 ? card.parentElement.insertBefore(card, sib) : card.parentElement.insertBefore(sib, card);
+    gxTotals();
+    (d < 0 ? card.querySelector('[data-mv=up]') : card.querySelector('[data-mv=down]')).focus();
+  };
+  const removeBtn = el('button', { type: 'button', class: 'ghost icon', 'aria-label': 'Quitar ejercicio', title: 'Quitar ejercicio', onclick: e => {
+    if (gxRows(card).some(s => s.reps != null) && !armed(e.currentTarget, '¿Quitar?', '✕')) return;
+    card.remove(); gxTotals();
+  } }, '✕');
   const card = el('div', { class: 'gx' },
-    el('div', { class: 'gx-head' }, nameIn, el('button', { type: 'button', class: 'ghost', onclick: () => { card.remove(); gxTotals(); } }, 'Quitar')),
-    targetBox, tip, last, setsBox,
+    el('div', { class: 'gx-head' }, nameIn,
+      el('button', { type: 'button', class: 'ghost icon', 'data-mv': 'up', 'aria-label': 'Subir ejercicio', onclick: () => move(-1) }, '↑'),
+      el('button', { type: 'button', class: 'ghost icon', 'data-mv': 'down', 'aria-label': 'Bajar ejercicio', onclick: () => move(1) }, '↓'),
+      fichaBtn, removeBtn),
+    setupLine, ficha, targetBox, tip, last, setsBox,
     el('button', { type: 'button', class: 'ghost', style: 'justify-self:start;padding-left:0', onclick: () => {
       const all = setsBox.querySelectorAll('.gx-set'), prev = all[all.length - 1];
-      setsBox.append(gxSetRow(prev ? { kg: prev.querySelector('[data-f=kg]').value } : {}, range));
-      numberSets(card); gxTotals();
+      setsBox.append(gxSetRow(prev ? { kg: prev.querySelector('[data-f=kg]').value, range: prev.querySelector('[data-f=range]').value } : {}));
+      numberSets(card); card.rangesChanged(); gxTotals();
     } }, '+ Serie'));
   card.target = target;
-  // Mira tu último entreno de este ejercicio y devuelve las filas que tocan hoy
+  const toggleFicha = open => { ficha.hidden = !open; fichaBtn.setAttribute('aria-expanded', String(open)); if (open) setupIn.focus({ preventScroll: true }); };
+  fichaBtn.addEventListener('click', () => toggleFicha(ficha.hidden));
+  setupLine.addEventListener('click', () => toggleFicha(true));
+  const showFicha = () => {
+    const f = fichaOf(nameIn.value);
+    setupIn.value = f.setup || ''; sideIn.checked = !!f.side; stepSel.value = String(stepOf(nameIn.value));
+    setupLine.replaceChildren(...(f.setup ? [el('span', { 'aria-hidden': 'true' }, '⚙ '), f.setup] : []));
+    setupLine.setAttribute('aria-label', f.setup ? 'Ajustes de la máquina: ' + f.setup + '. Editar' : '');
+    setupLine.hidden = !f.setup;
+    card.classList.toggle('side', !!f.side);
+  };
+  const keepFicha = fields => { if (nameIn.value.trim()) saveFicha(nameIn.value, fields); showFicha(); refresh(); gxTotals(); };
+  setupIn.addEventListener('change', () => keepFicha({ setup: setupIn.value.trim() }));
+  sideIn.addEventListener('change', () => keepFicha({ side: sideIn.checked }));
+  stepSel.addEventListener('change', () => keepFicha({ step: Number(stepSel.value) }));
+
+  // Los rangos de hoy: los de la rutina; si no, los de la ficha; si no, los que pusiste la última vez
+  const startRanges = l => {
+    if (target) return target.ranges.slice();
+    const f = fichaOf(nameIn.value);
+    if (Array.isArray(f.ranges) && f.ranges.length) return f.ranges.slice();
+    if (l) return l.sets.map(s => s.range || '');
+    return ['', '', ''];
+  };
+  // Mira tu último entreno de este ejercicio y prepara las series de hoy
   const refresh = () => {
-    const l = lastSetsFor(nameIn.value, ymd(new Date()));
-    const s = l ? suggestion(l.sets, target) : null;
-    last.textContent = l ? `Última vez (${shortDate(l.date)}): ${setsText(l.sets)}` : '';
+    const l = lastSetsFor(nameIn.value, ymd(new Date())), side = !!fichaOf(nameIn.value).side;
+    const ranges = setsBox.children.length ? cardRanges(card) : startRanges(l);
+    const plan = planSets(l ? l.sets : null, ranges, stepOf(nameIn.value));
+    last.textContent = l ? `Última vez (${shortDate(l.date)}): ${setsText(l.sets)}${side ? ' (por lado)' : ''}` : '';
     last.hidden = !l || (sess && sess.edit);
-    tip.textContent = s ? s.text : (nameIn.value.trim() && target ? 'Primera vez: elige el peso' : '');
+    targetBox.textContent = (target ? 'Rutina: ' : 'Objetivo: ') + rangesText(ranges) + (side ? ' · por lado' : '');
+    targetBox.hidden = !ranges.some(Boolean) && !target;
+    tip.textContent = nameIn.value.trim() ? (l ? planText(plan, true) : (ranges.some(Boolean) ? 'Primera vez: elige el peso' : '')) : '';
+    tip.classList.toggle('up', plan.some(p => p.up));
     tip.hidden = !tip.textContent || (sess && sess.edit);
-    return s ? s.rows : (target ? Array.from({ length: target.sets }, () => ({})) : [{}, {}, {}]);
+    return plan;
+  };
+  // Si cambias el rango de una serie: se guarda en la ficha (para entrenos libres) y se recalcula la sugerencia
+  card.rangesChanged = () => {
+    const ranges = cardRanges(card);
+    setsBox.querySelectorAll('[data-f=reps]').forEach((inp, i) => { inp.placeholder = ranges[i] ? rangeText(ranges[i]) : 'reps'; });
+    if (target) target.ranges = ranges;
+    else if (nameIn.value.trim() && ranges.some(Boolean)) saveFicha(nameIn.value, { ranges });
+    refresh();
   };
   nameIn.addEventListener('change', () => {
-    const suggested = refresh();
-    // Si aún no has apuntado repeticiones, coloca los pesos que tocan
+    showFicha();
+    // Si aún no has apuntado repeticiones, coloca las series y los pesos que tocan
     if (![...setsBox.querySelectorAll('[data-f=reps]')].some(i => i.value)) {
-      setsBox.replaceChildren(...suggested.map(r => gxSetRow(r, range))); numberSets(card);
+      setsBox.replaceChildren();
+      const plan = refresh();
+      setsBox.replaceChildren(...plan.map(r => gxSetRow(r))); numberSets(card);
     }
+    refresh();
     gxTotals();
   });
-  const suggested = refresh();
-  setsBox.append(...(rows || suggested).map(r => gxSetRow(r, range)));
+  showFicha();
+  const plan = refresh();
+  setsBox.append(...(rows ? rows : plan).map(r => gxSetRow(r)));
   numberSets(card);
+  refresh();
   return card;
 }
 const gxRows = card => [...card.querySelectorAll('.gx-set')].map(r => {
-  const kg = r.querySelector('[data-f=kg]').value, reps = r.querySelector('[data-f=reps]').value;
-  return { kg: kg === '' ? null : Number(kg), reps: reps === '' ? null : Number(reps) };
+  const kg = r.querySelector('[data-f=kg]').value, reps = r.querySelector('[data-f=reps]').value, range = r.querySelector('[data-f=range]').value;
+  return { kg: kg === '' ? null : Number(kg), reps: reps === '' ? null : Number(reps), ...(range ? { range } : {}) };
 });
 // Solo cuenta como hecha la serie con repeticiones: los kilos vienen ya sugeridos
 function gxData() {
-  return [...$('#gxList').children].map(card => ({
-    name: card.querySelector('.gx-name').value.trim(),
-    sets: gxRows(card).filter(s => s.reps != null)
-  })).filter(x => x.name && x.sets.length);
+  return [...$('#gxList').children].map(card => {
+    const name = card.querySelector('.gx-name').value.trim();
+    return { name, sets: gxRows(card).filter(s => s.reps != null), ...(fichaOf(name).side ? { side: true } : {}) };
+  }).filter(x => x.name && x.sets.length);
 }
 function gxTotals() {
   const ex = gxData(), sets = ex.reduce((a, x) => a + x.sets.length, 0);
-  const vol = ex.reduce((a, x) => a + x.sets.reduce((b, s) => b + (s.kg || 0) * (s.reps || 0), 0), 0);
+  // Por lado: el volumen cuenta los dos lados
+  const vol = ex.reduce((a, x) => a + x.sets.reduce((b, s) => b + (s.kg || 0) * (s.reps || 0), 0) * (x.side ? 2 : 1), 0);
   $('#gxTotal').textContent = sets ? `${ex.length} ejercicios · ${sets} series · ${Math.round(vol).toLocaleString('es-ES')} kg movidos` : 'Apunta las repeticiones de cada serie al hacerla.';
   queueDraft();
 }
+
+/* guardar el entreno de hoy como rutina */
+function gxAsRoutine() {
+  return [...$('#gxList').children].map(card => {
+    const name = card.querySelector('.gx-name').value.trim(), ranges = cardRanges(card).map(r => r || '8-10');
+    return name && ranges.length ? { name, sets: ranges.length, range: ranges[0], ...(ranges.every(r => r === ranges[0]) ? {} : { ranges }) } : null;
+  }).filter(Boolean);
+}
+$('#gxSaveRt').addEventListener('click', () => {
+  const box = $('#gxRtForm');
+  box.hidden = !box.hidden;
+  if (!box.hidden) { $('#gxRtName').value = ''; $('#gxRtName').focus(); }
+});
+$('#gxRtCancel').addEventListener('click', () => { $('#gxRtForm').hidden = true; });
+$('#gxRtName').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $('#gxRtOk').click(); } });
+$('#gxRtOk').addEventListener('click', async () => {
+  const name = $('#gxRtName').value.trim(), exercises = gxAsRoutine();
+  if (!name) { toast('Ponle un nombre a la rutina'); $('#gxRtName').focus(); return; }
+  if (!exercises.length) { toast('Añade al menos un ejercicio'); return; }
+  if (S.routines.some(r => (r.name || '').toLowerCase() === name.toLowerCase())) { toast('Ya tienes una rutina con ese nombre'); $('#gxRtName').focus(); return; }
+  if (!await setDoc('routines', 'rt' + Math.random().toString(36).slice(2, 10), { name, exercises })) return;
+  $('#gxRtForm').hidden = true;
+  toast(`Rutina «${name}» guardada con ${exercises.length} ${exercises.length === 1 ? 'ejercicio' : 'ejercicios'}`);
+});
 
 /* rutinas: listas de ejercicios guardadas para cargarlas de golpe */
 let rtEdit = null, rtPick = null;
@@ -2484,10 +2638,19 @@ function renderRoutines() {
   if (picked) { sel.value = picked.id; rtPick = null; }
   $('#rtEditBtn').hidden = !sel.value;
 }
-const RT_RANGES = ['4-6', '6-8', '8-10', '10-12', '+12'];
+const RT_RANGES = ['4-6', '6-8', '8-10', '10-12', '12-15', '15-20'];
 const RT_DEFAULT = { sets: 3, range: '8-10' };
 // Las rutinas antiguas guardan solo el nombre de cada ejercicio
-const rtNorm = list => (list || []).map(x => typeof x === 'string' ? { name: x, ...RT_DEFAULT } : { ...RT_DEFAULT, ...x });
+// Cada ejercicio lleva un rango por serie (top set y back-off pueden ser distintos); "+12" era el rango antiguo
+const rtFix = r => r === '+12' ? '12-15' : r;
+const rtNorm = list => (list || []).map(x => {
+  const e = typeof x === 'string' ? { name: x, ...RT_DEFAULT } : { ...RT_DEFAULT, ...x };
+  const n = Math.min(12, Math.max(1, Math.round(Number(e.sets)) || RT_DEFAULT.sets));
+  e.range = rtFix(e.range) || RT_DEFAULT.range;
+  e.ranges = Array.from({ length: n }, (_, k) => rtFix((Array.isArray(e.ranges) && e.ranges[k]) || e.range));
+  e.sets = n;
+  return e;
+});
 function openRtEditor(routine, exercises) {
   rtEdit = { id: routine ? routine.id : null, exercises: rtNorm(exercises || (routine && routine.exercises)) };
   $('#rtEditTitle').textContent = routine ? 'Editar rutina' : 'Nueva rutina';
@@ -2514,8 +2677,9 @@ function renderRtList() {
   const exs = rtEdit.exercises;
   const move = (i, d) => { [exs[i], exs[i + d]] = [exs[i + d], exs[i]]; renderRtList(); };
   $('#rtExList').replaceChildren(...exs.map((x, i) => {
-    const range = el('select', { 'aria-label': 'Repeticiones de ' + x.name, onchange: e => { x.range = e.target.value; } }, RT_RANGES.map(r => el('option', { value: r }, r)));
-    range.value = x.range;
+    const rangeSel = (value, set, label) => { const sel = el('select', { 'aria-label': label, onchange: e => set(e.target.value) }, RT_RANGES.map(r => el('option', { value: r }, rangeText(r)))); sel.value = value; return sel; };
+    const sized = () => { const n = Math.min(12, Math.max(1, Math.round(Number(x.sets)) || 1)); x.ranges = Array.from({ length: n }, (_, k) => (x.ranges || [])[k] || x.range); return x.ranges; };
+    const per = x.perSet ?? (sized().some(r => r !== x.range));
     return el('li', { class: 'rt-ex' },
       el('span', { class: 'u num' }, i + 1),
       el('span', { class: 'n' }, x.name),
@@ -2523,8 +2687,10 @@ function renderRtList() {
       el('button', { type: 'button', class: 'ghost icon', 'aria-label': 'Bajar ' + x.name, disabled: i === exs.length - 1, onclick: () => move(i, 1) }, '↓'),
       el('button', { type: 'button', class: 'ghost icon', 'aria-label': 'Quitar ' + x.name, onclick: () => { exs.splice(i, 1); renderRtList(); } }, '×'),
       el('div', { class: 'rt-ctl' },
-        el('label', {}, 'Series', el('input', { type: 'number', min: 1, max: 12, inputmode: 'numeric', value: x.sets, oninput: e => { x.sets = e.target.value; } })),
-        el('label', {}, 'Reps', range)));
+        el('label', {}, 'Series', el('input', { type: 'number', min: 1, max: 12, inputmode: 'numeric', value: x.sets, onchange: e => { x.sets = e.target.value; sized(); renderRtList(); } })),
+        per ? null : el('label', {}, 'Reps', rangeSel(x.range, v => { x.range = v; x.ranges = sized().map(() => v); }, 'Repeticiones de ' + x.name)),
+        el('button', { type: 'button', class: 'ghost rt-per', onclick: () => { x.perSet = !per; if (!x.perSet) x.ranges = sized().map(() => x.range); renderRtList(); } }, per ? 'Mismo rango en todas' : 'Rango por serie'),
+        per ? el('div', { class: 'rt-sets' }, sized().map((r, k) => el('label', {}, `Serie ${k + 1}`, rangeSel(r, v => { x.ranges[k] = v; if (k === 0) x.range = v; }, `Repeticiones de la serie ${k + 1} de ${x.name}`)))) : null));
   }));
   if (!exs.length) $('#rtExList').append(el('li', { class: 'empty' }, 'Todavía no hay ejercicios. Escribe uno abajo o elígelo de la biblioteca.'));
 }
@@ -2551,7 +2717,11 @@ $('#rtSaveBtn').addEventListener('click', async () => {
   // Un ejercicio escrito sin pulsar Añadir también cuenta
   if ($('#rtAddIn').value.trim()) { addRtEx($('#rtAddIn').value); $('#rtAddIn').value = ''; }
   const id = rtEdit.id;
-  const exercises = rtEdit.exercises.map(x => ({ name: x.name, sets: Math.min(12, Math.max(1, Math.round(Number(x.sets)) || RT_DEFAULT.sets)), range: x.range }));
+  const exercises = rtEdit.exercises.map(x => {
+    const n = Math.min(12, Math.max(1, Math.round(Number(x.sets)) || RT_DEFAULT.sets));
+    const rs = Array.from({ length: n }, (_, k) => (x.ranges || [])[k] || x.range);
+    return { name: x.name, sets: n, range: rs[0], ...(rs.every(r => r === rs[0]) ? {} : { ranges: rs }) };
+  });
   if (!name) { toast('Ponle un nombre a la rutina'); $('#rtNameIn').focus(); return; }
   if (!exercises.length) { toast('Añade al menos un ejercicio'); return; }
   if (S.routines.some(r => r.id !== id && (r.name || '').toLowerCase() === name.toLowerCase())) { toast('Ya tienes una rutina con ese nombre'); return; }
@@ -3068,7 +3238,7 @@ function openSession(ev, edit = false, view = false) {
   sess = { id: ev.id, edit, startedAt: edit ? null : ev.session.startedAt, date: ev.date, end: ev.time ? endOf(ev) : '', time: ev.time || '' };
   const draft = !edit && ev.session.draft;
   const cards = edit ? (ev.ex || []).map(x => gxCard(x.name, x.sets))
-    : draft && draft.length ? draft.map(x => gxCard(x.name, x.rows, x.target))
+    : draft && draft.length ? draft.map(x => gxCard(x.name, x.rows, x.target ? rtNorm([{ name: x.name, ...x.target }])[0] : null))
     : rtNorm(ev.plan).map(x => gxCard(x.name, null, x));
   $('#gxList').replaceChildren(...(cards.length ? cards : [gxCard()]));
   $('#sessTitle').textContent = ev.title || 'Entreno';
@@ -3087,7 +3257,8 @@ function openSession(ev, edit = false, view = false) {
   tickSession();
   $('#sess').classList.toggle('readonly', view);
   $('#sessNotes').disabled = view;
-  if (view) $('#gxList').querySelectorAll('input').forEach(i => { i.disabled = true; });
+  if (view) $('#gxList').querySelectorAll('input, select').forEach(i => { i.disabled = true; });
+  $('#gxRtForm').hidden = true;
   if (!edit) { try { navigator.wakeLock?.request('screen').then(l => { wakeLock = l; }).catch(() => {}); } catch {} }
 }
 function closeSession() {
@@ -3105,7 +3276,7 @@ function saveDraft() {
   if (!sess || sess.edit) return;
   const draft = [...$('#gxList').children].map(card => ({
     name: card.querySelector('.gx-name').value.trim(),
-    target: card.target ? { sets: card.target.sets, range: card.target.range } : null,
+    target: card.target ? { sets: cardRanges(card).length, range: cardRanges(card)[0] || card.target.range, ranges: cardRanges(card) } : null,
     rows: gxRows(card)
   })).filter(x => x.name);
   patchDoc('events', sess.id, { notes: $('#sessNotes').value.trim(), session: { startedAt: sess.startedAt, draft } });
@@ -6039,7 +6210,7 @@ $('#bkBtn').addEventListener('click', async () => {
     app: 'Mi Agenda', exported: new Date().toISOString(),
     events: S.events, categories: S.cats, uni: S.uni, activities: S.acts, routines: S.routines, workouts: S.workouts,
     foods: S.foods, weights: S.weights, favMeals: S.favs, habits: S.habits, habitLog: Object.values(S.habLog),
-    notes: Object.values(S.notes), menus: Object.values(S.menus), nutrition: Object.values(nutrition), health: Object.values(S.health || {}), sleep: Object.values(S.sleep || {}), shopping: __shop || null
+    notes: Object.values(S.notes), menus: Object.values(S.menus), nutrition: Object.values(nutrition), health: Object.values(S.health || {}), sleep: Object.values(S.sleep || {}), exercises: Object.values(S.exFichas || {}), shopping: __shop || null
   };
   try {
     await downloadsNs.save({ filename: `mi-agenda-copia-${ymd(new Date())}.json`, data: JSON.stringify(data, null, 1) });
@@ -6894,7 +7065,7 @@ $('#hsOn').addEventListener('click', async () => {
 
 /* ---------- importar una copia ---------- */
 // Escribe en tu cuenta todo lo que haya en el archivo; lo que tenga el mismo identificador se sustituye
-const IMPORT_COLS = ['events', 'categories', 'uni', 'activities', 'routines', 'workouts', 'foods', 'weights', 'favMeals', 'habits', 'habitLog', 'notes', 'menus', 'nutrition', 'health', 'sleep'];
+const IMPORT_COLS = ['events', 'categories', 'uni', 'activities', 'routines', 'workouts', 'foods', 'weights', 'favMeals', 'habits', 'habitLog', 'notes', 'menus', 'nutrition', 'health', 'sleep', 'exercises'];
 $('#imFile').addEventListener('change', async e => {
   const file = e.target.files && e.target.files[0];
   e.target.value = '';
@@ -6935,7 +7106,7 @@ $('#imFile').addEventListener('change', async e => {
   const timer = setTimeout(() => status.textContent = navigator.onLine ? 'Tus datos todavía no han cargado. Revisa la conexión.' : OFF, navigator.onLine ? 10000 : 600);
   addEventListener('offline', () => { status.textContent = OFF; });
   addEventListener('online', () => { if (status.textContent === OFF) status.textContent = ''; });
-  let pending = 20;
+  let pending = 21;
   const sub = (col, apply) => {
     let first = true;
     db.collection(col).onSnapshot(snap => {
@@ -6963,6 +7134,7 @@ $('#imFile').addEventListener('change', async e => {
   sub('private', rows => { S.priv = Object.fromEntries(rows.map(r => [r.id, r])); });
   sub('push', rows => { S.pushSubs = rows; });
   sub('health', rows => { S.health = Object.fromEntries(rows.map(r => [r.id, r])); });
+  sub('exercises', rows => { S.exFichas = Object.fromEntries(rows.map(r => [r.id, r])); });
   sub('sleep', rows => {
     // Si alguna se guardó durante una prueba del atajo, se borra
     rows.filter(r => r.bed && isTestBed(new Date(r.bed))).forEach(r => db.collection('sleep').doc(r.id).delete().catch(() => {}));
